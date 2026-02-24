@@ -1,0 +1,42 @@
+name: request-capture
+description: Capture LLM call data to SQLite for analysis
+phase: response
+inputs:
+  - name: request
+    from: request
+  - name: response
+    from: response
+  - name: provider
+    from: detected.provider
+  - name: costUsd
+    from: middleware.cost-calculator.costUsd
+  - name: promptHash
+    from: middleware.duplicate-detector.promptHash
+  - name: isDuplicate
+    from: middleware.duplicate-detector.isDuplicate
+  - name: latencyMs
+    from: computed.latencyMs
+output:
+  captured: boolean
+async: true
+steps:
+  - id: capture
+    call: createLlmCall
+    with:
+      model: $response.model
+      provider: $provider
+      inputTokens: $response.usage.prompt_tokens
+      outputTokens: $response.usage.completion_tokens
+      costUsd: $costUsd
+      latencyMs: $latencyMs
+      promptHash: $promptHash
+      isDuplicate: $isDuplicate
+      status: success
+      requestBody: $request.body
+  - id: result
+    action: return
+    value:
+      captured: true
+errors:
+  - type: CaptureError
+    action: log-and-continue

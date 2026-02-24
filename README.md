@@ -26,6 +26,9 @@ schema/
   routes/         # 20 REST API endpoint groups
   providers/      # 5 alert providers
   clients/        # 5 external API clients
+  services/       # 1 service definition (LLM proxy)
+  middleware/     # 3 middleware pipelines
+  plugins/        # 1 Fastify plugin
 ```
 
 ## Entities (26)
@@ -161,6 +164,28 @@ schema/
 ## Alert Providers (5)
 
 PagerDuty, Slack, Discord, Webhook, Email
+
+## Services (1)
+
+| Service | Type | Description |
+|---------|------|-------------|
+| llm-proxy | http-proxy | Transparent LLM API proxy for zero-code instrumentation |
+
+The LLM proxy listens on port 8787 and auto-detects OpenAI and Anthropic API calls, routing them through the middleware pipeline for cost tracking, duplicate detection, and request capture.
+
+## Middleware (3)
+
+| Middleware | Phase | Description |
+|------------|-------|-------------|
+| cost-calculator | response | Calculate LLM call cost from model and token usage |
+| duplicate-detector | request | Detect duplicate prompts by hashing message content |
+| request-capture | response | Capture LLM call data to SQLite for analysis |
+
+## Plugins (1)
+
+| Plugin | Type | Description |
+|--------|------|-------------|
+| otel-capture | fastify-plugin | OpenTelemetry span capture for LLM calls |
 
 ## Requirements
 

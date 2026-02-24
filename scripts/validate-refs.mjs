@@ -52,6 +52,9 @@ const inventory = {
   routes: new Set(),
   providers: new Set(),
   clients: new Set(),
+  services: new Set(),
+  middleware: new Set(),
+  plugins: new Set(),
 };
 
 const parsed = [];
@@ -68,6 +71,9 @@ for (const fp of files) {
   if (rel.includes('/routes/'))     { kind = 'route';     inventory.routes.add(doc.name); }
   if (rel.includes('/providers/'))  { kind = 'provider';  inventory.providers.add(doc.name); }
   if (rel.includes('/clients/'))    { kind = 'client';    inventory.clients.add(doc.name); }
+  if (rel.includes('/services/'))   { kind = 'service';   inventory.services.add(doc.name); }
+  if (rel.includes('/middleware/')) { kind = 'middleware'; inventory.middleware.add(doc.name); }
+  if (rel.includes('/plugins/'))    { kind = 'plugin';    inventory.plugins.add(doc.name); }
 
   parsed.push({ fp, rel, doc, lines, kind });
 }
@@ -84,10 +90,19 @@ for (const entity of inventory.entities) {
   crudFunctions.add(`list${entity}s`);
   crudFunctions.add(`update${entity}`);
   crudFunctions.add(`delete${entity}`);
+  crudFunctions.add(`query${entity}`);
+}
+
+// Also allow findEntityByField patterns (e.g. findLlmCallByPromptHash)
+function isFindByFieldPattern(name) {
+  for (const entity of inventory.entities) {
+    if (name.startsWith(`find${entity}By`)) return true;
+  }
+  return false;
 }
 
 function isValidFunction(name) {
-  return inventory.functions.has(name) || crudFunctions.has(name);
+  return inventory.functions.has(name) || crudFunctions.has(name) || isFindByFieldPattern(name);
 }
 
 // Also treat any call containing a dot (client calls like datadogClient.submitMetrics) as valid
@@ -158,6 +173,31 @@ for (const { rel, doc, lines, kind } of parsed) {
     if (Array.isArray(doc.steps)) {
       for (const step of doc.steps) {
         if (step.call) checkCall(rel, lines, step.call);
+      }
+    }
+  }
+
+  if (kind === 'middleware') {
+    // Check call: in steps
+    if (Array.isArray(doc.steps)) {
+      for (const step of doc.steps) {
+        if (step.call) checkCall(rel, lines, step.call);
+      }
+    }
+  }
+
+  if (kind === 'service') {
+    // Check entity ref in capture
+    if (doc.capture?.entity) checkEntity(rel, lines, doc.capture.entity);
+    // Check middleware refs
+    if (Array.isArray(doc.middleware)) {
+      for (const mw of doc.middleware) {
+        totalRefs++;
+        if (inventory.middleware.has(mw)) {
+          validCount++;
+        } else {
+          addError(rel, null, `broken middleware ref: "${mw}" — middleware not found`);
+        }
       }
     }
   }

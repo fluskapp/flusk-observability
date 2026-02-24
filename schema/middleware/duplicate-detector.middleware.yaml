@@ -1,0 +1,23 @@
+name: duplicate-detector
+description: Detect duplicate prompts by hashing message content
+phase: request
+inputs:
+  - name: messages
+    from: request.body.messages
+  - name: model
+    from: request.body.model
+output:
+  promptHash: string
+  isDuplicate: boolean
+steps:
+  - id: hash
+    action: transform
+    value: sha256(JSON.stringify($messages))
+  - id: checkDuplicate
+    call: findLlmCallByPromptHash
+    with: { promptHash: $hash, model: $model }
+  - id: result
+    action: return
+    value:
+      promptHash: $hash
+      isDuplicate: $checkDuplicate !== null
