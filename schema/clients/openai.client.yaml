@@ -1,0 +1,26 @@
+name: openai
+description: OpenAI API client for the explain feature and model evaluation
+baseUrl: https://api.openai.com/v1
+auth:
+  type: bearer
+  envVar: OPENAI_API_KEY
+methods:
+  - name: chatCompletion
+    description: Create a chat completion
+    http:
+      method: POST
+      path: /chat/completions
+    input:
+      model: string
+      messages: json
+      temperature: float
+      max_tokens: integer
+    output:
+      type: json
+  - name: listModels
+    description: List available models
+    http:
+      method: GET
+      path: /models
+    output:
+      type: json

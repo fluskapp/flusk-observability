@@ -1,0 +1,36 @@
+name: profile
+description: Start or stop CPU/heap profiling
+options:
+  - name: action
+    type: enum
+    values: [start, stop]
+    required: true
+    description: Start or stop profiling
+  - name: type
+    type: enum
+    values: [cpu, heap, both]
+    default: cpu
+    description: Profile type
+  - name: pid
+    type: number
+    description: Process ID to profile
+  - name: name
+    type: string
+    description: Session name
+  - name: session-id
+    type: string
+    description: Session ID (for stop)
+action:
+  steps:
+    - id: result
+      action: condition
+      if: { field: $action, op: eq, value: start }
+      then:
+        call: startProfile
+        with: { db: $db, profileType: $type, pid: $pid, name: $name }
+      else:
+        call: stopProfile
+        with: { db: $db, sessionId: "$session-id" }
+output:
+  format: detail
+  fields: [id, profileType, status, pid, hotspotCount]

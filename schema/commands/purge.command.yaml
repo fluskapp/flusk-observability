@@ -1,0 +1,41 @@
+name: purge
+description: Delete old observability data
+options:
+  - name: older-than
+    type: string
+    required: true
+    description: Delete data older than (e.g. 30d, 90d, 1y)
+  - name: type
+    type: enum
+    values: [all, calls, traces, patterns, insights, profiles]
+    default: all
+    description: Type of data to purge
+  - name: dry-run
+    type: boolean
+    default: false
+    description: Show what would be deleted without deleting
+  - name: confirm
+    type: boolean
+    default: false
+    description: Skip confirmation prompt
+action:
+  steps:
+    - id: cutoff
+      action: compute
+      expression: "now - parseDuration($older-than)"
+    - id: preview
+      action: count
+      tables:
+        - { entity: LlmCall, before: $cutoff }
+        - { entity: Trace, before: $cutoff }
+        - { entity: Span, before: $cutoff }
+        - { entity: Pattern, before: $cutoff }
+    - id: delete
+      action: condition
+      if: { field: "$dry-run", op: eq, value: false }
+      then:
+        action: deleteMany
+        tables: $preview
+output:
+  format: summary
+  fields: [deletedCalls, deletedTraces, deletedSpans, deletedPatterns]

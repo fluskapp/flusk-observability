@@ -1,0 +1,30 @@
+name: grafana-tempo
+description: Grafana Tempo API for trace export
+baseUrl: "{{env.GRAFANA_TEMPO_URL}}"
+auth:
+  type: bearer
+  envVar: GRAFANA_API_KEY
+methods:
+  - name: pushTraces
+    description: Push OTLP traces to Tempo
+    http:
+      method: POST
+      path: /otlp/v1/traces
+      headers:
+        Content-Type: application/json
+    input:
+      payload: json
+    output:
+      type: json
+  - name: searchTraces
+    description: Search traces by query
+    http:
+      method: GET
+      path: /api/search
+    input:
+      q: string
+      limit: integer
+      start: integer
+      end: integer
+    output:
+      type: json

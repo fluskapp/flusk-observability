@@ -1,0 +1,34 @@
+name: exportToGrafana
+description: Export traces to Grafana Tempo
+inputs:
+  - name: db
+    type: Database
+  - name: client
+    type: GrafanaTempoClient
+  - name: start
+    type: string
+  - name: end
+    type: string
+output:
+  type: ExportResult
+steps:
+  - id: traces
+    call: listTraces
+    with: { db: $db, timeRange: { start: $start, end: $end } }
+  - id: spans
+    action: forEach
+    source: $traces
+    call: listSpans
+    with: { db: $db, filter: { traceId: $item.traceId } }
+  - id: otlpPayload
+    action: transform
+    source: $spans
+    format: otlp
+  - id: exported
+    call: grafanaTempoClient.pushTraces
+    with: { payload: $otlpPayload }
+  - id: result
+    action: return
+    value:
+      tracesExported: "$traces.length"
+      spansExported: "$spans.length"

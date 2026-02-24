@@ -1,0 +1,30 @@
+name: datadog
+description: Datadog metrics API for metrics export
+baseUrl: "https://api.datadoghq.{{env.DD_SITE || 'com'}}"
+auth:
+  type: header
+  header: DD-API-KEY
+  envVar: DD_API_KEY
+methods:
+  - name: submitMetrics
+    description: Submit time-series metrics
+    http:
+      method: POST
+      path: /api/v2/series
+      headers:
+        Content-Type: application/json
+    input:
+      series: json
+    output:
+      type: json
+  - name: queryMetrics
+    description: Query metrics
+    http:
+      method: GET
+      path: /api/v1/query
+    input:
+      query: string
+      from: integer
+      to: integer
+    output:
+      type: json

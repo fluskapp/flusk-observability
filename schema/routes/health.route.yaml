@@ -1,0 +1,19 @@
+name: health
+basePath: /api/health
+auth: none
+operations:
+  - method: GET
+    path: /
+    description: Health check endpoint
+    action:
+      steps:
+        - id: daily
+          call: getDailySpend
+          with: { db: $db }
+        - id: result
+          action: return
+          value:
+            status: ok
+            version: "$env.FLUSK_VERSION"
+            dailySpend: $daily.totalCostUsd
+            timestamp: now
