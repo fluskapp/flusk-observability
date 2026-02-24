@@ -1,0 +1,42 @@
+name: github-api
+description: GitHub API client for code scanning (fetch repository contents)
+baseUrl: https://api.github.com
+auth:
+  type: bearer
+  envVar: GITHUB_TOKEN
+methods:
+  - name: getRepoContents
+    description: Get contents of a file or directory in a repository
+    http:
+      method: GET
+      path: /repos/{owner}/{repo}/contents/{path}
+    input:
+      owner: string
+      repo: string
+      path: string
+      ref: string
+    output:
+      type: json
+  - name: searchCode
+    description: Search for code across repositories
+    http:
+      method: GET
+      path: /search/code
+    input:
+      q: string
+      per_page: integer
+      page: integer
+    output:
+      type: json
+  - name: getTree
+    description: Get a Git tree recursively
+    http:
+      method: GET
+      path: /repos/{owner}/{repo}/git/trees/{tree_sha}
+    input:
+      owner: string
+      repo: string
+      tree_sha: string
+      recursive: boolean
+    output:
+      type: json

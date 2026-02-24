@@ -1,0 +1,28 @@
+name: generateScanReport
+description: Produce summary report from code scan results
+inputs:
+  - name: scanResult
+    type: CodeScanResult
+output:
+  type: json
+steps:
+  - id: providerBreakdown
+    action: compute
+    expression: "groupBy($scanResult.callSites, 'provider')"
+  - id: recommendations
+    action: compute
+    expression: "generateRecommendations($scanResult)"
+  - id: update
+    action: update
+    entity: CodeScanResult
+    id: "$scanResult.id"
+    data:
+      recommendations: "$recommendations"
+  - id: result
+    action: return
+    value:
+      projectPath: "$scanResult.projectPath"
+      totalCallSites: "$scanResult.totalLlmCalls"
+      providers: "$providerBreakdown"
+      riskScore: "$scanResult.riskScore"
+      recommendations: "$recommendations"

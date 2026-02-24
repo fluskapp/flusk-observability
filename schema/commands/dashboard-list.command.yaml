@@ -1,0 +1,21 @@
+name: dashboard-list
+description: List all dashboards
+options:
+  - name: owner
+    type: string
+    description: Filter by owner
+  - name: default-only
+    type: boolean
+    default: false
+    description: Show only default dashboards
+action:
+  steps:
+    - id: result
+      action: findMany
+      entity: Dashboard
+      where:
+        owner: "$owner"
+      orderBy: name
+output:
+  format: table
+  columns: [name, description, owner, refreshInterval, isDefault, updatedAt]

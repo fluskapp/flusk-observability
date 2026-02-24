@@ -1,0 +1,33 @@
+name: delusion-list
+description: List detected delusions
+options:
+  - name: agent
+    type: string
+    description: Filter by agent
+  - name: type
+    type: enum
+    values: [hallucination, contradiction, confidence-mismatch, circular-reasoning, fabricated-reference]
+    description: Filter by delusion type
+  - name: status
+    type: enum
+    values: [detected, confirmed, dismissed]
+    default: detected
+    description: Filter by status
+  - name: limit
+    type: integer
+    default: 20
+    description: Max results
+action:
+  steps:
+    - id: result
+      action: findMany
+      entity: DelusionDetection
+      where:
+        agentLabel: "$agent"
+        delusionType: "$type"
+        status: "$status"
+      limit: "$limit"
+      orderBy: createdAt desc
+output:
+  format: table
+  columns: [agentLabel, delusionType, confidence, divergenceScore, status, verified]

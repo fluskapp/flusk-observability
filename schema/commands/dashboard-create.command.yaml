@@ -1,0 +1,29 @@
+name: dashboard-create
+description: Create a new dashboard
+options:
+  - name: name
+    type: string
+    required: true
+    description: Dashboard name
+  - name: description
+    type: string
+    description: Dashboard description
+  - name: default
+    type: boolean
+    default: false
+    description: Set as default dashboard
+action:
+  steps:
+    - id: layout
+      action: compute
+      expression: '{ columns: 12, rowHeight: 80, widgets: [] }'
+    - id: result
+      call: createDashboard
+      with:
+        name: "$name"
+        description: "$description"
+        layout: "$layout"
+        owner: "$env.FLUSK_USER"
+output:
+  format: table
+  columns: [id, name, description, isDefault]

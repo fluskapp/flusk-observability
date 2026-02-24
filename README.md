@@ -1,6 +1,6 @@
 # flusk-observability
 
-YAML schema definitions for the entire Flusk observability platform — cost tracking, analysis, routing, profiling, alerting, tracing, and budget management.
+YAML schema definitions for the entire Flusk observability platform — cost tracking, analysis, routing, profiling, alerting, tracing, dashboards, drift/delusion detection, code intelligence, and AI usage tracking.
 
 **No code lives here.** Only YAML schemas + CI that generates code and opens PRs to [flusk-dev](https://github.com/adirbenyossef/flusk-dev).
 
@@ -20,23 +20,29 @@ You edit YAML → Push → CI validates → CI generates Node.js code → PR ope
 
 ```
 schema/
-  entities/       # 19 data models
-  functions/      # 28 business logic functions
-  commands/       # 19 CLI commands
-  routes/         # 13 REST API endpoint groups
+  entities/       # 26 data models
+  functions/      # 52 business logic functions
+  commands/       # 29 CLI commands
+  routes/         # 20 REST API endpoint groups
   providers/      # 5 alert providers
-  clients/        # 4 external API clients
+  clients/        # 5 external API clients
 ```
 
-## Entities (19)
+## Entities (26)
 
 | Entity | Description |
 |--------|-------------|
+| AiUsageMetric | AI tool usage metrics per user for tracking adoption and ROI |
 | AlertChannel | Alert destination configuration (PagerDuty, Slack, etc.) |
 | AlertEvent | Record of a triggered alert |
 | AnalyzeSession | Tracks CLI analyze command runs |
 | BudgetAlert | Budget threshold alert configuration |
+| CodeScanResult | Results from scanning a codebase for LLM/AI usage patterns |
 | Conversion | Optimization suggestion (cache/downgrade/remove) |
+| Dashboard | Configurable dashboard for visualizing observability data |
+| DashboardWidget | Individual widget within a dashboard |
+| DelusionDetection | Detected hallucination or confidence mismatch in LLM output |
+| DriftDetection | Detected behavioral or performance drift in an agent |
 | ExplainSession | Tracks flusk explain command runs |
 | Insight | AI-generated optimization insight |
 | LlmCall | Individual LLM API call with cost/token tracking |
@@ -51,8 +57,9 @@ schema/
 | RoutingRule | Model routing rule per organization |
 | Span | Individual span within a distributed trace |
 | Trace | Distributed trace record |
+| TraceView | Visualization configuration for a distributed trace |
 
-## Function Domains (28)
+## Function Domains (52)
 
 **Cost Tracking:** calculateCallCost, detectDuplicates, aggregateCosts, getDailySpend, getMonthlySpend
 
@@ -70,7 +77,19 @@ schema/
 
 **Alerting:** dispatchAlert, filterChannelsBySeverity, sendToProvider, checkCircuit, shouldAutoPause, buildProviderRegistry
 
-## CLI Commands (19)
+**Dashboards:** createDashboard, renderDashboardData, buildWidgetQuery
+
+**Trace Visualization:** buildTraceView, findCriticalPath, calculateTraceStats
+
+**Drift Detection:** detectOutputDrift, detectCostDrift, detectBehaviorDrift, calculateDriftScore, runDriftScan
+
+**Delusion Detection:** detectHallucination, detectContradiction, detectConfidenceMismatch, runDelusionScan
+
+**Code Intelligence:** scanCodebase, detectLlmCallSites, estimateCallCosts, generateScanReport
+
+**AI Usage:** aggregateUsageByUser, aggregateUsageByTool, calculateUsageRank, calculateRoi
+
+## CLI Commands (29)
 
 | Command | Description |
 |---------|-------------|
@@ -93,8 +112,18 @@ schema/
 | `alerts-mute` | Mute an alert channel |
 | `alerts-ack` | Acknowledge an alert |
 | `kill` | Emergency stop |
+| `dashboard-create` | Create a new dashboard |
+| `dashboard-list` | List dashboards |
+| `trace-view` | View a trace (waterfall in terminal) |
+| `drift-scan` | Run drift detection scan |
+| `drift-list` | List detected drifts |
+| `delusion-scan` | Run delusion detection |
+| `delusion-list` | List detected delusions |
+| `scan` | Scan a codebase for AI usage (flusk scan ./src) |
+| `usage-report` | AI usage report per user/team |
+| `usage-rank` | Rank users by AI effectiveness |
 
-## REST API Routes (13)
+## REST API Routes (20)
 
 | Route | Base Path | Description |
 |-------|-----------|-------------|
@@ -111,8 +140,15 @@ schema/
 | cost-events | /api/cost-events | Live cost event streaming (SSE) |
 | alert-channels | /api/alert-channels | Alert channel CRUD |
 | alert-events | /api/alert-events | Alert event history |
+| dashboards | /api/dashboards | Dashboard CRUD + render |
+| dashboard-widgets | /api/dashboard-widgets | Widget CRUD |
+| trace-views | /api/trace-views | Trace visualization endpoints |
+| drift-detections | /api/drift-detections | Drift detection results + scan |
+| delusion-detections | /api/delusion-detections | Delusion detection results + scan |
+| code-scans | /api/code-scans | Code scan results + reports |
+| ai-usage | /api/ai-usage | AI usage metrics + rankings + ROI |
 
-## External Clients (4)
+## External Clients (5)
 
 | Client | Description |
 |--------|-------------|
@@ -120,6 +156,7 @@ schema/
 | Anthropic | Claude API for analysis |
 | Grafana Tempo | Trace export |
 | Datadog | Metrics export |
+| GitHub API | Code scanning (fetch repo contents) |
 
 ## Alert Providers (5)
 
@@ -132,6 +169,7 @@ PagerDuty, Slack, Discord, Webhook, Email
 - **ANTHROPIC_API_KEY** (optional): For Claude-based analysis
 - **GRAFANA_TEMPO_URL** + **GRAFANA_API_KEY** (optional): For Grafana export
 - **DD_API_KEY** (optional): For Datadog export
+- **GITHUB_TOKEN** (optional): For code scanning via GitHub API
 
 ## Compiler
 
