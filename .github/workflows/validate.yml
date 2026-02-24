@@ -1,0 +1,17 @@
+name: Validate
+on: push
+jobs:
+  validate:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with: { node-version: 22 }
+      - name: Install flusk-lang compiler
+        run: |
+          git clone https://github.com/fluskapp/flusk-lang.git /tmp/flusk-lang
+          cd /tmp/flusk-lang/compiler && npm install && npm run build
+      - name: Validate schemas
+        run: |
+          cd /tmp/flusk-lang/compiler
+          node dist/cli.js validate --schema-dir $GITHUB_WORKSPACE/schema

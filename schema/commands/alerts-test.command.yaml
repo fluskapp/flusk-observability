@@ -1,0 +1,41 @@
+name: alerts-test
+description: Send a test alert to all configured channels
+options:
+  - name: channel
+    type: string
+    description: Test specific channel by name
+action:
+  steps:
+    - id: channels
+      call: listAlertChannels
+      with: { db: $db }
+    - id: filtered
+      action: condition
+      if:
+        field: $channel
+        op: neq
+        value: null
+      then:
+        action: filter
+        source: $channels
+        where:
+          field: name
+          op: eq
+          value: $channel
+      else:
+        action: assign
+        value: $channels
+    - id: results
+      action: forEach
+      source: $filtered
+      call: sendToProvider
+      with:
+        channel: $item
+        alert:
+          alertType: budget_warning
+          severity: info
+          title: "Test Alert"
+          message: "This is a test alert from Flusk"
+      onError: log-and-continue
+output:
+  success: "Test sent to {{results.length}} channel(s)"

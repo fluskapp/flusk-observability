@@ -1,0 +1,30 @@
+name: alerts-list
+description: List configured alert channels or recent events
+options:
+  - name: events
+    type: boolean
+    default: false
+    description: Show recent alert events instead of channels
+  - name: limit
+    type: number
+    default: 20
+    description: Number of items to show
+action:
+  steps:
+    - id: result
+      action: condition
+      if:
+        field: $events
+        op: eq
+        value: true
+      then:
+        call: listAlertEvents
+        with: { db: $db, limit: $limit }
+      else:
+        call: listAlertChannels
+        with: { db: $db, limit: $limit }
+output:
+  format: table
+  columns:
+    channels: [name, channelType, enabled, severityFilter]
+    events: [alertType, severity, title, delivered, createdAt]

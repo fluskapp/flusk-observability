@@ -1,0 +1,29 @@
+name: discord
+description: Discord webhook
+type: webhook
+config:
+  fields:
+    - name: webhookUrl
+      type: string
+      required: true
+      description: Discord webhook URL
+methods:
+  - name: send
+    description: Send Discord embed
+    input: AlertEvent
+    http:
+      method: POST
+      url: "{{config.webhookUrl}}"
+      headers:
+        Content-Type: application/json
+    template: |
+      {
+        "embeds": [{
+          "title": "[{{severity}}] {{title}}",
+          "description": "{{message}}",
+          "color": {{severity === 'critical' ? 16711680 : severity === 'warning' ? 16776960 : 3447003}}
+        }]
+      }
+  - name: test
+    template: |
+      { "content": "✅ Flusk alert test — connection working" }

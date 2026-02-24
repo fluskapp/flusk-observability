@@ -1,0 +1,42 @@
+name: pagerduty
+description: PagerDuty Events API v2
+type: webhook
+baseUrl: https://events.pagerduty.com/v2/enqueue
+config:
+  fields:
+    - name: routingKey
+      type: string
+      required: true
+      description: PagerDuty integration/routing key
+methods:
+  - name: send
+    description: Create PagerDuty incident
+    input: AlertEvent
+    http:
+      method: POST
+      headers:
+        Content-Type: application/json
+    template: |
+      {
+        "routing_key": "{{config.routingKey}}",
+        "event_action": "trigger",
+        "payload": {
+          "summary": "[{{severity}}] {{title}}: {{message}}",
+          "severity": "{{severity}}",
+          "source": "flusk",
+          "component": "alerting",
+          "custom_details": {{json metadata}}
+        }
+      }
+  - name: test
+    description: Send test event
+    template: |
+      {
+        "routing_key": "{{config.routingKey}}",
+        "event_action": "trigger",
+        "payload": {
+          "summary": "Flusk test alert",
+          "severity": "info",
+          "source": "flusk-test"
+        }
+      }

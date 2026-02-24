@@ -1,0 +1,36 @@
+name: email
+description: Email alerts via SMTP relay
+type: email
+config:
+  fields:
+    - name: smtpUrl
+      type: string
+      required: true
+      description: SMTP connection URL
+    - name: from
+      type: string
+      required: true
+      description: Sender email address
+    - name: to
+      type: string
+      required: true
+      description: Recipient email address
+methods:
+  - name: send
+    description: Send alert email
+    input: AlertEvent
+    email:
+      subject: "[Flusk {{severity}}] {{title}}"
+      body: |
+        Alert: {{title}}
+        Severity: {{severity}}
+        Type: {{alertType}}
+        
+        {{message}}
+        
+        ---
+        Sent by Flusk Observability
+  - name: test
+    email:
+      subject: "Flusk Alert Test"
+      body: "This is a test alert from Flusk. If you received this, email alerts are working."

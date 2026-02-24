@@ -1,0 +1,37 @@
+name: kill
+description: Emergency stop — kill an agent or trigger circuit breaker
+args:
+  - name: agent
+    type: string
+    description: Agent ID to kill
+options:
+  - name: check
+    type: boolean
+    default: false
+    description: Check circuit breaker status only
+  - name: force
+    type: boolean
+    default: false
+    description: Force kill without confirmation
+action:
+  steps:
+    - id: checkOnly
+      action: condition
+      if:
+        field: $check
+        op: eq
+        value: true
+      then:
+        call: checkCircuit
+        with: { db: $db, config: $config }
+    - id: killAgent
+      action: condition
+      if:
+        field: $check
+        op: eq
+        value: false
+      then:
+        call: killAgent
+        with: { agentId: $agent, force: $force }
+output:
+  success: "{{check ? 'Circuit status: ' + JSON.stringify(checkOnly) : 'Agent ' + agent + ' killed'}}"
