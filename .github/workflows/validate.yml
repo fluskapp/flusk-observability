@@ -11,6 +11,10 @@ jobs:
         run: |
           git clone https://github.com/fluskapp/flusk-lang.git /tmp/flusk-lang
           cd /tmp/flusk-lang/compiler && npm install && npm run build
+      - name: Install dependencies
+        run: npm ci
+      - name: Validate cross-references
+        run: node scripts/validate-refs.mjs
       - name: Validate schemas
         run: |
           cd /tmp/flusk-lang/compiler

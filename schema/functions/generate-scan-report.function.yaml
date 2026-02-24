@@ -15,7 +15,7 @@ steps:
   - id: update
     action: update
     entity: CodeScanResult
-    id: "$scanResult.id"
+    entityId: "$scanResult.id"
     data:
       recommendations: "$recommendations"
   - id: result

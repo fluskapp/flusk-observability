@@ -13,7 +13,7 @@ steps:
   - id: call
     action: findById
     entity: LlmCall
-    id: "$llmCallId"
+    entityId: "$llmCallId"
   - id: factCheck
     action: compute
     expression: "compareOutputToContext($output, $context)"

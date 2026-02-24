@@ -11,7 +11,7 @@ steps:
   - id: call
     action: findById
     entity: LlmCall
-    id: "$llmCallId"
+    entityId: "$llmCallId"
   - id: analysis
     action: compute
     expression: "findContradictions($conversationHistory, $call)"

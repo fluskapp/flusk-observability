@@ -1,0 +1,13 @@
+{
+  "name": "flusk-observability",
+  "version": "0.1.0",
+  "private": true,
+  "type": "module",
+  "scripts": {
+    "validate": "node scripts/validate-refs.mjs",
+    "dep-graph": "node scripts/generate-dep-graph.mjs"
+  },
+  "dependencies": {
+    "js-yaml": "^4.1.0"
+  }
+}

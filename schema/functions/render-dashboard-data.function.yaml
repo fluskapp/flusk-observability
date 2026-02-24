@@ -11,7 +11,7 @@ steps:
   - id: dashboard
     action: findById
     entity: Dashboard
-    id: "$dashboardId"
+    entityId: "$dashboardId"
   - id: widgets
     action: findMany
     entity: DashboardWidget
