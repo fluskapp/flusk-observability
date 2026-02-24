@@ -164,12 +164,9 @@ PagerDuty, Slack, Discord, Webhook, Email
 
 ## Requirements
 
-- **FLUSK_DEV_TOKEN** secret: GitHub PAT with repo access to `adirbenyossef/flusk-dev`
-- **OPENAI_API_KEY** (optional): For explain feature
-- **ANTHROPIC_API_KEY** (optional): For Claude-based analysis
-- **GRAFANA_TEMPO_URL** + **GRAFANA_API_KEY** (optional): For Grafana export
-- **DD_API_KEY** (optional): For Datadog export
-- **GITHUB_TOKEN** (optional): For code scanning via GitHub API
+CI requires a GitHub PAT secret configured in the repo settings for generating PRs to flusk-dev. See the workflow files for details.
+
+Optional environment variables for integrations are documented in the provider and client YAML schemas.
 
 ## Compiler
 
