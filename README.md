@@ -187,6 +187,19 @@ The LLM proxy listens on port 8787 and auto-detects OpenAI and Anthropic API cal
 |--------|------|-------------|
 | otel-capture | fastify-plugin | OpenTelemetry span capture for LLM calls |
 
+## Cost Attribution
+
+Track exactly who is burning money and on what — like AWS billing per service, but for AI/LLM usage.
+
+**Entities:** CostTag, CostAttribution, CostBudget, CostReport
+**Commands:** `cost-by <dimension>`, `cost-trend <dimension> <value>`, `cost-report`, `cost-budget-set`, `cost-budget-check`
+**Routes:** `/api/cost-attributions`, `/api/cost-budgets`, `/api/cost-reports`
+**Stream:** `/api/cost-live` (SSE real-time cost feed)
+**Worker:** Weekly cost report generation (Mondays 8am)
+**Event:** BudgetAlertTriggered (webhook on budget threshold)
+
+Attribute costs by any dimension (feature, team, customer, model, provider). Set budgets with alerts at configurable thresholds. Auto-detect cost spikes and savings opportunities. Generate periodic reports in JSON, HTML, Slack, or Markdown formats.
+
 ## Requirements
 
 CI requires a GitHub PAT secret configured in the repo settings for generating PRs to flusk-dev. See the workflow files for details.

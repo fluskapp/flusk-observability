@@ -1,0 +1,16 @@
+name: cost-budget-check
+description: Check budget status for all configured budgets
+action:
+  steps:
+    - id: budgets
+      call: listCostBudgets
+      with: { db: $db }
+    - id: statuses
+      action: forEach
+      source: $budgets
+      call: checkCostBudget
+      with: { tagKey: $item.tagKey, tagValue: $item.tagValue, db: $db }
+      onError: log-and-continue
+output:
+  format: table
+  columns: [dimension, value, spent, limit, percentage, status]

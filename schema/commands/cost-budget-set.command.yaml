@@ -1,0 +1,35 @@
+name: cost-budget-set
+description: Set a cost budget for a dimension
+args:
+  - name: dimension
+    type: string
+    required: true
+  - name: value
+    type: string
+    required: true
+  - name: limit
+    type: number
+    required: true
+options:
+  - name: period
+    type: string
+    default: monthly
+  - name: alert-at
+    type: number
+    default: 80
+  - name: action
+    type: string
+    default: alert
+action:
+  call: createCostBudget
+  with:
+    tagKey: $dimension
+    tagValue: $value
+    limitUsd: $limit
+    period: $period
+    alertAt: $alertAt
+    action: $action
+    enabled: true
+    db: $db
+output:
+  success: "Budget set: {{dimension}}={{value}} → ${{limit}}/{{period}}"
