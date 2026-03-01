@@ -14,22 +14,32 @@ output:
 steps:
   - id: session
     call: createAnalyzeSession
-    with: { db: $db, data: { scriptPath: $scriptPath, status: running } }
+    with:
+      db: $db
+      data:
+        scriptPath: $scriptPath
+        status: running
   - id: patterns
     call: detectPatterns
-    with: { db: $db, start: $start, end: $end }
+    with:
+      db: $db
+      start: $start
+      end: $end
   - id: insights
     call: generateInsights
-    with: { db: $db, patterns: $patterns, analyzeSessionId: $session.id }
+    with:
+      db: $db
+      patterns: $patterns
+      analyzeSessionId: id
   - id: update
     call: updateAnalyzeSession
     with:
       db: $db
-      id: $session.id
+      id: id
       data:
         status: completed
-        patternsFound: "$patterns.length"
-        insightsGenerated: "$insights.length"
+        patternsFound: $patterns.length
+        insightsGenerated: $insights.length
   - id: result
     action: return
     value: $session

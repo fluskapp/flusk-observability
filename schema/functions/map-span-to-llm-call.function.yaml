@@ -13,7 +13,7 @@ steps:
   - id: attrs
     call: parseLlmAttributes
     with:
-      attributes: $span.attributes
+      attributes: attributes
   - id: isLlmSpan
     action: condition
     if:

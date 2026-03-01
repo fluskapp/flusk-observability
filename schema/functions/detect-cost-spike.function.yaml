@@ -11,10 +11,10 @@ steps:
   - id: baseline
     call: getCostTrend
     with:
-      dimension: $item.tagKey
-      value: $item.tagValue
-      from: $item.baselineStart
-      to: $item.baselineEnd
+      dimension: tagKey
+      value: tagValue
+      from: baselineStart
+      to: baselineEnd
       db: $db
   - id: avgBaseline
     action: transform

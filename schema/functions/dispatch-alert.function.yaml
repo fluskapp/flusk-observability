@@ -10,15 +10,20 @@ output:
 steps:
   - id: channels
     call: listAlertChannels
-    with: { db: $db }
+    with:
+      db: $db
   - id: matched
     call: filterChannelsBySeverity
-    with: { channels: $channels, severity: $alert.severity }
+    with:
+      channels: $channels
+      severity: severity
   - id: results
     action: forEach
     source: $matched
     call: sendToProvider
-    with: { channel: $item, alert: $alert }
+    with:
+      channel: $item
+      alert: $alert
     onError: log-and-continue
   - id: recordDelivery
     action: forEach

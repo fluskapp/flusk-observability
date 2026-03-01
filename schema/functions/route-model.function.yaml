@@ -42,10 +42,10 @@ steps:
     call: recordRoutingDecision
     with:
       db: $db
-      routingRuleId: $bestRule.id
+      routingRuleId: id
       promptCategory: $promptCategory
       requestedModel: $requestedModel
-      selectedModel: $cheapest.model
+      selectedModel: model
   - id: result
     action: return
     value:

@@ -13,21 +13,31 @@ output:
   type: ExportResult
 steps:
   - id: costs
-    call: aggregateCosts
-    with: { db: $db, groupBy: model, start: $start, end: $end }
+    with:
+      db: $db
+      groupBy: model
+      start: $start
+      end: $end
+    action: call
   - id: metrics
-    action: forEach
+    action: call
     source: $costs
-    call: datadogClient.submitMetrics
     with:
       series:
         - metric: flusk.llm.cost
-          points: [[$end, $item.total_cost]]
-          tags: ["model:$item.model", "provider:$item.provider"]
+          points:
+            - - $end
+              - $item.total_cost
+          tags:
+            - model:$item.model
+            - provider:$item.provider
         - metric: flusk.llm.calls
-          points: [[$end, $item.call_count]]
-          tags: ["model:$item.model"]
+          points:
+            - - $end
+              - $item.call_count
+          tags:
+            - model:$item.model
   - id: result
     action: return
     value:
-      metricsExported: "$costs.length"
+      metricsExported: $costs.length

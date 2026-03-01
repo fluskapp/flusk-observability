@@ -23,7 +23,7 @@ steps:
     call: updateBudgetAlert
     with:
       db: $db
-      id: $budgetAlert.id
+      id: id
       data:
         currentSpendUsd: $currentSpend
         lastTriggeredAt: now

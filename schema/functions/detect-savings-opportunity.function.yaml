@@ -11,10 +11,10 @@ steps:
   - id: modelBreakdown
     call: queryCostAttributionCostByTagAndModel
     with:
-      tagKey: $item.tagKey
-      tagValue: $item.tagValue
-      from: $item.periodStart
-      to: $item.periodEnd
+      tagKey: tagKey
+      tagValue: tagValue
+      from: periodStart
+      to: periodEnd
       db: $db
   - id: expensiveModels
     action: filter

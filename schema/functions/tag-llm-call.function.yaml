@@ -26,8 +26,8 @@ steps:
     call: createCostAttribution
     with:
       llmCallId: $llmCallId
-      tagKey: $item.key
-      tagValue: $item.value
+      tagKey: key
+      tagValue: value
       costUsd: $costUsd
       inputTokens: $inputTokens
       outputTokens: $outputTokens

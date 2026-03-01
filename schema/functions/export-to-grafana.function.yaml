@@ -13,22 +13,29 @@ output:
   type: ExportResult
 steps:
   - id: traces
-    call: listTraces
-    with: { db: $db, timeRange: { start: $start, end: $end } }
+    with:
+      db: $db
+      timeRange:
+        start: $start
+        end: $end
+    action: call
   - id: spans
-    action: forEach
+    action: call
     source: $traces
-    call: listSpans
-    with: { db: $db, filter: { traceId: $item.traceId } }
+    with:
+      db: $db
+      filter:
+        traceId: $item.traceId
   - id: otlpPayload
     action: transform
     source: $spans
     format: otlp
   - id: exported
-    call: grafanaTempoClient.pushTraces
-    with: { payload: $otlpPayload }
+    with:
+      payload: $otlpPayload
+    action: call
   - id: result
     action: return
     value:
-      tracesExported: "$traces.length"
-      spansExported: "$spans.length"
+      tracesExported: $traces.length
+      spansExported: $spans.length
