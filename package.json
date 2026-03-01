@@ -5,6 +5,7 @@
   "type": "module",
   "scripts": {
     "validate": "node scripts/validate-refs.mjs",
+    "test": "node --test scripts/validate-refs.test.mjs",
     "dep-graph": "node scripts/generate-dep-graph.mjs"
   },
   "dependencies": {

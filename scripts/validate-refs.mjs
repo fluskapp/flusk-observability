@@ -4,7 +4,7 @@ import { join, relative } from 'path';
 import yaml from 'js-yaml';
 
 const ROOT = new URL('..', import.meta.url).pathname.replace(/\/$/, '');
-const SCHEMA = join(ROOT, 'schema');
+const SCHEMA = process.env.SCHEMA_DIR || join(ROOT, 'schema');
 
 // ── Helpers ──────────────────────────────────────────────────────────────────
 
