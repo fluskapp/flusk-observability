@@ -1,11 +1,6 @@
-name: alerts-mute
+name: alertsMute
 description: Mute or unmute alert channels
 args:
-  - name: name
-    type: string
-    required: true
-    description: Channel name to mute/unmute
-options:
   - name: unmute
     type: boolean
     default: false
@@ -15,7 +10,4 @@ action:
   with:
     db: $db
     name: $name
-    data:
-      enabled: $unmute
-output:
-  success: "Channel '{{name}}' {{unmute ? 'unmuted' : 'muted'}}"
+    data: '{"enabled":"$unmute"}'

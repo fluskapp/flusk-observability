@@ -1,11 +1,6 @@
-name: cost-by
+name: costBy
 description: Show cost breakdown by dimension (feature, team, customer)
 args:
-  - name: dimension
-    type: string
-    required: true
-    description: Dimension to group by (feature, team, customer, model, provider)
-options:
   - name: from
     type: string
     description: Start date
@@ -23,6 +18,3 @@ action:
     from: $from
     to: $to
     db: $db
-output:
-  format: table
-  columns: [tagValue, totalCost, callCount, avgCost, percentage]

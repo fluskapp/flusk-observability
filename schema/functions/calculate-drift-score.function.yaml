@@ -11,8 +11,8 @@ output:
   type: float
 steps:
   - id: weightedScore
-    action: compute
-    expression: "($outputDrift.driftScore * 0.4) + ($costDrift.driftScore * 0.3) + ($behaviorDrift.driftScore * 0.3)"
+    action: call
+    expression: ($outputDrift.driftScore * 0.4) + ($costDrift.driftScore * 0.3) + ($behaviorDrift.driftScore * 0.3)
   - id: result
     action: return
-    value: "$weightedScore"
+    value: $weightedScore

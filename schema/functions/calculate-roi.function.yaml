@@ -7,7 +7,7 @@ output:
   type: json
 steps:
   - id: costs
-    action: query
+    action: call
     sql: |
       SELECT toolName, SUM(value) as totalCost
       FROM ai_usage_metric
@@ -15,7 +15,7 @@ steps:
         AND createdAt >= $timeRange.start AND createdAt <= $timeRange.end
       GROUP BY toolName
   - id: timeSaved
-    action: query
+    action: call
     sql: |
       SELECT toolName, SUM(value) as totalTimeSaved
       FROM ai_usage_metric
@@ -24,7 +24,7 @@ steps:
       GROUP BY toolName
   - id: roi
     action: forEach
-    items: "$costs"
+    items: $costs
     do:
       action: compute
       expression: |
@@ -37,7 +37,7 @@ steps:
   - id: result
     action: return
     value:
-      period: "$timeRange"
-      tools: "$roi"
-      totalCost: "sum($costs, 'totalCost')"
-      totalTimeSaved: "sum($timeSaved, 'totalTimeSaved')"
+      period: $timeRange
+      tools: $roi
+      totalCost: sum($costs, 'totalCost')
+      totalTimeSaved: sum($timeSaved, 'totalTimeSaved')

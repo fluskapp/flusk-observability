@@ -13,19 +13,19 @@ output:
   type: CostResult
 steps:
   - id: pricing
-    action: lookup
+    action: call
     table: modelPricing
-    key: "$model"
+    key: $model
   - id: inputCost
-    action: compute
-    expression: "$promptTokens * $pricing.inputPricePerToken"
+    action: call
+    expression: $promptTokens * $pricing.inputPricePerToken
   - id: outputCost
-    action: compute
-    expression: "$completionTokens * $pricing.outputPricePerToken"
+    action: call
+    expression: $completionTokens * $pricing.outputPricePerToken
   - id: result
     action: return
     value:
-      costUsd: "$inputCost + $outputCost"
-      model: "$model"
-      promptTokens: "$promptTokens"
-      completionTokens: "$completionTokens"
+      costUsd: $inputCost + $outputCost
+      model: $model
+      promptTokens: $promptTokens
+      completionTokens: $completionTokens

@@ -1,4 +1,4 @@
-name: budget-alerts
+name: budgetAlerts
 basePath: /api/budget-alerts
 entity: BudgetAlert
 auth: optional

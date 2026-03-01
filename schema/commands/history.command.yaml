@@ -1,6 +1,8 @@
 name: history
 description: Show LLM call history
-options:
+action:
+  call: history
+args:
   - name: limit
     type: number
     default: 50
@@ -14,17 +16,3 @@ options:
   - name: since
     type: string
     description: Show calls since (ISO date or relative like 1h, 1d)
-action:
-  steps:
-    - id: calls
-      call: listLlmCalls
-      with:
-        db: $db
-        limit: $limit
-        filter:
-          model: $model
-          agentName: $agent
-        since: $since
-output:
-  format: table
-  columns: [model, provider, totalTokens, costUsd, durationMs, agentName, createdAt]

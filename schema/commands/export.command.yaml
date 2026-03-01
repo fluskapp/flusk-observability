@@ -1,19 +1,28 @@
 name: export
 description: Export observability data to various formats and destinations
-options:
+action:
+  call: export
+args:
   - name: target
     type: enum
-    values: [csv, json, grafana, datadog]
+    values:
+      - csv
+      - json
+      - grafana
+      - datadog
     required: true
     description: Export destination
   - name: type
     type: enum
-    values: [calls, traces, metrics]
+    values:
+      - calls
+      - traces
+      - metrics
     default: calls
     description: Data type to export
   - name: start
     type: string
-    default: "30d-ago"
+    default: 30d-ago
     description: Start of time range
   - name: end
     type: string
@@ -22,22 +31,3 @@ options:
   - name: output
     type: string
     description: Output file path (for csv/json)
-action:
-  steps:
-    - id: result
-      action: condition
-      if: { field: $target, op: eq, value: grafana }
-      then:
-        call: exportToGrafana
-        with: { db: $db, client: $grafanaClient, start: $start, end: $end }
-      else:
-        action: condition
-        if: { field: $target, op: eq, value: datadog }
-        then:
-          call: exportToDatadog
-          with: { db: $db, client: $datadogClient, start: $start, end: $end }
-        else:
-          call: listLlmCalls
-          with: { db: $db, timeRange: { start: $start, end: $end } }
-output:
-  format: "$target"

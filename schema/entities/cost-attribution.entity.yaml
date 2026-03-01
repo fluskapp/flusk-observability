@@ -1,7 +1,6 @@
 name: CostAttribution
 description: Links an LLM call to cost tags for attribution tracking
 storage: sqlite
-
 fields:
   llmCallId:
     type: string
@@ -37,18 +36,25 @@ fields:
   provider:
     type: string
     description: Provider (openai, anthropic)
-
 capabilities:
   crud: true
   time-range: true
   aggregation: true
-
 queries:
   - name: costByTag
-    sql: "SELECT tag_key, tag_value, SUM(cost_usd) as total_cost, COUNT(*) as call_count, SUM(input_tokens) as total_input, SUM(output_tokens) as total_output FROM {{table}} WHERE created_at BETWEEN ? AND ? GROUP BY tag_key, tag_value ORDER BY total_cost DESC"
+    sql: >-
+      SELECT tag_key, tag_value, SUM(cost_usd) as total_cost, COUNT(*) as call_count, SUM(input_tokens) as total_input,
+      SUM(output_tokens) as total_output FROM {{table}} WHERE created_at BETWEEN ? AND ? GROUP BY tag_key, tag_value
+      ORDER BY total_cost DESC
   - name: costByTagAndModel
-    sql: "SELECT tag_key, tag_value, model, SUM(cost_usd) as total_cost, COUNT(*) as call_count FROM {{table}} WHERE created_at BETWEEN ? AND ? GROUP BY tag_key, tag_value, model ORDER BY total_cost DESC"
+    sql: >-
+      SELECT tag_key, tag_value, model, SUM(cost_usd) as total_cost, COUNT(*) as call_count FROM {{table}} WHERE
+      created_at BETWEEN ? AND ? GROUP BY tag_key, tag_value, model ORDER BY total_cost DESC
   - name: costTrend
-    sql: "SELECT DATE(created_at) as day, tag_key, tag_value, SUM(cost_usd) as daily_cost FROM {{table}} WHERE tag_key = ? AND created_at BETWEEN ? AND ? GROUP BY day, tag_key, tag_value ORDER BY day"
+    sql: >-
+      SELECT DATE(created_at) as day, tag_key, tag_value, SUM(cost_usd) as daily_cost FROM {{table}} WHERE tag_key = ?
+      AND created_at BETWEEN ? AND ? GROUP BY day, tag_key, tag_value ORDER BY day
   - name: topSpenders
-    sql: "SELECT tag_value, SUM(cost_usd) as total_cost, COUNT(*) as call_count, AVG(cost_usd) as avg_cost FROM {{table}} WHERE tag_key = ? AND created_at BETWEEN ? AND ? GROUP BY tag_value ORDER BY total_cost DESC LIMIT ?"
+    sql: >-
+      SELECT tag_value, SUM(cost_usd) as total_cost, COUNT(*) as call_count, AVG(cost_usd) as avg_cost FROM {{table}}
+      WHERE tag_key = ? AND created_at BETWEEN ? AND ? GROUP BY tag_value ORDER BY total_cost DESC LIMIT ?

@@ -5,7 +5,10 @@ inputs:
     type: Database
   - name: groupBy
     type: enum
-    values: [model, agent, provider]
+    values:
+      - model
+      - agent
+      - provider
   - name: start
     type: string
   - name: end
@@ -20,8 +23,18 @@ steps:
       op: eq
       value: model
     then:
-      call: queryLlmCall
-      with: { db: $db, query: costByModel, params: { start: $start, end: $end } }
+      - call: queryLlmCall
+        with:
+          db: $db
+          query: costByModel
+          params:
+            start: $start
+            end: $end
     else:
-      call: queryLlmCall
-      with: { db: $db, query: costByAgent, params: { start: $start, end: $end } }
+      - call: queryLlmCall
+        with:
+          db: $db
+          query: costByAgent
+          params:
+            start: $start
+            end: $end

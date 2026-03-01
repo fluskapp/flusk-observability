@@ -9,7 +9,7 @@ output:
   type: ModelPerformance[]
 steps:
   - id: results
-    action: query
+    action: call
     entity: ModelPerformance
     filters: $filters
   - id: result

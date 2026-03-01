@@ -1,4 +1,4 @@
-name: llm-calls
+name: llmCalls
 basePath: /api/llm-calls
 entity: LlmCall
 auth: optional
@@ -19,12 +19,14 @@ operations:
   - method: GET
     path: /aggregate/by-model
     call: queryLlmCall
-    with: { query: costByModel }
+    with:
+      query: costByModel
     description: Aggregate costs by model
   - method: GET
     path: /aggregate/by-agent
     call: queryLlmCall
-    with: { query: costByAgent }
+    with:
+      query: costByAgent
     description: Aggregate costs by agent
   - method: GET
     path: /duplicates

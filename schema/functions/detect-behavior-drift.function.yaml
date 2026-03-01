@@ -11,7 +11,7 @@ output:
   type: DriftResult
 steps:
   - id: baselinePatterns
-    action: query
+    action: call
     sql: |
       SELECT model, promptCategory, COUNT(*) as count
       FROM llm_call
@@ -19,7 +19,7 @@ steps:
         AND createdAt >= $baselinePeriod.start AND createdAt <= $baselinePeriod.end
       GROUP BY model, promptCategory
   - id: currentPatterns
-    action: query
+    action: call
     sql: |
       SELECT model, promptCategory, COUNT(*) as count
       FROM llm_call
@@ -27,13 +27,13 @@ steps:
         AND createdAt >= $currentPeriod.start AND createdAt <= $currentPeriod.end
       GROUP BY model, promptCategory
   - id: score
-    action: compute
-    expression: "comparePatternDistributions($baselinePatterns, $currentPatterns)"
+    action: call
+    expression: comparePatternDistributions($baselinePatterns, $currentPatterns)
   - id: result
     action: return
     value:
       detectionType: behavior-drift
-      driftScore: "$score"
+      driftScore: $score
       details:
-        baselinePatterns: "$baselinePatterns"
-        currentPatterns: "$currentPatterns"
+        baselinePatterns: $baselinePatterns
+        currentPatterns: $currentPatterns

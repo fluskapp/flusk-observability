@@ -1,9 +1,15 @@
 name: budget
 description: Manage budget thresholds
-options:
+action:
+  call: budget
+args:
   - name: action
     type: enum
-    values: [list, set, remove, status]
+    values:
+      - list
+      - set
+      - remove
+      - status
     default: list
     description: Budget action
   - name: name
@@ -11,7 +17,10 @@ options:
     description: Budget alert name
   - name: type
     type: enum
-    values: [daily, weekly, monthly]
+    values:
+      - daily
+      - weekly
+      - monthly
     description: Budget period type
   - name: threshold
     type: number
@@ -20,29 +29,3 @@ options:
     type: boolean
     default: false
     description: Auto-pause agents when exceeded
-action:
-  steps:
-    - id: result
-      action: condition
-      if: { field: $action, op: eq, value: status }
-      then:
-        call: getBudgetStatus
-        with: { db: $db }
-      else:
-        action: condition
-        if: { field: $action, op: eq, value: set }
-        then:
-          call: createBudgetAlert
-          with:
-            db: $db
-            data:
-              name: $name
-              budgetType: $type
-              thresholdUsd: $threshold
-              autoPause: "$auto-pause"
-        else:
-          call: listBudgetAlerts
-          with: { db: $db }
-output:
-  format: table
-  columns: [name, budgetType, thresholdUsd, currentSpendUsd, enabled]

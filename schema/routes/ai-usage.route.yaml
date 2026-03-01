@@ -1,4 +1,4 @@
-name: ai-usage
+name: aiUsage
 basePath: /api/ai-usage
 entity: AiUsageMetric
 auth: optional

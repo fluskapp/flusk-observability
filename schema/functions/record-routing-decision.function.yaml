@@ -15,8 +15,8 @@ output:
   type: RoutingDecision
 steps:
   - id: wasRerouted
-    action: compute
-    expression: "$requestedModel != $selectedModel"
+    action: call
+    expression: $requestedModel != $selectedModel
   - id: decision
     call: createRoutingDecision
     with:

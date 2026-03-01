@@ -9,7 +9,7 @@ output:
   type: json
 steps:
   - id: metrics
-    action: query
+    action: call
     sql: |
       SELECT toolName, metricType, COUNT(DISTINCT userId) as userCount,
              SUM(value) as totalValue, AVG(value) as avgValue
@@ -19,4 +19,4 @@ steps:
       ORDER BY totalValue DESC
   - id: result
     action: return
-    value: "$metrics"
+    value: $metrics

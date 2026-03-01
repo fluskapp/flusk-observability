@@ -1,7 +1,6 @@
 name: DelusionDetection
 description: Detected hallucination or confidence mismatch in LLM output
 storage: sqlite
-
 fields:
   agentLabel:
     type: string
@@ -14,7 +13,12 @@ fields:
     description: Specific LLM call that was delusional
   delusionType:
     type: enum
-    values: [hallucination, contradiction, confidence-mismatch, circular-reasoning, fabricated-reference]
+    values:
+      - hallucination
+      - contradiction
+      - confidence-mismatch
+      - circular-reasoning
+      - fabricated-reference
     required: true
     description: Type of delusion detected
   confidence:
@@ -45,10 +49,12 @@ fields:
     description: Whether a human has verified this detection
   status:
     type: enum
-    values: [detected, confirmed, dismissed]
+    values:
+      - detected
+      - confirmed
+      - dismissed
     default: detected
     description: Current status
-
 capabilities:
   crud: true
   time-range: true

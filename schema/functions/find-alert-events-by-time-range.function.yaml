@@ -11,7 +11,7 @@ output:
   type: AlertEvent[]
 steps:
   - id: results
-    action: query
+    action: call
     entity: AlertEvent
     filters:
       createdAt:

@@ -1,7 +1,6 @@
 name: Pattern
 description: Detected repetitive prompt pattern
 storage: sqlite
-
 fields:
   promptHash:
     type: string
@@ -35,12 +34,14 @@ fields:
     description: Example prompt text (truncated)
   recommendation:
     type: enum
-    values: [cache, batch, ignore]
+    values:
+      - cache
+      - batch
+      - ignore
     description: Suggested action
   agentName:
     type: string
     description: Agent generating this pattern
-
 capabilities:
   crud: true
   time-range: true

@@ -13,10 +13,13 @@ output:
   type: CostTrendPoint[]
 steps:
   - id: results
-    action: query
+    action: call
     entity: CostAttribution
     queryName: costTrend
-    params: [$tagKey, $from, $to]
+    params:
+      - $tagKey
+      - $from
+      - $to
   - id: result
     action: return
     value: $results

@@ -7,22 +7,22 @@ output:
   type: json
 steps:
   - id: providerBreakdown
-    action: compute
-    expression: "groupBy($scanResult.callSites, 'provider')"
+    action: call
+    expression: groupBy($scanResult.callSites, 'provider')
   - id: recommendations
-    action: compute
-    expression: "generateRecommendations($scanResult)"
+    action: call
+    expression: generateRecommendations($scanResult)
   - id: update
-    action: update
+    action: call
     entity: CodeScanResult
-    entityId: "$scanResult.id"
+    entityId: $scanResult.id
     data:
-      recommendations: "$recommendations"
+      recommendations: $recommendations
   - id: result
     action: return
     value:
-      projectPath: "$scanResult.projectPath"
-      totalCallSites: "$scanResult.totalLlmCalls"
-      providers: "$providerBreakdown"
-      riskScore: "$scanResult.riskScore"
-      recommendations: "$recommendations"
+      projectPath: $scanResult.projectPath
+      totalCallSites: $scanResult.totalLlmCalls
+      providers: $providerBreakdown
+      riskScore: $scanResult.riskScore
+      recommendations: $recommendations

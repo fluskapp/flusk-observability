@@ -1,4 +1,4 @@
-name: profile-sessions
+name: profileSessions
 basePath: /api/profile-sessions
 entity: ProfileSession
 auth: optional
@@ -22,5 +22,7 @@ operations:
   - method: GET
     path: /:id/patterns
     call: listPerformancePatterns
-    with: { filter: { profileSessionId: ":id" } }
+    with:
+      filter:
+        profileSessionId: ':id'
     description: Get hotspots for a profile session

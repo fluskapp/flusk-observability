@@ -1,4 +1,4 @@
-name: cost-live
+name: CostLive
 description: Real-time cost attribution feed — see spending as it happens
 type: sse
 path: /api/cost-live

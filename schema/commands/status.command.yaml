@@ -1,32 +1,9 @@
 name: status
 description: Show current spend and health summary
-options:
+action:
+  call: status
+args:
   - name: verbose
     type: boolean
     default: false
     description: Show detailed breakdown
-action:
-  steps:
-    - id: daily
-      call: getDailySpend
-      with: { db: $db }
-    - id: monthly
-      call: getMonthlySpend
-      with: { db: $db }
-    - id: budgets
-      call: getBudgetStatus
-      with: { db: $db }
-    - id: recentAlerts
-      call: listAlertEvents
-      with: { db: $db, limit: 5 }
-output:
-  format: dashboard
-  sections:
-    - title: Spending
-      fields: [dailySpend, monthlySpend]
-    - title: Budgets
-      format: table
-      columns: [name, percentUsed, exceeded]
-    - title: Recent Alerts
-      format: table
-      columns: [alertType, severity, title, createdAt]

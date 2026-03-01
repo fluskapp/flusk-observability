@@ -1,21 +1,18 @@
-name: trace-view
+name: traceView
 description: View a trace visualization (waterfall in terminal)
-options:
+action:
+  call: traceView
+args:
   - name: trace-id
     type: string
     required: true
     description: Trace ID to visualize
   - name: type
     type: enum
-    values: [waterfall, flamegraph, timeline, tree]
+    values:
+      - waterfall
+      - flamegraph
+      - timeline
+      - tree
     default: waterfall
     description: Visualization type
-action:
-  steps:
-    - id: result
-      call: buildTraceView
-      with:
-        traceId: "$trace-id"
-        viewType: "$type"
-output:
-  format: tree

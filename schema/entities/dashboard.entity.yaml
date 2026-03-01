@@ -1,7 +1,6 @@
 name: Dashboard
 description: Configurable dashboard for visualizing observability data
 storage: sqlite
-
 fields:
   name:
     type: string
@@ -29,6 +28,5 @@ fields:
   owner:
     type: string
     description: Who created this dashboard
-
 capabilities:
   crud: true

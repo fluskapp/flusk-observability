@@ -1,7 +1,6 @@
 name: Trace
 description: Distributed trace record grouping related spans
 storage: sqlite
-
 fields:
   traceId:
     type: string
@@ -32,17 +31,18 @@ fields:
     description: Sum of all LLM call costs within this trace
   status:
     type: enum
-    values: [ok, error, timeout]
+    values:
+      - ok
+      - error
+      - timeout
     default: ok
     description: Trace outcome status
   metadata:
     type: json
     description: Additional trace attributes
-
 capabilities:
   crud: true
   time-range: true
-
 relations:
   - name: spans
     entity: Span

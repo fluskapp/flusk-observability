@@ -12,12 +12,12 @@ steps:
       db: $db
       timeRange: currentMonth
   - id: total
-    action: reduce
+    action: call
     source: $calls
     accumulator: 0
-    expression: "$acc + $item.costUsd"
+    expression: $acc + $item.costUsd
   - id: result
     action: return
     value:
       totalCostUsd: $total
-      callCount: "$calls.length"
+      callCount: $calls.length

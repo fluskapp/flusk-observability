@@ -1,4 +1,4 @@
-name: trace-views
+name: traceViews
 basePath: /api/trace-views
 entity: TraceView
 auth: optional

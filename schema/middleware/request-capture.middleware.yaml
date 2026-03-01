@@ -18,25 +18,11 @@ inputs:
     from: computed.latencyMs
 output:
   captured: boolean
-async: true
 steps:
   - id: capture
-    call: createLlmCall
-    with:
-      model: $response.model
-      provider: $provider
-      inputTokens: $response.usage.prompt_tokens
-      outputTokens: $response.usage.completion_tokens
-      costUsd: $costUsd
-      latencyMs: $latencyMs
-      promptHash: $promptHash
-      isDuplicate: $isDuplicate
-      status: success
-      requestBody: $request.body
+    action: call
+    value: createLlmCall
   - id: result
     action: return
     value:
       captured: true
-errors:
-  - type: CaptureError
-    action: log-and-continue

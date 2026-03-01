@@ -1,4 +1,4 @@
-name: delusion-detections
+name: delusionDetections
 basePath: /api/delusion-detections
 entity: DelusionDetection
 auth: optional

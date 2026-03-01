@@ -1,7 +1,6 @@
 name: ExplainSession
 description: Tracks flusk explain command runs — AI-powered cost optimization insights
 storage: sqlite
-
 fields:
   query:
     type: string
@@ -9,7 +8,10 @@ fields:
     description: User's question or topic
   status:
     type: enum
-    values: [running, completed, failed]
+    values:
+      - running
+      - completed
+      - failed
     required: true
     default: running
     description: Session status
@@ -30,7 +32,6 @@ fields:
   durationMs:
     type: integer
     description: How long the explain took
-
 capabilities:
   crud: true
   time-range: true

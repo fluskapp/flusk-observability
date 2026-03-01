@@ -11,17 +11,17 @@ output:
   type: DelusionResult
 steps:
   - id: call
-    action: findById
+    action: call
     entity: LlmCall
-    entityId: "$llmCallId"
+    entityId: $llmCallId
   - id: factCheck
-    action: compute
-    expression: "compareOutputToContext($output, $context)"
+    action: call
+    expression: compareOutputToContext($output, $context)
   - id: result
     action: return
     value:
       delusionType: hallucination
-      confidence: "$call.metadata.confidence"
-      divergenceScore: "$factCheck.divergenceScore"
-      detected: "$factCheck.hasHallucination"
-      explanation: "$factCheck.explanation"
+      confidence: $call.metadata.confidence
+      divergenceScore: $factCheck.divergenceScore
+      detected: $factCheck.hasHallucination
+      explanation: $factCheck.explanation

@@ -1,7 +1,6 @@
 name: AlertChannel
 description: Configuration for an alert destination (PagerDuty, Slack, etc.)
 storage: sqlite
-
 fields:
   name:
     type: string
@@ -10,7 +9,12 @@ fields:
     description: Human-readable channel name
   channelType:
     type: enum
-    values: [pagerduty, slack, discord, webhook, email]
+    values:
+      - pagerduty
+      - slack
+      - discord
+      - webhook
+      - email
     required: true
     description: Alert provider type
   config:
@@ -24,10 +28,12 @@ fields:
     description: Whether this channel is active
   severityFilter:
     type: enum
-    values: [critical, warning, info]
+    values:
+      - critical
+      - warning
+      - info
     required: true
     default: warning
     description: Minimum severity level to trigger alerts on this channel
-
 capabilities:
   crud: true

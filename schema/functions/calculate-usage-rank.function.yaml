@@ -9,7 +9,7 @@ output:
   type: json
 steps:
   - id: rankings
-    action: query
+    action: call
     sql: |
       SELECT userId, toolName, SUM(value) as totalValue,
              RANK() OVER (ORDER BY SUM(value) DESC) as rank
@@ -20,4 +20,4 @@ steps:
       ORDER BY rank
   - id: result
     action: return
-    value: "$rankings"
+    value: $rankings

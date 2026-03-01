@@ -9,24 +9,24 @@ output:
   type: DashboardRenderResult
 steps:
   - id: dashboard
-    action: findById
+    action: call
     entity: Dashboard
-    entityId: "$dashboardId"
+    entityId: $dashboardId
   - id: widgets
-    action: findMany
+    action: call
     entity: DashboardWidget
     where:
-      dashboardId: "$dashboardId"
+      dashboardId: $dashboardId
   - id: widgetData
     action: forEach
-    items: "$widgets"
+    items: $widgets
     do:
       call: buildWidgetQuery
       with:
-        query: "$item.query"
-        timeRange: "$timeRange"
+        query: $item.query
+        timeRange: $timeRange
   - id: result
     action: return
     value:
-      dashboard: "$dashboard"
-      widgets: "$widgetData"
+      dashboard: $dashboard
+      widgets: $widgetData

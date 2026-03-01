@@ -9,41 +9,41 @@ output:
   type: CodeScanResult
 steps:
   - id: startTime
-    action: compute
-    expression: "now()"
+    action: call
+    expression: now()
   - id: callSites
     call: detectLlmCallSites
     with:
-      projectPath: "$projectPath"
+      projectPath: $projectPath
   - id: costs
     call: estimateCallCosts
     with:
-      callSites: "$callSites"
+      callSites: $callSites
   - id: providers
-    action: compute
-    expression: "unique($callSites, 'provider')"
+    action: call
+    expression: unique($callSites, 'provider')
   - id: models
-    action: compute
-    expression: "unique($callSites, 'model')"
+    action: call
+    expression: unique($callSites, 'model')
   - id: duration
-    action: compute
-    expression: "now() - $startTime"
+    action: call
+    expression: now() - $startTime
   - id: result
-    action: create
+    action: call
     entity: CodeScanResult
     data:
-      projectPath: "$projectPath"
-      scanType: "$scanType"
-      totalLlmCalls: "$callSites.length"
-      totalProviders: "$providers.length"
-      totalModels: "$models.length"
-      callSites: "$costs"
-      riskScore: "$costs.riskScore"
-      scanDuration: "$duration"
+      projectPath: $projectPath
+      scanType: $scanType
+      totalLlmCalls: $callSites.length
+      totalProviders: $providers.length
+      totalModels: $models.length
+      callSites: $costs
+      riskScore: $costs.riskScore
+      scanDuration: $duration
   - id: report
     call: generateScanReport
     with:
-      scanResult: "$result"
+      scanResult: $result
   - id: return
     action: return
-    value: "$result"
+    value: $result

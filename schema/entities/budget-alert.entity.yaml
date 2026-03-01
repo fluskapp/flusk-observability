@@ -1,7 +1,6 @@
 name: BudgetAlert
 description: Budget threshold alert configuration
 storage: sqlite
-
 fields:
   name:
     type: string
@@ -9,7 +8,10 @@ fields:
     description: Alert name
   budgetType:
     type: enum
-    values: [daily, weekly, monthly]
+    values:
+      - daily
+      - weekly
+      - monthly
     required: true
     description: Budget period type
   thresholdUsd:
@@ -38,6 +40,5 @@ fields:
   agentFilter:
     type: string
     description: Optional agent name filter (null = all agents)
-
 capabilities:
   crud: true

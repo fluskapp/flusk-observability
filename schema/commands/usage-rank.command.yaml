@@ -1,9 +1,16 @@
-name: usage-rank
+name: usageRank
 description: Rank users by AI effectiveness
-options:
+action:
+  call: usageRank
+args:
   - name: metric
     type: enum
-    values: [prompt-count, token-count, time-saved, cost, acceptance-rate]
+    values:
+      - prompt-count
+      - token-count
+      - time-saved
+      - cost
+      - acceptance-rate
     default: time-saved
     description: Metric to rank by
   - name: days
@@ -14,16 +21,3 @@ options:
     type: integer
     default: 10
     description: Top N users
-action:
-  steps:
-    - id: timeRange
-      action: compute
-      expression: '{ start: now() - ($days * 86400000), end: now() }'
-    - id: result
-      call: calculateUsageRank
-      with:
-        timeRange: "$timeRange"
-        metricType: "$metric"
-output:
-  format: table
-  columns: [rank, userId, toolName, totalValue]

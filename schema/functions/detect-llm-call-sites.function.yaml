@@ -7,10 +7,10 @@ output:
   type: json
 steps:
   - id: files
-    action: compute
-    expression: "glob($projectPath, '**/*.{js,ts,py,go,rb}')"
+    action: call
+    expression: glob($projectPath, '**/*.{js,ts,py,go,rb}')
   - id: patterns
-    action: compute
+    action: call
     expression: |
       [
         { provider: "openai", patterns: ["openai.chat.completions", "OpenAI(", "from openai"] },
@@ -21,10 +21,10 @@ steps:
       ]
   - id: callSites
     action: forEach
-    items: "$files"
+    items: $files
     do:
       action: compute
-      expression: "matchPatterns($item, $patterns)"
+      expression: matchPatterns($item, $patterns)
   - id: result
     action: return
-    value: "$callSites"
+    value: $callSites

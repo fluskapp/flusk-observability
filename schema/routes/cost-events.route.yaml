@@ -1,4 +1,4 @@
-name: cost-events
+name: costEvents
 basePath: /api/cost-events
 entity: LlmCall
 auth: optional
@@ -8,7 +8,9 @@ operations:
     description: Server-sent events stream for live cost tracking
     protocol: sse
     call: listLlmCalls
-    with: { since: "last-event", limit: 100 }
+    with:
+      since: last-event
+      limit: 100
   - method: GET
     path: /daily
     call: getDailySpend

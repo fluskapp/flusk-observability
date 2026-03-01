@@ -1,7 +1,6 @@
 name: TraceView
 description: Visualization configuration for a distributed trace
 storage: sqlite
-
 fields:
   traceId:
     type: string
@@ -10,7 +9,11 @@ fields:
     description: Reference to trace entity
   viewType:
     type: enum
-    values: [waterfall, flamegraph, timeline, tree]
+    values:
+      - waterfall
+      - flamegraph
+      - timeline
+      - tree
     required: true
     description: Visualization type
   totalDuration:
@@ -31,6 +34,5 @@ fields:
   annotations:
     type: json
     description: User annotations on the trace
-
 capabilities:
   crud: true

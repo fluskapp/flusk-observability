@@ -11,35 +11,35 @@ output:
   type: DriftResult
 steps:
   - id: baselineCalls
-    action: findMany
+    action: call
     entity: LlmCall
     where:
-      agentName: "$agentLabel"
+      agentName: $agentLabel
       createdAt:
-        gte: "$baselinePeriod.start"
-        lte: "$baselinePeriod.end"
+        gte: $baselinePeriod.start
+        lte: $baselinePeriod.end
   - id: currentCalls
-    action: findMany
+    action: call
     entity: LlmCall
     where:
-      agentName: "$agentLabel"
+      agentName: $agentLabel
       createdAt:
-        gte: "$currentPeriod.start"
-        lte: "$currentPeriod.end"
+        gte: $currentPeriod.start
+        lte: $currentPeriod.end
   - id: baselineHash
-    action: compute
-    expression: "hashOutputDistribution($baselineCalls)"
+    action: call
+    expression: hashOutputDistribution($baselineCalls)
   - id: currentHash
-    action: compute
-    expression: "hashOutputDistribution($currentCalls)"
+    action: call
+    expression: hashOutputDistribution($currentCalls)
   - id: score
-    action: compute
-    expression: "compareDistributions($baselineCalls, $currentCalls)"
+    action: call
+    expression: compareDistributions($baselineCalls, $currentCalls)
   - id: result
     action: return
     value:
       detectionType: output-drift
-      baselineHash: "$baselineHash"
-      currentHash: "$currentHash"
-      driftScore: "$score"
-      sampleCount: "$currentCalls.length"
+      baselineHash: $baselineHash
+      currentHash: $currentHash
+      driftScore: $score
+      sampleCount: $currentCalls.length

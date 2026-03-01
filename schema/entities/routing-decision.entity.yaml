@@ -1,7 +1,6 @@
 name: RoutingDecision
 description: Records a model routing decision and associated savings
 storage: sqlite
-
 fields:
   routingRuleId:
     type: string
@@ -36,7 +35,6 @@ fields:
   llmCallId:
     type: string
     description: Associated LLM call ID
-
 capabilities:
   crud: true
   time-range: true

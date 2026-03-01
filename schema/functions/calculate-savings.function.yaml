@@ -9,16 +9,17 @@ output:
   type: SavingsSummary
 steps:
   - id: totalSavings
-    action: reduce
+    action: call
     source: $optimizations
     accumulator: 0
-    expression: "$acc + $item.estimatedSavingsUsd"
+    expression: $acc + $item.estimatedSavingsUsd
   - id: monthlySpend
     call: getMonthlySpend
-    with: { db: $db }
+    with:
+      db: $db
   - id: result
     action: return
     value:
       totalMonthlySavings: $totalSavings
-      savingsPercent: "$totalSavings / $monthlySpend.totalCostUsd * 100"
-      optimizationCount: "$optimizations.length"
+      savingsPercent: $totalSavings / $monthlySpend.totalCostUsd * 100
+      optimizationCount: $optimizations.length

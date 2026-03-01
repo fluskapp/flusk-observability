@@ -1,4 +1,4 @@
-name: drift-detections
+name: driftDetections
 basePath: /api/drift-detections
 entity: DriftDetection
 auth: optional

@@ -1,29 +1,9 @@
 name: init
 description: Initialize flusk configuration in the current project
-options:
+action:
+  call: init
+args:
   - name: force
     type: boolean
     default: false
     description: Overwrite existing config
-action:
-  steps:
-    - id: createConfig
-      action: write-file
-      path: .flusk.yaml
-      content:
-        database: .flusk/data.db
-        budgets:
-          daily: 10.00
-          monthly: 200.00
-        alertChannels: []
-        routing:
-          enabled: false
-    - id: createDir
-      action: mkdir
-      path: .flusk
-    - id: initDb
-      action: init-database
-      path: .flusk/data.db
-output:
-  format: message
-  text: "Flusk initialized. Config saved to .flusk.yaml"

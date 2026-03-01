@@ -1,4 +1,4 @@
-name: alert-events
+name: alertEvents
 basePath: /api/alert-events
 entity: AlertEvent
 auth: optional

@@ -1,7 +1,6 @@
 name: AnalyzeSession
 description: Tracks CLI analyze command runs
 storage: sqlite
-
 fields:
   scriptPath:
     type: string
@@ -9,7 +8,10 @@ fields:
     description: Path to the analyzed script
   status:
     type: enum
-    values: [running, completed, failed]
+    values:
+      - running
+      - completed
+      - failed
     required: true
     default: running
     description: Session status
@@ -39,7 +41,6 @@ fields:
   summary:
     type: json
     description: Summary results of the analysis
-
 capabilities:
   crud: true
   time-range: true

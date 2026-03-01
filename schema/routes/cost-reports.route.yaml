@@ -1,4 +1,4 @@
-name: cost-reports
+name: costReports
 basePath: /api/cost-reports
 entity: CostReport
 auth: required

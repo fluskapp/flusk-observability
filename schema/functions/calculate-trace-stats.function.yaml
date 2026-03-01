@@ -9,20 +9,20 @@ output:
   type: TraceStats
 steps:
   - id: llmCalls
-    action: findMany
+    action: call
     entity: LlmCall
     where:
-      traceId: "$traceId"
+      traceId: $traceId
   - id: totalCost
-    action: compute
-    expression: "sum($llmCalls, 'costUsd')"
+    action: call
+    expression: sum($llmCalls, 'costUsd')
   - id: totalDuration
-    action: compute
-    expression: "max($spans, 'endTime') - min($spans, 'startTime')"
+    action: call
+    expression: max($spans, 'endTime') - min($spans, 'startTime')
   - id: result
     action: return
     value:
-      totalDuration: "$totalDuration"
-      totalCost: "$totalCost"
-      spanCount: "$spans.length"
-      llmCallCount: "$llmCalls.length"
+      totalDuration: $totalDuration
+      totalCost: $totalCost
+      spanCount: $spans.length
+      llmCallCount: $llmCalls.length

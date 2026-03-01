@@ -11,28 +11,28 @@ output:
   type: DriftResult
 steps:
   - id: baselineCost
-    action: query
+    action: call
     sql: |
       SELECT AVG(costUsd) as avgCost, STDDEV(costUsd) as stdCost
       FROM llm_call
       WHERE agentName = $agentLabel
         AND createdAt >= $baselinePeriod.start AND createdAt <= $baselinePeriod.end
   - id: currentCost
-    action: query
+    action: call
     sql: |
       SELECT AVG(costUsd) as avgCost, COUNT(*) as sampleCount
       FROM llm_call
       WHERE agentName = $agentLabel
         AND createdAt >= $currentPeriod.start AND createdAt <= $currentPeriod.end
   - id: score
-    action: compute
-    expression: "abs($currentCost.avgCost - $baselineCost.avgCost) / max($baselineCost.stdCost, 0.001)"
+    action: call
+    expression: abs($currentCost.avgCost - $baselineCost.avgCost) / max($baselineCost.stdCost, 0.001)
   - id: result
     action: return
     value:
       detectionType: cost-drift
-      driftScore: "min($score / 3.0, 1.0)"
-      sampleCount: "$currentCost.sampleCount"
+      driftScore: min($score / 3.0, 1.0)
+      sampleCount: $currentCost.sampleCount
       details:
-        baselineAvg: "$baselineCost.avgCost"
-        currentAvg: "$currentCost.avgCost"
+        baselineAvg: $baselineCost.avgCost
+        currentAvg: $currentCost.avgCost

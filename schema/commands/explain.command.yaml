@@ -1,6 +1,8 @@
 name: explain
 description: AI-powered cost optimization insights — ask questions about your LLM spending
-options:
+action:
+  call: explain
+args:
   - name: query
     type: string
     required: true
@@ -9,26 +11,3 @@ options:
     type: string
     default: gpt-4o-mini
     description: Model to use for explanation
-action:
-  steps:
-    - id: session
-      call: createExplainSession
-      with: { db: $db, data: { query: $query, model: $model, status: running } }
-    - id: context
-      call: aggregateCosts
-      with: { db: $db, groupBy: model, start: "30d-ago", end: now }
-    - id: patterns
-      call: listPatterns
-      with: { db: $db, limit: 10 }
-    - id: explanation
-      action: llm-call
-      model: $model
-      prompt: |
-        Analyze the following LLM cost data and answer: $query
-        Cost data: $context
-        Patterns: $patterns
-    - id: update
-      call: updateExplainSession
-      with: { db: $db, id: $session.id, data: { status: completed, responseText: $explanation } }
-output:
-  format: markdown

@@ -1,4 +1,4 @@
-name: cost-attributions
+name: costAttributions
 basePath: /api/cost-attributions
 entity: CostAttribution
 auth: required

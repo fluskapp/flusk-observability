@@ -1,15 +1,6 @@
-name: alerts-setup
+name: alertsSetup
 description: Configure an alert channel
 args:
-  - name: name
-    type: string
-    required: true
-    description: Channel name
-  - name: type
-    type: AlertChannel.channelType
-    required: true
-    description: Provider type
-options:
   - name: config
     type: json
     required: true
@@ -25,7 +16,4 @@ action:
     channelType: $type
     config: $config
     severityFilter: $severity
-    enabled: true
-output:
-  success: "Alert channel '{{name}}' configured ({{type}}, severity >= {{severity}})"
-  error: "Failed to configure channel: {{error}}"
+    enabled: 'true'

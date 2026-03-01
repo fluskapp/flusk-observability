@@ -10,10 +10,12 @@ output:
 steps:
   - id: dailySpend
     call: getDailySpend
-    with: { db: $db }
+    with:
+      db: $db
   - id: monthlySpend
     call: getMonthlySpend
-    with: { db: $db }
+    with:
+      db: $db
   - id: checkDaily
     action: condition
     if:
@@ -21,8 +23,12 @@ steps:
       op: gt
       value: $config.dailyLimit
     then:
-      action: return
-      value: { tripped: true, reason: "daily_limit_exceeded", actual: $dailySpend, limit: $config.dailyLimit }
+      - action: return
+        value:
+          tripped: true
+          reason: daily_limit_exceeded
+          actual: $dailySpend
+          limit: $config.dailyLimit
   - id: checkMonthly
     action: condition
     if:
@@ -30,8 +36,13 @@ steps:
       op: gt
       value: $config.monthlyLimit
     then:
-      action: return
-      value: { tripped: true, reason: "monthly_limit_exceeded", actual: $monthlySpend, limit: $config.monthlyLimit }
+      - action: return
+        value:
+          tripped: true
+          reason: monthly_limit_exceeded
+          actual: $monthlySpend
+          limit: $config.monthlyLimit
   - id: ok
     action: return
-    value: { tripped: false }
+    value:
+      tripped: false

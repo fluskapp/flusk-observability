@@ -33,6 +33,4 @@ capture:
     promptHash: computed.sha256(request.messages)
     status: response.status
     provider: detected.provider
-streaming:
-  enabled: true
-  format: sse
+streaming: false

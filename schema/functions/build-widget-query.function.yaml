@@ -9,17 +9,17 @@ output:
   type: json
 steps:
   - id: sql
-    action: compute
+    action: call
     expression: |
       SELECT $query.aggregation($query.field) as value
       FROM $query.entity
       WHERE createdAt >= $timeRange.start AND createdAt <= $timeRange.end
       GROUP BY $query.groupBy
   - id: data
-    action: query
-    sql: "$sql"
+    action: call
+    sql: $sql
   - id: result
     action: return
     value:
-      query: "$query"
-      data: "$data"
+      query: $query
+      data: $data

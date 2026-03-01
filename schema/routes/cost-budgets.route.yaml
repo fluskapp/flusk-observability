@@ -1,4 +1,4 @@
-name: cost-budgets
+name: costBudgets
 basePath: /api/cost-budgets
 entity: CostBudget
 auth: required

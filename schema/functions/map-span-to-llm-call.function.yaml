@@ -12,28 +12,32 @@ output:
 steps:
   - id: attrs
     call: parseLlmAttributes
-    with: { attributes: $span.attributes }
+    with:
+      attributes: $span.attributes
   - id: isLlmSpan
     action: condition
-    if: { field: "$attrs.isLlm", op: eq, value: true }
+    if:
+      field: $attrs.isLlm
+      op: eq
+      value: true
     then:
-      call: createLlmCall
-      with:
-        db: $db
-        data:
-          traceId: $span.traceId
-          spanId: $span.spanId
-          model: $attrs.model
-          provider: $attrs.provider
-          promptTokens: $attrs.promptTokens
-          completionTokens: $attrs.completionTokens
-          totalTokens: "$attrs.promptTokens + $attrs.completionTokens"
-          costUsd: $attrs.cost
-          durationMs: $attrs.durationMs
-          agentName: $serviceName
+      - call: createLlmCall
+        with:
+          db: $db
+          data:
+            traceId: $span.traceId
+            spanId: $span.spanId
+            model: $attrs.model
+            provider: $attrs.provider
+            promptTokens: $attrs.promptTokens
+            completionTokens: $attrs.completionTokens
+            totalTokens: $attrs.promptTokens + $attrs.completionTokens
+            costUsd: $attrs.cost
+            durationMs: $attrs.durationMs
+            agentName: $serviceName
     else:
-      action: return
-      value: null
+      - action: return
+        value: null
   - id: result
     action: return
     value: $isLlmSpan

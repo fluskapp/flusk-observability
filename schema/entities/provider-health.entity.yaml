@@ -1,7 +1,6 @@
 name: ProviderHealth
 description: Tracks provider health metrics for smart routing decisions
 storage: sqlite
-
 fields:
   provider:
     type: string
@@ -38,6 +37,5 @@ fields:
   windowStart:
     type: date
     description: Start of current sliding window
-
 capabilities:
   crud: true

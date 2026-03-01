@@ -1,7 +1,6 @@
 name: CostBudget
 description: Budget limit for a specific tag (e.g. team=engineering has $500/month budget)
 storage: sqlite
-
 fields:
   tagKey:
     type: string
@@ -19,7 +18,10 @@ fields:
     description: Budget limit in USD
   period:
     type: enum
-    values: [daily, weekly, monthly]
+    values:
+      - daily
+      - weekly
+      - monthly
     required: true
     description: Budget period
   alertAt:
@@ -29,7 +31,10 @@ fields:
     description: Alert when reaching this percentage of budget
   action:
     type: enum
-    values: [alert, throttle, block]
+    values:
+      - alert
+      - throttle
+      - block
     required: true
     default: alert
     description: What to do when budget exceeded
@@ -37,6 +42,5 @@ fields:
     type: boolean
     required: true
     default: true
-
 capabilities:
   crud: true

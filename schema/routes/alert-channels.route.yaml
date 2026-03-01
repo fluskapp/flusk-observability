@@ -1,4 +1,4 @@
-name: alert-channels
+name: alertChannels
 basePath: /api/alert-channels
 entity: AlertChannel
 auth: optional

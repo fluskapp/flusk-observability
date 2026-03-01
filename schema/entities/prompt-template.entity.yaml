@@ -1,7 +1,6 @@
 name: PromptTemplate
 description: Prompt template for A/B testing and version tracking
 storage: sqlite
-
 fields:
   name:
     type: string
@@ -28,10 +27,8 @@ fields:
   metadata:
     type: json
     description: Additional template metadata
-
 capabilities:
   crud: true
-
 relations:
   - name: versions
     entity: PromptVersion

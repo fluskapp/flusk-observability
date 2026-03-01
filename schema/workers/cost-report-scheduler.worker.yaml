@@ -1,7 +1,7 @@
-name: cost-report-scheduler
+name: CostReportScheduler
 description: Automatically generate and deliver cost reports on schedule
 type: cron
-schedule: "0 8 * * 1"
+schedule: 0 8 * * 1
 steps:
   - id: generateWeekly
     call: generateCostReport
@@ -9,15 +9,13 @@ steps:
       reportType: weekly
       format: slack
       db: $db
+    action: call
   - id: deliver
     call: dispatchAlert
     with:
       db: $db
-      alert:
-        alertType: cost_anomaly
-        severity: info
-        title: "Weekly Cost Report"
-        message: $generateWeekly.summary
+      alert: '{"alertType":"cost_anomaly","severity":"info","title":"Weekly Cost Report","message":"$generateWeekly.summary"}'
+    action: call
 retry:
   maxAttempts: 2
   backoff: exponential

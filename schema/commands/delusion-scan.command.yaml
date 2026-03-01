@@ -1,6 +1,8 @@
-name: delusion-scan
+name: delusionScan
 description: Run delusion detection on recent LLM calls
-options:
+action:
+  call: delusionScan
+args:
   - name: agent
     type: string
     required: true
@@ -9,16 +11,3 @@ options:
     type: integer
     default: 24
     description: Scan calls from the last N hours
-action:
-  steps:
-    - id: timeRange
-      action: compute
-      expression: '{ start: now() - ($hours * 3600000), end: now() }'
-    - id: result
-      call: runDelusionScan
-      with:
-        agentLabel: "$agent"
-        timeRange: "$timeRange"
-output:
-  format: table
-  columns: [scanned, detections]

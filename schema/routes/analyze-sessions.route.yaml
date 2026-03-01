@@ -1,4 +1,4 @@
-name: analyze-sessions
+name: analyzeSessions
 basePath: /api/analyze-sessions
 entity: AnalyzeSession
 auth: optional

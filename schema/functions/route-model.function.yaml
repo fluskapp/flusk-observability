@@ -12,22 +12,32 @@ output:
 steps:
   - id: rules
     call: listRoutingRules
-    with: { db: $db, filter: { promptCategory: $promptCategory, enabled: true } }
+    with:
+      db: $db
+      filter:
+        promptCategory: $promptCategory
+        enabled: true
   - id: bestRule
-    action: first
+    action: call
     source: $rules
-    sort: { priority: desc }
+    sort:
+      priority: desc
   - id: candidates
     call: queryModelPerformance
-    with: { db: $db, query: leaderboard, params: { category: $promptCategory } }
+    with:
+      db: $db
+      query: leaderboard
+      params:
+        category: $promptCategory
   - id: qualifying
     action: filter
     source: $candidates
-    condition: "$item.qualityScore >= $bestRule.minQualityScore"
+    condition: $item.qualityScore >= $bestRule.minQualityScore
   - id: cheapest
-    action: first
+    action: call
     source: $qualifying
-    sort: { avgCostUsd: asc }
+    sort:
+      avgCostUsd: asc
   - id: decision
     call: recordRoutingDecision
     with:
@@ -35,10 +45,10 @@ steps:
       routingRuleId: $bestRule.id
       promptCategory: $promptCategory
       requestedModel: $requestedModel
-      selectedModel: "$cheapest.model"
+      selectedModel: $cheapest.model
   - id: result
     action: return
     value:
-      model: "$cheapest.model"
-      provider: "$cheapest.provider"
-      ruleApplied: "$bestRule.name"
+      model: $cheapest.model
+      provider: $cheapest.provider
+      ruleApplied: $bestRule.name

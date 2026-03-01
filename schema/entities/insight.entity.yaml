@@ -1,11 +1,16 @@
 name: Insight
 description: AI-generated optimization insight
 storage: sqlite
-
 fields:
   insightType:
     type: enum
-    values: [cost_reduction, performance, caching, model_switch, pattern_elimination, quality_improvement]
+    values:
+      - cost_reduction
+      - performance
+      - caching
+      - model_switch
+      - pattern_elimination
+      - quality_improvement
     required: true
     description: Type of insight
   title:
@@ -24,12 +29,19 @@ fields:
     description: Projected savings as percentage
   priority:
     type: enum
-    values: [high, medium, low]
+    values:
+      - high
+      - medium
+      - low
     required: true
     description: Priority level
   status:
     type: enum
-    values: [new, viewed, accepted, dismissed]
+    values:
+      - new
+      - viewed
+      - accepted
+      - dismissed
     default: new
     description: Insight status
   affectedModel:
@@ -44,7 +56,6 @@ fields:
   evidence:
     type: json
     description: Supporting data
-
 capabilities:
   crud: true
   time-range: true

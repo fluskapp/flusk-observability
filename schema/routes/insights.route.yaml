@@ -14,5 +14,5 @@ operations:
   - method: PUT
     path: /:id/status
     call: updateInsight
-    input: { status: string }
+    input: '{"status":"string"}'
     description: Update insight status (accepted/dismissed)

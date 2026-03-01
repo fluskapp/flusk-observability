@@ -9,7 +9,7 @@ output:
   type: IngestResult
 steps:
   - id: resourceSpans
-    action: extract
+    action: call
     source: $otlpPayload
     path: resourceSpans
   - id: traces
@@ -30,7 +30,10 @@ steps:
         steps:
           - id: llmCall
             call: mapSpanToLlmCall
-            with: { db: $db, span: $item, serviceName: $serviceName }
+            with:
+              db: $db
+              span: $item
+              serviceName: $serviceName
           - id: savedSpan
             call: createSpan
             with:
@@ -45,9 +48,9 @@ steps:
                 endTime: $item.endTimeUnixNano
                 kind: $item.kind
                 attributes: $item.attributes
-                llmCallId: "$llmCall.id"
+                llmCallId: $llmCall.id
   - id: result
     action: return
     value:
-      tracesIngested: "$traces.length"
-      spansIngested: "$processedSpans.length"
+      tracesIngested: $traces.length
+      spansIngested: $processedSpans.length

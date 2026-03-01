@@ -1,16 +1,6 @@
-name: cost-budget-set
+name: costBudgetSet
 description: Set a cost budget for a dimension
 args:
-  - name: dimension
-    type: string
-    required: true
-  - name: value
-    type: string
-    required: true
-  - name: limit
-    type: number
-    required: true
-options:
   - name: period
     type: string
     default: monthly
@@ -29,7 +19,5 @@ action:
     period: $period
     alertAt: $alertAt
     action: $action
-    enabled: true
+    enabled: 'true'
     db: $db
-output:
-  success: "Budget set: {{dimension}}={{value}} → ${{limit}}/{{period}}"

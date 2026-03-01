@@ -1,7 +1,6 @@
 name: CodeScanResult
 description: Results from scanning a codebase for LLM/AI usage patterns
 storage: sqlite
-
 fields:
   projectPath:
     type: string
@@ -9,7 +8,10 @@ fields:
     description: Scanned project path
   scanType:
     type: enum
-    values: [static, runtime, hybrid]
+    values:
+      - static
+      - runtime
+      - hybrid
     required: true
     description: Type of scan performed
   totalLlmCalls:
@@ -38,7 +40,6 @@ fields:
     type: integer
     required: true
     description: Scan time in milliseconds
-
 capabilities:
   crud: true
   time-range: true

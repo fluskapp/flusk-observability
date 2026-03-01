@@ -1,7 +1,6 @@
 name: PromptVersion
 description: Immutable prompt version with performance metrics
 storage: sqlite
-
 fields:
   templateId:
     type: string
@@ -39,11 +38,9 @@ fields:
     type: integer
     default: 100
     description: Percentage of traffic for A/B testing
-
 capabilities:
   crud: true
   time-range: true
-
 relations:
   - name: template
     entity: PromptTemplate

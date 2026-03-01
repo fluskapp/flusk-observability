@@ -9,23 +9,23 @@ output:
   type: json
 steps:
   - id: metrics
-    action: findMany
+    action: call
     entity: AiUsageMetric
     where:
-      userId: "$userId"
+      userId: $userId
       createdAt:
-        gte: "$timeRange.start"
-        lte: "$timeRange.end"
+        gte: $timeRange.start
+        lte: $timeRange.end
   - id: byTool
-    action: compute
-    expression: "groupBy($metrics, 'toolName')"
+    action: call
+    expression: groupBy($metrics, 'toolName')
   - id: byType
-    action: compute
-    expression: "groupBy($metrics, 'metricType')"
+    action: call
+    expression: groupBy($metrics, 'metricType')
   - id: result
     action: return
     value:
-      userId: "$userId"
-      totalMetrics: "$metrics.length"
-      byTool: "$byTool"
-      byType: "$byType"
+      userId: $userId
+      totalMetrics: $metrics.length
+      byTool: $byTool
+      byType: $byType

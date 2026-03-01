@@ -1,7 +1,6 @@
 name: DriftDetection
 description: Detected behavioral or performance drift in an agent
 storage: sqlite
-
 fields:
   agentLabel:
     type: string
@@ -10,12 +9,21 @@ fields:
     description: Which agent is being monitored
   detectionType:
     type: enum
-    values: [output-drift, confidence-drift, latency-drift, cost-drift, behavior-drift]
+    values:
+      - output-drift
+      - confidence-drift
+      - latency-drift
+      - cost-drift
+      - behavior-drift
     required: true
     description: Type of drift detected
   severity:
     type: enum
-    values: [critical, high, medium, low]
+    values:
+      - critical
+      - high
+      - medium
+      - low
     required: true
     description: Severity level
   baselineHash:
@@ -48,10 +56,13 @@ fields:
     description: Specific drift details (changed outputs, new patterns)
   status:
     type: enum
-    values: [active, acknowledged, resolved, false-positive]
+    values:
+      - active
+      - acknowledged
+      - resolved
+      - false-positive
     default: active
     description: Current status of this detection
-
 capabilities:
   crud: true
   time-range: true

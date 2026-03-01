@@ -13,9 +13,11 @@ output:
 steps:
   - id: session
     call: findProfileSessionById
-    with: { db: $db, id: $profileSessionId }
+    with:
+      db: $db
+      id: $profileSessionId
   - id: patterns
-    action: analyze
+    action: call
     source: $session.cpuProfilePath
     method: hotspot-detection
     threshold: $threshold
@@ -31,7 +33,7 @@ steps:
         filePath: $item.filePath
         selfTime: $item.selfTime
         totalTime: $item.totalTime
-        severity: "$item.selfTime > 100 ? 'critical' : 'warning'"
+        severity: '$item.selfTime > 100 ? ''critical'' : ''warning'''
         profileSessionId: $profileSessionId
   - id: result
     action: return

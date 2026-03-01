@@ -1,4 +1,4 @@
-name: code-scans
+name: codeScans
 basePath: /api/code-scans
 entity: CodeScanResult
 auth: optional

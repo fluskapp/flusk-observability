@@ -12,25 +12,12 @@ config:
       description: Custom headers
     - name: method
       type: enum
-      values: [POST, PUT]
+      values:
+        - POST
+        - PUT
       default: POST
 methods:
   - name: send
     description: Send alert via HTTP
     input: AlertEvent
-    http:
-      method: "{{config.method}}"
-      url: "{{config.url}}"
-      headers: "{{config.headers}}"
-    template: |
-      {
-        "alertType": "{{alertType}}",
-        "severity": "{{severity}}",
-        "title": "{{title}}",
-        "message": "{{message}}",
-        "timestamp": "{{createdAt}}",
-        "metadata": {{json metadata}}
-      }
   - name: test
-    template: |
-      { "test": true, "source": "flusk", "timestamp": "{{now}}" }

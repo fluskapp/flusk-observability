@@ -1,11 +1,16 @@
 name: Optimization
 description: Generated code optimization suggestion
 storage: sqlite
-
 fields:
   optimizationType:
     type: enum
-    values: [caching, batching, model_switch, prompt_compression, deduplication, streaming]
+    values:
+      - caching
+      - batching
+      - model_switch
+      - prompt_compression
+      - deduplication
+      - streaming
     required: true
     description: Type of code optimization
   title:
@@ -33,13 +38,16 @@ fields:
     description: Projected monthly savings
   status:
     type: enum
-    values: [pending, accepted, rejected, applied]
+    values:
+      - pending
+      - accepted
+      - rejected
+      - applied
     default: pending
     description: Optimization status
   analyzeSessionId:
     type: string
     description: Analysis session that generated this
-
 capabilities:
   crud: true
   time-range: true

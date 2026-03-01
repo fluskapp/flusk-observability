@@ -1,6 +1,8 @@
 name: watch
 description: Live monitoring mode — stream LLM calls and costs in real time
-options:
+action:
+  call: watch
+args:
   - name: interval
     type: number
     default: 2
@@ -12,26 +14,3 @@ options:
     type: boolean
     default: true
     description: Show budget status bar
-action:
-  steps:
-    - id: stream
-      action: poll
-      interval: "$interval"
-      steps:
-        - id: recent
-          call: listLlmCalls
-          with: { db: $db, limit: 10, since: "last-poll", filter: { agentName: $agent } }
-        - id: spend
-          call: getDailySpend
-          with: { db: $db }
-        - id: budgetStatus
-          action: condition
-          if: { field: $budget, op: eq, value: true }
-          then:
-            call: getBudgetStatus
-            with: { db: $db }
-output:
-  format: live
-  layout:
-    header: [dailySpend, budgetBar]
-    body: [recentCalls]

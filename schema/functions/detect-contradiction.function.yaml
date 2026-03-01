@@ -9,17 +9,17 @@ output:
   type: DelusionResult
 steps:
   - id: call
-    action: findById
+    action: call
     entity: LlmCall
-    entityId: "$llmCallId"
+    entityId: $llmCallId
   - id: analysis
-    action: compute
-    expression: "findContradictions($conversationHistory, $call)"
+    action: call
+    expression: findContradictions($conversationHistory, $call)
   - id: result
     action: return
     value:
       delusionType: contradiction
-      confidence: "$call.metadata.confidence"
-      divergenceScore: "$analysis.contradictionScore"
-      detected: "$analysis.hasContradiction"
-      explanation: "$analysis.explanation"
+      confidence: $call.metadata.confidence
+      divergenceScore: $analysis.contradictionScore
+      detected: $analysis.hasContradiction
+      explanation: $analysis.explanation

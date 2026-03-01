@@ -12,7 +12,10 @@ output:
 steps:
   - id: budget
     call: findCostBudgetByTagKeyAndTagValue
-    with: { tagKey: $tagKey, tagValue: $tagValue, db: $db }
+    with:
+      tagKey: $tagKey
+      tagValue: $tagValue
+      db: $db
   - id: checkExists
     action: condition
     if:
@@ -20,11 +23,19 @@ steps:
       op: eq
       value: null
     then:
-      action: return
-      value: { status: no-budget, spent: 0, limit: 0, percentage: 0 }
+      - action: return
+        value:
+          status: no-budget
+          spent: 0
+          limit: 0
+          percentage: 0
   - id: currentSpend
     call: getCostByDimension
-    with: { dimension: $tagKey, from: $budget.periodStart, to: $budget.periodEnd, db: $db }
+    with:
+      dimension: $tagKey
+      from: $budget.periodStart
+      to: $budget.periodEnd
+      db: $db
   - id: totalSpent
     action: transform
     value: $currentSpend.reduce((sum, item) => sum + item.totalCost, 0)
@@ -38,14 +49,14 @@ steps:
       op: gte
       value: $budget.alertAt
     then:
-      call: dispatchAlert
-      with:
-        db: $db
-        alert:
-          alertType: budget_warning
-          severity: warning
-          title: "Budget alert: $tagKey=$tagValue"
-          message: "Spent $$totalSpent of $$budget.limitUsd ($percentage%)"
+      - call: dispatchAlert
+        with:
+          db: $db
+          alert:
+            alertType: budget_warning
+            severity: warning
+            title: 'Budget alert: $tagKey=$tagValue'
+            message: Spent $$totalSpent of $$budget.limitUsd ($percentage%)
   - id: checkExceeded
     action: condition
     if:
@@ -53,14 +64,18 @@ steps:
       op: gte
       value: 100
     then:
-      call: dispatchAlert
-      with:
-        db: $db
-        alert:
-          alertType: budget_exceeded
-          severity: critical
-          title: "Budget exceeded: $tagKey=$tagValue"
-          message: "Spent $$totalSpent — limit is $$budget.limitUsd"
+      - call: dispatchAlert
+        with:
+          db: $db
+          alert:
+            alertType: budget_exceeded
+            severity: critical
+            title: 'Budget exceeded: $tagKey=$tagValue'
+            message: Spent $$totalSpent — limit is $$budget.limitUsd
   - id: result
     action: return
-    value: { status: ok, spent: $totalSpent, limit: $budget.limitUsd, percentage: $percentage }
+    value:
+      status: ok
+      spent: $totalSpent
+      limit: $budget.limitUsd
+      percentage: $percentage

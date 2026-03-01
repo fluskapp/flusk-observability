@@ -1,28 +1,17 @@
-name: profile-report
+name: profileReport
 description: Show profiling results including hotspots and flamegraph
-options:
+action:
+  call: profileReport
+args:
   - name: session-id
     type: string
     required: true
     description: Profile session ID
   - name: format
     type: enum
-    values: [summary, detailed, flamegraph]
+    values:
+      - summary
+      - detailed
+      - flamegraph
     default: summary
     description: Report format
-action:
-  steps:
-    - id: session
-      call: findProfileSessionById
-      with: { db: $db, id: "$session-id" }
-    - id: patterns
-      call: listPerformancePatterns
-      with: { db: $db, filter: { profileSessionId: "$session-id" } }
-output:
-  format: report
-  sections:
-    - title: Session
-      fields: [profileType, status, durationMs, peakHeapMb]
-    - title: Hotspots
-      format: table
-      columns: [patternType, functionName, selfTime, severity]

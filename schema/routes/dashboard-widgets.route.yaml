@@ -1,4 +1,4 @@
-name: dashboard-widgets
+name: dashboardWidgets
 basePath: /api/dashboard-widgets
 entity: DashboardWidget
 auth: optional

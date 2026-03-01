@@ -1,6 +1,8 @@
-name: usage-report
+name: usageReport
 description: AI usage report per user or team
-options:
+action:
+  call: usageReport
+args:
   - name: user
     type: string
     description: Filter by user ID
@@ -9,31 +11,13 @@ options:
     description: Filter by tool name
   - name: period
     type: enum
-    values: [daily, weekly, monthly]
+    values:
+      - daily
+      - weekly
+      - monthly
     default: weekly
     description: Aggregation period
   - name: days
     type: integer
     default: 30
     description: Look back N days
-action:
-  steps:
-    - id: timeRange
-      action: compute
-      expression: '{ start: now() - ($days * 86400000), end: now() }'
-    - id: result
-      action: condition
-      if: { field: "$user", op: neq, value: null }
-      then:
-        call: aggregateUsageByUser
-        with:
-          userId: "$user"
-          timeRange: "$timeRange"
-      else:
-        call: aggregateUsageByTool
-        with:
-          toolName: "$tool"
-          timeRange: "$timeRange"
-output:
-  format: table
-  columns: [userId, toolName, metricType, totalValue, avgValue]

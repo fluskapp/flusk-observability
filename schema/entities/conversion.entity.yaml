@@ -1,11 +1,13 @@
 name: Conversion
 description: Optimization suggestion — cache, downgrade, or remove an LLM call
 storage: sqlite
-
 fields:
   conversionType:
     type: enum
-    values: [cache, downgrade, remove]
+    values:
+      - cache
+      - downgrade
+      - remove
     required: true
     description: Type of optimization
   sourceModel:
@@ -31,7 +33,11 @@ fields:
     description: Confidence score 0-1
   status:
     type: enum
-    values: [pending, accepted, rejected, applied]
+    values:
+      - pending
+      - accepted
+      - rejected
+      - applied
     default: pending
     description: Conversion status
   appliedAt:
@@ -40,7 +46,6 @@ fields:
   metadata:
     type: json
     description: Additional context
-
 capabilities:
   crud: true
   time-range: true

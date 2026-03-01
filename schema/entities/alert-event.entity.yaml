@@ -1,16 +1,25 @@
 name: AlertEvent
 description: Record of an alert that was triggered
 storage: sqlite
-
 fields:
   alertType:
     type: enum
-    values: [budget_exceeded, budget_warning, drift_detected, cost_anomaly, agent_stalled, error_rate_spike, token_rate_limit]
+    values:
+      - budget_exceeded
+      - budget_warning
+      - drift_detected
+      - cost_anomaly
+      - agent_stalled
+      - error_rate_spike
+      - token_rate_limit
     required: true
     description: Type of alert
   severity:
     type: enum
-    values: [critical, warning, info]
+    values:
+      - critical
+      - warning
+      - info
     required: true
     description: Alert severity level
   title:
@@ -35,7 +44,6 @@ fields:
   metadata:
     type: json
     description: Additional context
-
 capabilities:
   crud: true
   time-range: true

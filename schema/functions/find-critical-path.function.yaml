@@ -7,13 +7,13 @@ output:
   type: json
 steps:
   - id: graph
-    action: compute
-    expression: "buildDependencyGraph($spans)"
+    action: call
+    expression: buildDependencyGraph($spans)
   - id: longestPath
-    action: compute
-    expression: "findLongestPath($graph)"
+    action: call
+    expression: findLongestPath($graph)
   - id: result
     action: return
     value:
-      spanIds: "$longestPath.spanIds"
-      totalDuration: "$longestPath.duration"
+      spanIds: $longestPath.spanIds
+      totalDuration: $longestPath.duration

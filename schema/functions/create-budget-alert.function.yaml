@@ -1,4 +1,4 @@
-name: createBudgetAlert_event
+name: createBudgetAlertEvent
 description: Create an alert event when a budget is exceeded
 inputs:
   - name: db
@@ -17,8 +17,8 @@ steps:
       alert:
         alertType: budget_exceeded
         severity: critical
-        title: "Budget exceeded: $budgetAlert.name"
-        message: "Spending $currentSpend exceeds threshold $budgetAlert.thresholdUsd ($budgetAlert.budgetType)"
+        title: 'Budget exceeded: $budgetAlert.name'
+        message: Spending $currentSpend exceeds threshold $budgetAlert.thresholdUsd ($budgetAlert.budgetType)
   - id: updateBudget
     call: updateBudgetAlert
     with:

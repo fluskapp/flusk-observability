@@ -1,7 +1,6 @@
 name: Span
 description: Individual span within a distributed trace
 storage: sqlite
-
 fields:
   traceId:
     type: string
@@ -35,12 +34,20 @@ fields:
     description: Span duration in milliseconds
   kind:
     type: enum
-    values: [internal, client, server, producer, consumer]
+    values:
+      - internal
+      - client
+      - server
+      - producer
+      - consumer
     default: internal
     description: OpenTelemetry span kind
   status:
     type: enum
-    values: [ok, error, unset]
+    values:
+      - ok
+      - error
+      - unset
     default: unset
     description: Span status
   attributes:
@@ -52,11 +59,9 @@ fields:
   llmCallId:
     type: string
     description: Associated LLM call ID if this span represents an LLM invocation
-
 capabilities:
   crud: true
   time-range: true
-
 relations:
   - name: trace
     entity: Trace

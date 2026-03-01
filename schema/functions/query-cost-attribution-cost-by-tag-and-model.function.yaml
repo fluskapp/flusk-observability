@@ -15,10 +15,12 @@ output:
   type: CostByModel[]
 steps:
   - id: results
-    action: query
+    action: call
     entity: CostAttribution
     queryName: costByTagAndModel
-    params: [$from, $to]
+    params:
+      - $from
+      - $to
   - id: result
     action: return
     value: $results

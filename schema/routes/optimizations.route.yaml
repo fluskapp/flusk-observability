@@ -14,5 +14,5 @@ operations:
   - method: PUT
     path: /:id/status
     call: updateOptimization
-    input: { status: string }
+    input: '{"status":"string"}'
     description: Update optimization status

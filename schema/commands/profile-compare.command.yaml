@@ -1,6 +1,8 @@
-name: profile-compare
+name: profileCompare
 description: Compare two profile sessions side by side
-options:
+action:
+  call: profileCompare
+args:
   - name: session-a
     type: string
     required: true
@@ -9,20 +11,3 @@ options:
     type: string
     required: true
     description: Second session ID
-action:
-  steps:
-    - id: sessionA
-      call: findProfileSessionById
-      with: { db: $db, id: "$session-a" }
-    - id: sessionB
-      call: findProfileSessionById
-      with: { db: $db, id: "$session-b" }
-    - id: patternsA
-      call: listPerformancePatterns
-      with: { db: $db, filter: { profileSessionId: "$session-a" } }
-    - id: patternsB
-      call: listPerformancePatterns
-      with: { db: $db, filter: { profileSessionId: "$session-b" } }
-output:
-  format: comparison
-  columns: [metric, sessionA, sessionB, delta]

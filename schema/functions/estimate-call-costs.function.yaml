@@ -8,29 +8,29 @@ output:
 steps:
   - id: enriched
     action: forEach
-    items: "$callSites"
+    items: $callSites
     do:
       steps:
         - id: pricing
           action: lookup
           table: modelPricing
-          key: "$item.model"
+          key: $item.model
         - id: estimate
           action: compute
-          expression: "$pricing.inputPricePerToken * 1000 + $pricing.outputPricePerToken * 500"
+          expression: $pricing.inputPricePerToken * 1000 + $pricing.outputPricePerToken * 500
         - id: result
           action: return
           value:
-            file: "$item.file"
-            line: "$item.line"
-            provider: "$item.provider"
-            model: "$item.model"
-            estimatedCost: "$estimate"
+            file: $item.file
+            line: $item.line
+            provider: $item.provider
+            model: $item.model
+            estimatedCost: $estimate
   - id: riskScore
-    action: compute
-    expression: "min(sum($enriched, 'estimatedCost') / 100.0, 1.0)"
+    action: call
+    expression: min(sum($enriched, 'estimatedCost') / 100.0, 1.0)
   - id: result
     action: return
     value:
-      sites: "$enriched"
-      riskScore: "$riskScore"
+      sites: $enriched
+      riskScore: $riskScore

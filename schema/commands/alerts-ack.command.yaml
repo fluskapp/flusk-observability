@@ -1,6 +1,8 @@
-name: alerts-ack
+name: alertsAck
 description: Acknowledge alert events
-options:
+action:
+  call: alertsAck
+args:
   - name: id
     type: string
     description: Acknowledge specific event by ID
@@ -8,19 +10,3 @@ options:
     type: boolean
     default: false
     description: Acknowledge all unacknowledged events
-action:
-  steps:
-    - id: result
-      action: condition
-      if:
-        field: $all
-        op: eq
-        value: true
-      then:
-        call: acknowledgeAllAlertEvents
-        with: { db: $db }
-      else:
-        call: acknowledgeAlertEvent
-        with: { db: $db, id: $id }
-output:
-  success: "Acknowledged {{all ? 'all events' : 'event ' + id}}"

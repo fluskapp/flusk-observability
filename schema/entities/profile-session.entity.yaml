@@ -1,19 +1,24 @@
 name: ProfileSession
 description: Profiling session data from @platformatic/flame
 storage: sqlite
-
 fields:
   name:
     type: string
     description: Session name
   profileType:
     type: enum
-    values: [cpu, heap, both]
+    values:
+      - cpu
+      - heap
+      - both
     required: true
     description: Type of profiling
   status:
     type: enum
-    values: [running, completed, failed]
+    values:
+      - running
+      - completed
+      - failed
     required: true
     default: running
     description: Session status
@@ -42,11 +47,9 @@ fields:
   summary:
     type: json
     description: Summary statistics
-
 capabilities:
   crud: true
   time-range: true
-
 relations:
   - name: patterns
     entity: PerformancePattern

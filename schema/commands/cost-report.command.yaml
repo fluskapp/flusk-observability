@@ -1,6 +1,14 @@
-name: cost-report
+name: costReport
 description: Generate cost attribution report
-options:
+action:
+  call: generateCostReport
+  with:
+    reportType: $period
+    from: $from
+    to: $to
+    format: $format
+    db: $db
+args:
   - name: period
     type: string
     default: monthly
@@ -18,14 +26,3 @@ options:
   - name: dimension
     type: string
     description: Filter to specific dimension
-action:
-  call: generateCostReport
-  with:
-    reportType: $period
-    from: $from
-    to: $to
-    format: $format
-    db: $db
-output:
-  success: "Cost report generated"
-  format: table

@@ -1,7 +1,6 @@
 name: RoutingRule
 description: Model routing rule per organization — route to cheapest qualifying model
 storage: sqlite
-
 fields:
   name:
     type: string
@@ -35,6 +34,5 @@ fields:
     type: integer
     default: 0
     description: Rule priority (higher = checked first)
-
 capabilities:
   crud: true

@@ -1,11 +1,15 @@
 name: PerformancePattern
 description: Detected performance pattern from CPU/heap profiling
 storage: sqlite
-
 fields:
   patternType:
     type: enum
-    values: [hot_function, memory_leak, slow_io, cpu_spike, gc_pressure]
+    values:
+      - hot_function
+      - memory_leak
+      - slow_io
+      - cpu_spike
+      - gc_pressure
     required: true
     description: Type of performance pattern
   functionName:
@@ -32,7 +36,10 @@ fields:
     description: Heap size change in bytes
   severity:
     type: enum
-    values: [critical, warning, info]
+    values:
+      - critical
+      - warning
+      - info
     required: true
     description: Severity level
   profileSessionId:
@@ -42,7 +49,6 @@ fields:
   recommendation:
     type: string
     description: Suggested fix
-
 capabilities:
   crud: true
   time-range: true
