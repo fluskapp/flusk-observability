@@ -1,6 +1,6 @@
 name: Span
 description: Individual span within a distributed trace
-storage: [sqlite]
+storage: sqlite
 
 fields:
   traceId:

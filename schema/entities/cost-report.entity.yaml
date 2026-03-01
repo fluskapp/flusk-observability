@@ -1,6 +1,6 @@
 name: CostReport
 description: Generated cost attribution report snapshot
-storage: [sqlite]
+storage: sqlite
 
 fields:
   reportType:

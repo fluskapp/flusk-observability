@@ -1,6 +1,6 @@
 name: RoutingRule
 description: Model routing rule per organization — route to cheapest qualifying model
-storage: [sqlite]
+storage: sqlite
 
 fields:
   name:

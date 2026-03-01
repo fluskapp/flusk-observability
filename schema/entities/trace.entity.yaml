@@ -1,6 +1,6 @@
 name: Trace
 description: Distributed trace record grouping related spans
-storage: [sqlite]
+storage: sqlite
 
 fields:
   traceId:

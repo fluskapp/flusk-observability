@@ -1,6 +1,6 @@
 name: TraceView
 description: Visualization configuration for a distributed trace
-storage: [sqlite]
+storage: sqlite
 
 fields:
   traceId:

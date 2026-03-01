@@ -1,6 +1,6 @@
 name: AnalyzeSession
 description: Tracks CLI analyze command runs
-storage: [sqlite]
+storage: sqlite
 
 fields:
   scriptPath:

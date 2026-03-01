@@ -1,6 +1,6 @@
 name: DelusionDetection
 description: Detected hallucination or confidence mismatch in LLM output
-storage: [sqlite]
+storage: sqlite
 
 fields:
   agentLabel:

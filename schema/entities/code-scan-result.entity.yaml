@@ -1,6 +1,6 @@
 name: CodeScanResult
 description: Results from scanning a codebase for LLM/AI usage patterns
-storage: [sqlite]
+storage: sqlite
 
 fields:
   projectPath:

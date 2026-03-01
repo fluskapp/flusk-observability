@@ -1,6 +1,6 @@
 name: BudgetAlert
 description: Budget threshold alert configuration
-storage: [sqlite]
+storage: sqlite
 
 fields:
   name:

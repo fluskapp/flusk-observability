@@ -1,6 +1,6 @@
 name: LlmCall
 description: Individual LLM API call with cost and token tracking
-storage: [sqlite]
+storage: sqlite
 
 fields:
   traceId:

@@ -1,6 +1,6 @@
 name: AlertChannel
 description: Configuration for an alert destination (PagerDuty, Slack, etc.)
-storage: [sqlite]
+storage: sqlite
 
 fields:
   name:

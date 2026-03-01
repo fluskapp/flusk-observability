@@ -1,6 +1,6 @@
 name: Insight
 description: AI-generated optimization insight
-storage: [sqlite]
+storage: sqlite
 
 fields:
   insightType:

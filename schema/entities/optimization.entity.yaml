@@ -1,6 +1,6 @@
 name: Optimization
 description: Generated code optimization suggestion
-storage: [sqlite]
+storage: sqlite
 
 fields:
   optimizationType:

@@ -1,6 +1,6 @@
 name: AlertEvent
 description: Record of an alert that was triggered
-storage: [sqlite]
+storage: sqlite
 
 fields:
   alertType:

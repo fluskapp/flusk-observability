@@ -1,6 +1,6 @@
 name: PerformancePattern
 description: Detected performance pattern from CPU/heap profiling
-storage: [sqlite]
+storage: sqlite
 
 fields:
   patternType:

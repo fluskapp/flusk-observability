@@ -1,6 +1,6 @@
 name: CostBudget
 description: Budget limit for a specific tag (e.g. team=engineering has $500/month budget)
-storage: [sqlite]
+storage: sqlite
 
 fields:
   tagKey:

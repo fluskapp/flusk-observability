@@ -1,6 +1,6 @@
 name: RoutingDecision
 description: Records a model routing decision and associated savings
-storage: [sqlite]
+storage: sqlite
 
 fields:
   routingRuleId:

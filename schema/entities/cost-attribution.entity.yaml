@@ -1,6 +1,6 @@
 name: CostAttribution
 description: Links an LLM call to cost tags for attribution tracking
-storage: [sqlite]
+storage: sqlite
 
 fields:
   llmCallId:

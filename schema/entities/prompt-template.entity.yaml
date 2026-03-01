@@ -1,6 +1,6 @@
 name: PromptTemplate
 description: Prompt template for A/B testing and version tracking
-storage: [sqlite]
+storage: sqlite
 
 fields:
   name:

@@ -1,6 +1,6 @@
 name: Dashboard
 description: Configurable dashboard for visualizing observability data
-storage: [sqlite]
+storage: sqlite
 
 fields:
   name:

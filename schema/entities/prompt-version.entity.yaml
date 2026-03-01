@@ -1,6 +1,6 @@
 name: PromptVersion
 description: Immutable prompt version with performance metrics
-storage: [sqlite]
+storage: sqlite
 
 fields:
   templateId:

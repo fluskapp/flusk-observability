@@ -1,6 +1,6 @@
 name: CostTag
 description: Tag for attributing LLM costs to features, teams, customers, or any dimension
-storage: [sqlite]
+storage: sqlite
 
 fields:
   key:

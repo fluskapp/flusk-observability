@@ -1,6 +1,6 @@
 name: AiUsageMetric
 description: AI tool usage metrics per user for tracking adoption and ROI
-storage: [sqlite]
+storage: sqlite
 
 fields:
   userId:

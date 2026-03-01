@@ -1,6 +1,6 @@
 name: Conversion
 description: Optimization suggestion — cache, downgrade, or remove an LLM call
-storage: [sqlite]
+storage: sqlite
 
 fields:
   conversionType:

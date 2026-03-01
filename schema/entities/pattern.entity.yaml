@@ -1,6 +1,6 @@
 name: Pattern
 description: Detected repetitive prompt pattern
-storage: [sqlite]
+storage: sqlite
 
 fields:
   promptHash:

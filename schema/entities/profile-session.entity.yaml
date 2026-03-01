@@ -1,6 +1,6 @@
 name: ProfileSession
 description: Profiling session data from @platformatic/flame
-storage: [sqlite]
+storage: sqlite
 
 fields:
   name:

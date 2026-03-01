@@ -1,6 +1,6 @@
 name: ExplainSession
 description: Tracks flusk explain command runs — AI-powered cost optimization insights
-storage: [sqlite]
+storage: sqlite
 
 fields:
   query:

@@ -1,6 +1,6 @@
 name: ModelPerformance
 description: Model quality and cost metrics per prompt category
-storage: [sqlite]
+storage: sqlite
 
 fields:
   model:

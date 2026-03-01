@@ -1,6 +1,6 @@
 name: DashboardWidget
 description: Individual widget within a dashboard
-storage: [sqlite]
+storage: sqlite
 
 fields:
   dashboardId:

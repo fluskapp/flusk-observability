@@ -1,6 +1,6 @@
 name: DriftDetection
 description: Detected behavioral or performance drift in an agent
-storage: [sqlite]
+storage: sqlite
 
 fields:
   agentLabel:
