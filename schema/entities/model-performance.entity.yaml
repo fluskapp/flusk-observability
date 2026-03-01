@@ -1,7 +1,6 @@
 name: ModelPerformance
 description: Model quality and cost metrics per prompt category
 storage: sqlite
-
 fields:
   model:
     type: string
@@ -9,7 +8,14 @@ fields:
     description: Model name
   provider:
     type: enum
-    values: [openai, anthropic, google, mistral, cohere, local, other]
+    values:
+      - openai
+      - anthropic
+      - google
+      - mistral
+      - cohere
+      - local
+      - other
     required: true
     description: LLM provider
   promptCategory:
@@ -46,14 +52,11 @@ fields:
   lastUpdatedAt:
     type: string
     description: When metrics were last recalculated
-
 capabilities:
   crud: true
-
 queries:
-  leaderboard:
-    description: Best models per category by cost-quality ratio
-    sql: |
+  - name: leaderboard
+    sql: |-
       SELECT model, provider, promptCategory, avgCostUsd, qualityScore,
              (qualityScore / NULLIF(avgCostUsd, 0)) as value_ratio
       FROM model_performance

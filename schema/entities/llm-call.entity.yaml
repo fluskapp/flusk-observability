@@ -1,7 +1,6 @@
 name: LlmCall
 description: Individual LLM API call with cost and token tracking
 storage: sqlite
-
 fields:
   traceId:
     type: string
@@ -15,7 +14,14 @@ fields:
     description: Model name (e.g. gpt-4, claude-3-opus)
   provider:
     type: enum
-    values: [openai, anthropic, google, mistral, cohere, local, other]
+    values:
+      - openai
+      - anthropic
+      - google
+      - mistral
+      - cohere
+      - local
+      - other
     required: true
     description: LLM provider
   promptHash:
@@ -56,33 +62,28 @@ fields:
   metadata:
     type: json
     description: Additional context (headers, params, etc.)
-
 capabilities:
   crud: true
   time-range: true
-
 queries:
-  costByModel:
-    description: Aggregate cost by model
-    sql: |
+  - name: costByModel
+    sql: |-
       SELECT model, provider, COUNT(*) as call_count,
              SUM(costUsd) as total_cost, SUM(totalTokens) as total_tokens
       FROM llm_call
       WHERE createdAt >= $start AND createdAt <= $end
       GROUP BY model, provider
       ORDER BY total_cost DESC
-  costByAgent:
-    description: Aggregate cost by agent
-    sql: |
+  - name: costByAgent
+    sql: |-
       SELECT agentName, COUNT(*) as call_count,
              SUM(costUsd) as total_cost, AVG(durationMs) as avg_duration
       FROM llm_call
       WHERE createdAt >= $start AND createdAt <= $end
       GROUP BY agentName
       ORDER BY total_cost DESC
-  duplicates:
-    description: Find duplicate prompts by hash
-    sql: |
+  - name: duplicates
+    sql: |-
       SELECT promptHash, model, COUNT(*) as count, SUM(costUsd) as wasted_cost
       FROM llm_call
       WHERE promptHash IS NOT NULL
@@ -90,9 +91,8 @@ queries:
       GROUP BY promptHash, model
       HAVING count > 1
       ORDER BY wasted_cost DESC
-  dailySpend:
-    description: Total spend for a given day
-    sql: |
+  - name: dailySpend
+    sql: |-
       SELECT SUM(costUsd) as total_cost, COUNT(*) as call_count
       FROM llm_call
       WHERE date(createdAt) = date($day)
