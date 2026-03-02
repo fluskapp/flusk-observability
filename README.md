@@ -1,211 +1,107 @@
-# flusk-observability
+# @flusk/observability
 
-YAML schema definitions for the entire Flusk observability platform — cost tracking, analysis, routing, profiling, alerting, tracing, dashboards, drift/delusion detection, code intelligence, and AI usage tracking.
+YAML-first backend for the Flusk AI observability platform. All code is generated from YAML schemas via [flusk-lang](https://github.com/fluskapp/flusk-lang).
 
-**No code lives here.** Only YAML schemas + CI that generates code and opens PRs to [flusk-dev](https://github.com/adirbenyossef/flusk-dev).
-
-## How It Works
+## Architecture
 
 ```
-You edit YAML → Push → CI validates → CI generates Node.js code → PR opened on flusk-dev
+schema/           ← YAML source of truth (397 files)
+  entities/       ← Data models (51 entities)
+  functions/      ← Business logic (226 functions)
+  routes/         ← HTTP endpoints (39 routes)
+  commands/       ← CLI commands (34)
+  events/         ← Async events (11)
+  workers/        ← Background jobs (8)
+  streams/        ← Real-time SSE/WS (5)
+  clients/        ← External API clients (6)
+  providers/      ← Outbound notifications (5)
+  middleware/     ← Request/response hooks (6)
+  plugins/        ← Fastify plugins (1)
+  services/       ← Infrastructure services (1)
+
+generated/        ← Auto-generated code (DO NOT EDIT)
+  node/           ← Complete Platformatic Watt app
+    apps/api/     ← Fastify API service + SQLite migrations
+    src/          ← All generated TypeScript
+    __tests__/    ← Unit + integration tests
+  client/         ← Typed client SDK
+  openapi.yaml    ← OpenAPI 3.1 spec
+
+e2e/              ← End-to-end test flows
+deploy/           ← GCP + AWS deployment configs
 ```
 
-1. Write or edit YAML files in `schema/`
-2. Push to this repo
-3. CI runs [flusk-lang](https://github.com/fluskapp/flusk-lang) compiler to validate
-4. On push to `main`, CI generates Node.js code and opens a PR on `adirbenyossef/flusk-dev`
-5. flusk-dev maintainer reviews and merges
+## Features
 
-## Project Structure
+### Core Observability
+- **LLM Call Tracking** — costs, tokens, latency, model breakdown
+- **Traces & Spans** — full distributed tracing with OTLP ingestion
+- **Pattern Detection** — duplicate prompts, cost spikes, hotspots
+- **Drift Detection** — behavioral and output drift over time
+- **Delusion Detection** — hallucination and contradiction scanning
 
+### Cost Intelligence
+- **Cost Attribution** — per feature, team, customer, model
+- **Budgets & Alerts** — thresholds with Slack/Discord/PagerDuty/Email
+- **Analytics** — cost trends, model comparison, top users, ROI
+- **Live Streaming** — real-time cost, trace, and alert SSE streams
+
+### Solution Builder
+- **Build AI Solutions** — agent, workflow, pipeline, chatbot
+- **Publish to Channels** — Slack, WhatsApp, Telegram, Discord
+- **Templates & Marketplace** — clone from templates, browse partner integrations
+- **Run Tracking** — cost, latency, success rate per solution
+
+### Platform
+- **Multi-tenancy** — organizations, users, API keys, audit logs
+- **Auth** — API key authentication with scoped permissions
+- **Partner API** — register integrations, marketplace listings
+- **AI Explain** — Gemini/GPT-powered cost optimization insights
+
+## Quick Start
+
+```bash
+# Generate code from YAML schemas
+cd ../flusk-lang/compiler
+npx tsx src/cli.ts build --target node --schema-dir ../flusk-observability/schema
+
+# Run the backend
+cd ../flusk-observability/generated/node
+pnpm install
+pnpm run migrate
+pnpm run dev
 ```
-schema/
-  entities/       # 26 data models
-  functions/      # 52 business logic functions
-  commands/       # 29 CLI commands
-  routes/         # 20 REST API endpoint groups
-  providers/      # 5 alert providers
-  clients/        # 5 external API clients
-  services/       # 1 service definition (LLM proxy)
-  middleware/     # 3 middleware pipelines
-  plugins/        # 1 Fastify plugin
+
+## Deploy
+
+```bash
+# Docker
+docker compose up
+
+# Google Cloud Run
+gcloud builds submit --config deploy/gcp/cloudbuild.yaml
+
+# AWS ECS
+# See deploy/aws/README.md
 ```
 
-## Entities (26)
+## Tech Stack
 
-| Entity | Description |
-|--------|-------------|
-| AiUsageMetric | AI tool usage metrics per user for tracking adoption and ROI |
-| AlertChannel | Alert destination configuration (PagerDuty, Slack, etc.) |
-| AlertEvent | Record of a triggered alert |
-| AnalyzeSession | Tracks CLI analyze command runs |
-| BudgetAlert | Budget threshold alert configuration |
-| CodeScanResult | Results from scanning a codebase for LLM/AI usage patterns |
-| Conversion | Optimization suggestion (cache/downgrade/remove) |
-| Dashboard | Configurable dashboard for visualizing observability data |
-| DashboardWidget | Individual widget within a dashboard |
-| DelusionDetection | Detected hallucination or confidence mismatch in LLM output |
-| DriftDetection | Detected behavioral or performance drift in an agent |
-| ExplainSession | Tracks flusk explain command runs |
-| Insight | AI-generated optimization insight |
-| LlmCall | Individual LLM API call with cost/token tracking |
-| ModelPerformance | Model quality/cost metrics per prompt category |
-| Optimization | Generated code optimization suggestion |
-| Pattern | Detected repetitive prompt pattern |
-| PerformancePattern | Detected performance pattern from profiling |
-| ProfileSession | CPU/heap profiling session data |
-| PromptTemplate | Prompt template for A/B testing |
-| PromptVersion | Immutable prompt version with metrics |
-| RoutingDecision | Recorded model routing decision + savings |
-| RoutingRule | Model routing rule per organization |
-| Span | Individual span within a distributed trace |
-| Trace | Distributed trace record |
-| TraceView | Visualization configuration for a distributed trace |
+- **Runtime:** Node.js 22, Fastify 5, Platformatic Watt
+- **Database:** SQLite (better-sqlite3) with WAL mode
+- **Code Generation:** [flusk-lang](https://github.com/fluskapp/flusk-lang) YAML compiler
+- **Testing:** Vitest, Fastify inject()
+- **Hosting:** Cloud Run / ECS Fargate / Render
 
-## Function Domains (52)
+## Contributing
 
-**Cost Tracking:** calculateCallCost, detectDuplicates, aggregateCosts, getDailySpend, getMonthlySpend
+All code is generated from YAML. **Never edit files in `generated/`.**
 
-**Analysis:** runAnalysis, detectPatterns, generateInsights, calculateSavings
+1. Write or modify YAML schemas in `schema/`
+2. Validate: `node scripts/validate-refs.mjs`
+3. Generate: `cd ../flusk-lang/compiler && npx tsx src/cli.ts build --target node --schema-dir ../flusk-observability/schema`
+4. Test: `cd generated/node && pnpm test`
 
-**Routing:** routeModel, evaluateRoutingRule, recordRoutingDecision
+## License
 
-**Profiling:** startProfile, stopProfile, detectHotspots
-
-**Budget:** checkBudget, createBudgetAlert_event, getBudgetStatus
-
-**OTLP Ingestion:** ingestOtlpTraces, mapSpanToLlmCall, parseLlmAttributes
-
-**Export:** exportToGrafana, exportToDatadog
-
-**Alerting:** dispatchAlert, filterChannelsBySeverity, sendToProvider, checkCircuit, shouldAutoPause, buildProviderRegistry
-
-**Dashboards:** createDashboard, renderDashboardData, buildWidgetQuery
-
-**Trace Visualization:** buildTraceView, findCriticalPath, calculateTraceStats
-
-**Drift Detection:** detectOutputDrift, detectCostDrift, detectBehaviorDrift, calculateDriftScore, runDriftScan
-
-**Delusion Detection:** detectHallucination, detectContradiction, detectConfidenceMismatch, runDelusionScan
-
-**Code Intelligence:** scanCodebase, detectLlmCallSites, estimateCallCosts, generateScanReport
-
-**AI Usage:** aggregateUsageByUser, aggregateUsageByTool, calculateUsageRank, calculateRoi
-
-## CLI Commands (29)
-
-| Command | Description |
-|---------|-------------|
-| `analyze` | Run cost analysis on a script |
-| `report` | Generate cost report |
-| `history` | Show LLM call history |
-| `budget` | Manage budget thresholds |
-| `watch` | Live monitoring mode |
-| `explain` | AI-powered cost optimization insights |
-| `export` | Export data (CSV, JSON, Grafana, Datadog) |
-| `profile` | Start/stop CPU/heap profiling |
-| `profile-report` | Show profiling results |
-| `profile-compare` | Compare two profile sessions |
-| `status` | Show current spend/health summary |
-| `init` | Initialize flusk config |
-| `purge` | Delete old data |
-| `alerts-setup` | Configure alert channels |
-| `alerts-test` | Test alert delivery |
-| `alerts-list` | List channels or events |
-| `alerts-mute` | Mute an alert channel |
-| `alerts-ack` | Acknowledge an alert |
-| `kill` | Emergency stop |
-| `dashboard-create` | Create a new dashboard |
-| `dashboard-list` | List dashboards |
-| `trace-view` | View a trace (waterfall in terminal) |
-| `drift-scan` | Run drift detection scan |
-| `drift-list` | List detected drifts |
-| `delusion-scan` | Run delusion detection |
-| `delusion-list` | List detected delusions |
-| `scan` | Scan a codebase for AI usage (flusk scan ./src) |
-| `usage-report` | AI usage report per user/team |
-| `usage-rank` | Rank users by AI effectiveness |
-
-## REST API Routes (20)
-
-| Route | Base Path | Description |
-|-------|-----------|-------------|
-| llm-calls | /api/llm-calls | CRUD + cost aggregation |
-| traces | /api/traces | Trace management + OTLP ingest |
-| spans | /api/spans | Span queries |
-| patterns | /api/patterns | Pattern detection results |
-| insights | /api/insights | Optimization insights |
-| budget-alerts | /api/budget-alerts | Budget alert management |
-| analyze-sessions | /api/analyze-sessions | Analysis session management |
-| profile-sessions | /api/profile-sessions | Profiling session management |
-| optimizations | /api/optimizations | Optimization suggestions |
-| health | /api/health | Health check |
-| cost-events | /api/cost-events | Live cost event streaming (SSE) |
-| alert-channels | /api/alert-channels | Alert channel CRUD |
-| alert-events | /api/alert-events | Alert event history |
-| dashboards | /api/dashboards | Dashboard CRUD + render |
-| dashboard-widgets | /api/dashboard-widgets | Widget CRUD |
-| trace-views | /api/trace-views | Trace visualization endpoints |
-| drift-detections | /api/drift-detections | Drift detection results + scan |
-| delusion-detections | /api/delusion-detections | Delusion detection results + scan |
-| code-scans | /api/code-scans | Code scan results + reports |
-| ai-usage | /api/ai-usage | AI usage metrics + rankings + ROI |
-
-## External Clients (5)
-
-| Client | Description |
-|--------|-------------|
-| OpenAI | Chat completions for explain feature |
-| Anthropic | Claude API for analysis |
-| Grafana Tempo | Trace export |
-| Datadog | Metrics export |
-| GitHub API | Code scanning (fetch repo contents) |
-
-## Alert Providers (5)
-
-PagerDuty, Slack, Discord, Webhook, Email
-
-## Services (1)
-
-| Service | Type | Description |
-|---------|------|-------------|
-| llm-proxy | http-proxy | Transparent LLM API proxy for zero-code instrumentation |
-
-The LLM proxy listens on port 8787 and auto-detects OpenAI and Anthropic API calls, routing them through the middleware pipeline for cost tracking, duplicate detection, and request capture.
-
-## Middleware (3)
-
-| Middleware | Phase | Description |
-|------------|-------|-------------|
-| cost-calculator | response | Calculate LLM call cost from model and token usage |
-| duplicate-detector | request | Detect duplicate prompts by hashing message content |
-| request-capture | response | Capture LLM call data to SQLite for analysis |
-
-## Plugins (1)
-
-| Plugin | Type | Description |
-|--------|------|-------------|
-| otel-capture | fastify-plugin | OpenTelemetry span capture for LLM calls |
-
-## Cost Attribution
-
-Track exactly who is burning money and on what — like AWS billing per service, but for AI/LLM usage.
-
-**Entities:** CostTag, CostAttribution, CostBudget, CostReport
-**Commands:** `cost-by <dimension>`, `cost-trend <dimension> <value>`, `cost-report`, `cost-budget-set`, `cost-budget-check`
-**Routes:** `/api/cost-attributions`, `/api/cost-budgets`, `/api/cost-reports`
-**Stream:** `/api/cost-live` (SSE real-time cost feed)
-**Worker:** Weekly cost report generation (Mondays 8am)
-**Event:** BudgetAlertTriggered (webhook on budget threshold)
-
-Attribute costs by any dimension (feature, team, customer, model, provider). Set budgets with alerts at configurable thresholds. Auto-detect cost spikes and savings opportunities. Generate periodic reports in JSON, HTML, Slack, or Markdown formats.
-
-## Requirements
-
-CI requires a GitHub PAT secret configured in the repo settings for generating PRs to flusk-dev. See the workflow files for details.
-
-Optional environment variables for integrations are documented in the provider and client YAML schemas.
-
-## Compiler
-
-Schemas are validated and compiled by [flusk-lang](https://github.com/fluskapp/flusk-lang).
+MIT

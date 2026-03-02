@@ -1,0 +1,76 @@
+services:
+  flusk-api:
+    build:
+      context: .
+      dockerfile: Dockerfile
+    container_name: flusk-api
+    ports:
+      - "3042:3042"
+    environment:
+      PLT_SERVER_PORT: "3042"
+      PLT_LOG_LEVEL: "info"
+      DATABASE_PATH: "/data/flusk.db"
+      CORS_ORIGIN: "*"
+    volumes:
+      - flusk-data:/data
+    networks:
+      - flusk-net
+    healthcheck:
+      test: ["CMD", "curl", "-f", "http://localhost:3042/api/health"]
+      interval: 30s
+      timeout: 5s
+      start_period: 10s
+      retries: 3
+    restart: unless-stopped
+    profiles:
+      - default
+      - prod
+
+  flusk-api-dev:
+    build:
+      context: .
+      dockerfile: Dockerfile
+    container_name: flusk-api-dev
+    ports:
+      - "3042:3042"
+    environment:
+      PLT_SERVER_PORT: "3042"
+      PLT_LOG_LEVEL: "debug"
+      DATABASE_PATH: "/data/flusk.db"
+      CORS_ORIGIN: "*"
+    volumes:
+      - flusk-data:/data
+      - ./generated/node:/app
+    networks:
+      - flusk-net
+    profiles:
+      - dev
+
+  flusk-worker:
+    build:
+      context: .
+      dockerfile: Dockerfile
+    container_name: flusk-worker
+    environment:
+      PLT_SERVER_PORT: "3043"
+      PLT_LOG_LEVEL: "info"
+      DATABASE_PATH: "/data/flusk.db"
+      WORKER_MODE: "true"
+    volumes:
+      - flusk-data:/data
+    networks:
+      - flusk-net
+    depends_on:
+      flusk-api:
+        condition: service_healthy
+    restart: unless-stopped
+    profiles:
+      - prod
+
+volumes:
+  flusk-data:
+    driver: local
+
+networks:
+  flusk-net:
+    driver: bridge

@@ -1,0 +1,4549 @@
+openapi: 3.1.0
+info:
+  title: Flusk API
+  version: 0.1.0
+paths:
+  /api/ai-usage/:
+    get:
+      operationId: listAiUsageMetrics
+      tags:
+        - aiUsage
+      summary: List AI usage metrics
+      responses:
+        '200':
+          description: Successful response
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/AiUsageMetric'
+    post:
+      operationId: createAiUsageMetric
+      tags:
+        - aiUsage
+      summary: Record an AI usage metric
+      responses:
+        '200':
+          description: Successful response
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/AiUsageMetric'
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/AiUsageMetric'
+  /api/ai-usage/:id:
+    get:
+      operationId: findAiUsageMetricById
+      tags:
+        - aiUsage
+      summary: Get metric by ID
+      responses:
+        '200':
+          description: Successful response
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/AiUsageMetric'
+    delete:
+      operationId: deleteAiUsageMetric
+      tags:
+        - aiUsage
+      summary: Delete metric
+      responses:
+        '200':
+          description: Successful response
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/AiUsageMetric'
+  /api/ai-usage/by-user/:userId:
+    get:
+      operationId: aggregateUsageByUser
+      tags:
+        - aiUsage
+      summary: Aggregate usage for a specific user
+      responses:
+        '200':
+          description: Successful response
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/AiUsageMetric'
+  /api/ai-usage/by-tool/:toolName:
+    get:
+      operationId: aggregateUsageByTool
+      tags:
+        - aiUsage
+      summary: Aggregate usage by tool
+      responses:
+        '200':
+          description: Successful response
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/AiUsageMetric'
+  /api/ai-usage/rankings:
+    get:
+      operationId: calculateUsageRank
+      tags:
+        - aiUsage
+      summary: Get user rankings by AI effectiveness
+      responses:
+        '200':
+          description: Successful response
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/AiUsageMetric'
+  /api/ai-usage/roi:
+    get:
+      operationId: calculateRoi
+      tags:
+        - aiUsage
+      summary: Calculate ROI from AI tool usage
+      responses:
+        '200':
+          description: Successful response
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/AiUsageMetric'
+  /api/alert-channels/:
+    get:
+      operationId: listAlertChannels
+      tags:
+        - alertChannels
+      summary: List all alert channels
+      responses:
+        '200':
+          description: Successful response
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/AlertChannel'
+    post:
+      operationId: createAlertChannel
+      tags:
+        - alertChannels
+      summary: Create a new alert channel
+      responses:
+        '200':
+          description: Successful response
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/AlertChannel'
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/AlertChannel'
+  /api/alert-channels/:id:
+    get:
+      operationId: findAlertChannelById
+      tags:
+        - alertChannels
+      summary: Get channel by ID
+      responses:
+        '200':
+          description: Successful response
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/AlertChannel'
+    put:
+      operationId: updateAlertChannel
+      tags:
+        - alertChannels
+      summary: Update a channel
+      responses:
+        '200':
+          description: Successful response
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/AlertChannel'
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/AlertChannel'
+    delete:
+      operationId: deleteAlertChannel
+      tags:
+        - alertChannels
+      summary: Delete a channel
+      responses:
+        '200':
+          description: Successful response
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/AlertChannel'
+  /api/alert-events/:
+    get:
+      operationId: listAlertEvents
+      tags:
+        - alertEvents
+      summary: List alert events
+      responses:
+        '200':
+          description: Successful response
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/AlertEvent'
+    post:
+      operationId: createAlertEvent
+      tags:
+        - alertEvents
+      summary: Record an alert event
+      responses:
+        '200':
+          description: Successful response
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/AlertEvent'
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/AlertEvent'
+  /api/alert-events/:id:
+    get:
+      operationId: findAlertEventById
+      tags:
+        - alertEvents
+      summary: Get event by ID
+      responses:
+        '200':
+          description: Successful response
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/AlertEvent'
+    put:
+      operationId: updateAlertEvent
+      tags:
+        - alertEvents
+      summary: Update an event (e.g. acknowledge)
+      responses:
+        '200':
+          description: Successful response
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/AlertEvent'
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/AlertEvent'
+    delete:
+      operationId: deleteAlertEvent
+      tags:
+        - alertEvents
+      summary: Delete an event
+      responses:
+        '200':
+          description: Successful response
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/AlertEvent'
+  /api/alert-events/by-time-range:
+    get:
+      operationId: findAlertEventsByTimeRange
+      tags:
+        - alertEvents
+      summary: Get events in time range
+      responses:
+        '200':
+          description: Successful response
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/AlertEvent'
+  /api/analytics/overview:
+    get:
+      operationId: getAnalyticsOverview
+      tags:
+        - analytics
+      summary: Summary with total cost, call count, avg latency, error rate, active models
+      responses:
+        '200':
+          description: Successful response
+  /api/analytics/cost-trend:
+    get:
+      operationId: getCostTrend
+      tags:
+        - analytics
+      summary: Cost time series data
+      responses:
+        '200':
+          description: Successful response
+  /api/analytics/model-comparison:
+    get:
+      operationId: getModelComparison
+      tags:
+        - analytics
+      summary: Cost and performance comparison per model
+      responses:
+        '200':
+          description: Successful response
+  /api/analytics/top-users:
+    get:
+      operationId: getTopUsers
+      tags:
+        - analytics
+      summary: Top N users by cost/calls
+      responses:
+        '200':
+          description: Successful response
+  /api/analytics/cost-by-feature:
+    get:
+      operationId: getCostByDimension
+      tags:
+        - analytics
+      summary: Cost breakdown by feature
+      responses:
+        '200':
+          description: Successful response
+  /api/analyze-sessions/:
+    get:
+      operationId: listAnalyzeSessions
+      tags:
+        - analyzeSessions
+      summary: List analysis sessions
+      responses:
+        '200':
+          description: Successful response
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/AnalyzeSession'
+    post:
+      operationId: runAnalysis
+      tags:
+        - analyzeSessions
+      summary: Start a new analysis
+      responses:
+        '200':
+          description: Successful response
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/AnalyzeSession'
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/AnalyzeSession'
+  /api/analyze-sessions/:id:
+    get:
+      operationId: findAnalyzeSessionById
+      tags:
+        - analyzeSessions
+      summary: Get analysis session by ID
+      responses:
+        '200':
+          description: Successful response
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/AnalyzeSession'
+  /api/api-keys/:
+    post:
+      operationId: createApiKey
+      tags:
+        - apiKeys
+      summary: Create API key (returns plaintext key once)
+      responses:
+        '200':
+          description: Successful response
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ApiKey'
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/ApiKey'
+    get:
+      operationId: listApiKeys
+      tags:
+        - apiKeys
+      summary: List API keys (shows prefix only)
+      responses:
+        '200':
+          description: Successful response
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ApiKey'
+  /api/api-keys/:id/revoke:
+    post:
+      operationId: revokeApiKey
+      tags:
+        - apiKeys
+      summary: Revoke an API key
+      responses:
+        '200':
+          description: Successful response
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ApiKey'
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/ApiKey'
+  /api/audit-logs/:
+    get:
+      operationId: listAuditLogs
+      tags:
+        - auditLogs
+      summary: List audit logs with filters (time range, action, user)
+      responses:
+        '200':
+          description: Successful response
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/AuditLog'
+  /auth/register:
+    post:
+      operationId: createOrganization
+      tags:
+        - auth
+      summary: Register new organization and owner user
+      responses:
+        '200':
+          description: Successful response
+  /auth/login:
+    post:
+      operationId: authenticateUser
+      tags:
+        - auth
+      summary: Login with email/password
+      responses:
+        '200':
+          description: Successful response
+  /auth/verify-key:
+    post:
+      operationId: validateApiKey
+      tags:
+        - auth
+      summary: Verify an API key and return org/user context
+      responses:
+        '200':
+          description: Successful response
+  /api/budget-alerts/:
+    get:
+      operationId: listBudgetAlerts
+      tags:
+        - budgetAlerts
+      summary: List budget alerts
+      responses:
+        '200':
+          description: Successful response
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/BudgetAlert'
+    post:
+      operationId: createBudgetAlert
+      tags:
+        - budgetAlerts
+      summary: Create a budget alert
+      responses:
+        '200':
+          description: Successful response
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/BudgetAlert'
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/BudgetAlert'
+  /api/budget-alerts/:id:
+    get:
+      operationId: findBudgetAlertById
+      tags:
+        - budgetAlerts
+      summary: Get budget alert by ID
+      responses:
+        '200':
+          description: Successful response
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/BudgetAlert'
+    put:
+      operationId: updateBudgetAlert
+      tags:
+        - budgetAlerts
+      summary: Update a budget alert
+      responses:
+        '200':
+          description: Successful response
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/BudgetAlert'
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/BudgetAlert'
+    delete:
+      operationId: deleteBudgetAlert
+      tags:
+        - budgetAlerts
+      summary: Delete a budget alert
+      responses:
+        '200':
+          description: Successful response
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/BudgetAlert'
+  /api/budget-alerts/status:
+    get:
+      operationId: getBudgetStatus
+      tags:
+        - budgetAlerts
+      summary: Get current budget status summary
+      responses:
+        '200':
+          description: Successful response
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/BudgetAlert'
+  /api/budget-alerts/check:
+    post:
+      operationId: checkBudget
+      tags:
+        - budgetAlerts
+      summary: Run budget check now
+      responses:
+        '200':
+          description: Successful response
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/BudgetAlert'
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/BudgetAlert'
+  /api/code-scans/:
+    get:
+      operationId: listCodeScanResults
+      tags:
+        - codeScans
+      summary: List code scan results
+      responses:
+        '200':
+          description: Successful response
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/CodeScanResult'
+    post:
+      operationId: scanCodebase
+      tags:
+        - codeScans
+      summary: Scan a codebase for AI usage
+      responses:
+        '200':
+          description: Successful response
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/CodeScanResult'
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/CodeScanResult'
+  /api/code-scans/:id:
+    get:
+      operationId: findCodeScanResultById
+      tags:
+        - codeScans
+      summary: Get scan result by ID
+      responses:
+        '200':
+          description: Successful response
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/CodeScanResult'
+    delete:
+      operationId: deleteCodeScanResult
+      tags:
+        - codeScans
+      summary: Delete scan result
+      responses:
+        '200':
+          description: Successful response
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/CodeScanResult'
+  /api/code-scans/:id/report:
+    get:
+      operationId: generateScanReport
+      tags:
+        - codeScans
+      summary: Generate detailed report for a scan
+      responses:
+        '200':
+          description: Successful response
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/CodeScanResult'
+  /api/cost-attributions/:
+    get:
+      operationId: listCostAttributions
+      tags:
+        - costAttributions
+      summary: List all cost attributions
+      responses:
+        '200':
+          description: Successful response
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/CostAttribution'
+    post:
+      operationId: createCostAttribution
+      tags:
+        - costAttributions
+      summary: Create attribution
+      responses:
+        '200':
+          description: Successful response
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/CostAttribution'
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/CostAttribution'
+  /api/cost-attributions/by-dimension/:dimension:
+    get:
+      operationId: getCostByDimension
+      tags:
+        - costAttributions
+      summary: Get cost breakdown by dimension
+      responses:
+        '200':
+          description: Successful response
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/CostAttribution'
+  /api/cost-attributions/trend/:dimension/:value:
+    get:
+      operationId: getCostTrend
+      tags:
+        - costAttributions
+      summary: Get cost trend for specific tag
+      responses:
+        '200':
+          description: Successful response
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/CostAttribution'
+  /api/cost-attributions/top-spenders/:dimension:
+    get:
+      operationId: getTopSpenders
+      tags:
+        - costAttributions
+      summary: Get top spenders in a dimension
+      responses:
+        '200':
+          description: Successful response
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/CostAttribution'
+  /api/cost-budgets/:
+    get:
+      operationId: listCostBudgets
+      tags:
+        - costBudgets
+      summary: List all budgets
+      responses:
+        '200':
+          description: Successful response
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/CostBudget'
+    post:
+      operationId: createCostBudget
+      tags:
+        - costBudgets
+      summary: Create budget
+      responses:
+        '200':
+          description: Successful response
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/CostBudget'
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/CostBudget'
+  /api/cost-budgets/:id:
+    put:
+      operationId: updateCostBudget
+      tags:
+        - costBudgets
+      summary: Update budget
+      responses:
+        '200':
+          description: Successful response
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/CostBudget'
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/CostBudget'
+    delete:
+      operationId: deleteCostBudget
+      tags:
+        - costBudgets
+      summary: Delete budget
+      responses:
+        '200':
+          description: Successful response
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/CostBudget'
+  /api/cost-budgets/check/:dimension/:value:
+    get:
+      operationId: checkCostBudget
+      tags:
+        - costBudgets
+      summary: Check budget status
+      responses:
+        '200':
+          description: Successful response
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/CostBudget'
+  /api/cost-events/stream:
+    get:
+      operationId: listLlmCalls
+      tags:
+        - costEvents
+      summary: Server-sent events stream for live cost tracking
+      responses:
+        '200':
+          description: Successful response
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/LlmCall'
+  /api/cost-events/daily:
+    get:
+      operationId: getDailySpend
+      tags:
+        - costEvents
+      summary: Get daily spend summary
+      responses:
+        '200':
+          description: Successful response
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/LlmCall'
+  /api/cost-events/monthly:
+    get:
+      operationId: getMonthlySpend
+      tags:
+        - costEvents
+      summary: Get monthly spend summary
+      responses:
+        '200':
+          description: Successful response
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/LlmCall'
+  /api/cost-reports/:
+    get:
+      operationId: listCostReports
+      tags:
+        - costReports
+      summary: List generated reports
+      responses:
+        '200':
+          description: Successful response
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/CostReport'
+  /api/cost-reports/generate:
+    post:
+      operationId: generateCostReport
+      tags:
+        - costReports
+      summary: Generate new report
+      responses:
+        '200':
+          description: Successful response
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/CostReport'
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/CostReport'
+  /api/cost-reports/:id:
+    get:
+      operationId: findCostReportById
+      tags:
+        - costReports
+      summary: Get specific report
+      responses:
+        '200':
+          description: Successful response
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/CostReport'
+  /api/dashboard-widgets/:
+    get:
+      operationId: listDashboardWidgets
+      tags:
+        - dashboardWidgets
+      summary: List widgets (filter by dashboardId)
+      responses:
+        '200':
+          description: Successful response
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/DashboardWidget'
+    post:
+      operationId: createDashboardWidget
+      tags:
+        - dashboardWidgets
+      summary: Create a new widget
+      responses:
+        '200':
+          description: Successful response
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/DashboardWidget'
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/DashboardWidget'
+  /api/dashboard-widgets/:id:
+    get:
+      operationId: findDashboardWidgetById
+      tags:
+        - dashboardWidgets
+      summary: Get widget by ID
+      responses:
+        '200':
+          description: Successful response
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/DashboardWidget'
+    put:
+      operationId: updateDashboardWidget
+      tags:
+        - dashboardWidgets
+      summary: Update a widget
+      responses:
+        '200':
+          description: Successful response
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/DashboardWidget'
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/DashboardWidget'
+    delete:
+      operationId: deleteDashboardWidget
+      tags:
+        - dashboardWidgets
+      summary: Delete a widget
+      responses:
+        '200':
+          description: Successful response
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/DashboardWidget'
+  /api/dashboards/:
+    get:
+      operationId: listDashboards
+      tags:
+        - dashboards
+      summary: List all dashboards
+      responses:
+        '200':
+          description: Successful response
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Dashboard'
+    post:
+      operationId: createDashboard
+      tags:
+        - dashboards
+      summary: Create a new dashboard
+      responses:
+        '200':
+          description: Successful response
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Dashboard'
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/Dashboard'
+  /api/dashboards/:id:
+    get:
+      operationId: findDashboardById
+      tags:
+        - dashboards
+      summary: Get dashboard by ID
+      responses:
+        '200':
+          description: Successful response
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Dashboard'
+    put:
+      operationId: updateDashboard
+      tags:
+        - dashboards
+      summary: Update a dashboard
+      responses:
+        '200':
+          description: Successful response
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Dashboard'
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/Dashboard'
+    delete:
+      operationId: deleteDashboard
+      tags:
+        - dashboards
+      summary: Delete a dashboard
+      responses:
+        '200':
+          description: Successful response
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Dashboard'
+  /api/dashboards/:id/render:
+    get:
+      operationId: renderDashboardData
+      tags:
+        - dashboards
+      summary: Fetch rendered data for all widgets in a dashboard
+      responses:
+        '200':
+          description: Successful response
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Dashboard'
+  /api/delusion-detections/:
+    get:
+      operationId: listDelusionDetections
+      tags:
+        - delusionDetections
+      summary: List delusion detections
+      responses:
+        '200':
+          description: Successful response
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/DelusionDetection'
+  /api/delusion-detections/:id:
+    get:
+      operationId: findDelusionDetectionById
+      tags:
+        - delusionDetections
+      summary: Get delusion detection by ID
+      responses:
+        '200':
+          description: Successful response
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/DelusionDetection'
+    put:
+      operationId: updateDelusionDetection
+      tags:
+        - delusionDetections
+      summary: Update delusion detection status
+      responses:
+        '200':
+          description: Successful response
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/DelusionDetection'
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/DelusionDetection'
+    delete:
+      operationId: deleteDelusionDetection
+      tags:
+        - delusionDetections
+      summary: Delete delusion detection
+      responses:
+        '200':
+          description: Successful response
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/DelusionDetection'
+  /api/delusion-detections/scan:
+    post:
+      operationId: runDelusionScan
+      tags:
+        - delusionDetections
+      summary: Run delusion detection scan
+      responses:
+        '200':
+          description: Successful response
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/DelusionDetection'
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/DelusionDetection'
+  /api/drift-detections/:
+    get:
+      operationId: listDriftDetections
+      tags:
+        - driftDetections
+      summary: List drift detections
+      responses:
+        '200':
+          description: Successful response
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/DriftDetection'
+  /api/drift-detections/:id:
+    get:
+      operationId: findDriftDetectionById
+      tags:
+        - driftDetections
+      summary: Get drift detection by ID
+      responses:
+        '200':
+          description: Successful response
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/DriftDetection'
+    put:
+      operationId: updateDriftDetection
+      tags:
+        - driftDetections
+      summary: Update drift detection status
+      responses:
+        '200':
+          description: Successful response
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/DriftDetection'
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/DriftDetection'
+    delete:
+      operationId: deleteDriftDetection
+      tags:
+        - driftDetections
+      summary: Delete drift detection
+      responses:
+        '200':
+          description: Successful response
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/DriftDetection'
+  /api/drift-detections/scan:
+    post:
+      operationId: runDriftScan
+      tags:
+        - driftDetections
+      summary: Run a drift detection scan
+      responses:
+        '200':
+          description: Successful response
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/DriftDetection'
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/DriftDetection'
+  /api/explain/:
+    post:
+      operationId: explainWithAi
+      tags:
+        - explain
+      summary: Trigger AI analysis of LLM usage
+      responses:
+        '200':
+          description: Successful response
+  /api/explain/:sessionId:
+    get:
+      operationId: generateExplainReport
+      tags:
+        - explain
+      summary: Get explain analysis results
+      responses:
+        '200':
+          description: Successful response
+  /api/health/:
+    get:
+      operationId: handler
+      tags:
+        - health
+      summary: Health check endpoint
+      responses:
+        '200':
+          description: Successful response
+  /api/insights/:
+    get:
+      operationId: listInsights
+      tags:
+        - insights
+      summary: List optimization insights
+      responses:
+        '200':
+          description: Successful response
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Insight'
+  /api/insights/:id:
+    get:
+      operationId: findInsightById
+      tags:
+        - insights
+      summary: Get insight by ID
+      responses:
+        '200':
+          description: Successful response
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Insight'
+  /api/insights/:id/status:
+    put:
+      operationId: updateInsight
+      tags:
+        - insights
+      summary: Update insight status (accepted/dismissed)
+      responses:
+        '200':
+          description: Successful response
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Insight'
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/Insight'
+  /api/llm-calls/:
+    get:
+      operationId: listLlmCalls
+      tags:
+        - llmCalls
+      summary: List LLM calls with filtering
+      responses:
+        '200':
+          description: Successful response
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/LlmCall'
+    post:
+      operationId: createLlmCall
+      tags:
+        - llmCalls
+      summary: Record a new LLM call
+      responses:
+        '200':
+          description: Successful response
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/LlmCall'
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/LlmCall'
+  /api/llm-calls/:id:
+    get:
+      operationId: findLlmCallById
+      tags:
+        - llmCalls
+      summary: Get call by ID
+      responses:
+        '200':
+          description: Successful response
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/LlmCall'
+  /api/llm-calls/aggregate/by-model:
+    get:
+      operationId: queryLlmCall
+      tags:
+        - llmCalls
+      summary: Aggregate costs by model
+      responses:
+        '200':
+          description: Successful response
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/LlmCall'
+  /api/llm-calls/aggregate/by-agent:
+    get:
+      operationId: queryLlmCall
+      tags:
+        - llmCalls
+      summary: Aggregate costs by agent
+      responses:
+        '200':
+          description: Successful response
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/LlmCall'
+  /api/llm-calls/duplicates:
+    get:
+      operationId: detectDuplicates
+      tags:
+        - llmCalls
+      summary: Find duplicate prompts
+      responses:
+        '200':
+          description: Successful response
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/LlmCall'
+  /api/marketplace/:
+    get:
+      operationId: listMarketplace
+      tags:
+        - marketplace
+      summary: Browse marketplace listings
+      responses:
+        '200':
+          description: Successful response
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/MarketplaceListing'
+  /api/marketplace/:id:
+    get:
+      operationId: findMarketplaceListingById
+      tags:
+        - marketplace
+      summary: Get listing by ID
+      responses:
+        '200':
+          description: Successful response
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/MarketplaceListing'
+  /api/marketplace/install:
+    post:
+      operationId: installIntegration
+      tags:
+        - marketplace
+      summary: Install an integration to a solution
+      responses:
+        '200':
+          description: Successful response
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/MarketplaceListing'
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/MarketplaceListing'
+  /api/optimizations/:
+    get:
+      operationId: listOptimizations
+      tags:
+        - optimizations
+      summary: List optimization suggestions
+      responses:
+        '200':
+          description: Successful response
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Optimization'
+  /api/optimizations/:id:
+    get:
+      operationId: findOptimizationById
+      tags:
+        - optimizations
+      summary: Get optimization by ID
+      responses:
+        '200':
+          description: Successful response
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Optimization'
+  /api/optimizations/:id/status:
+    put:
+      operationId: updateOptimization
+      tags:
+        - optimizations
+      summary: Update optimization status
+      responses:
+        '200':
+          description: Successful response
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Optimization'
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/Optimization'
+  /api/organizations/me:
+    get:
+      operationId: findOrganizationById
+      tags:
+        - organizations
+      summary: Get current organization from auth context
+      responses:
+        '200':
+          description: Successful response
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Organization'
+  /api/organizations/:
+    get:
+      operationId: listOrganizations
+      tags:
+        - organizations
+      summary: List organizations (admin only)
+      responses:
+        '200':
+          description: Successful response
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Organization'
+    post:
+      operationId: createOrganization
+      tags:
+        - organizations
+      summary: Create a new organization
+      responses:
+        '200':
+          description: Successful response
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Organization'
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/Organization'
+  /api/organizations/:id:
+    get:
+      operationId: findOrganizationById
+      tags:
+        - organizations
+      summary: Get organization by ID
+      responses:
+        '200':
+          description: Successful response
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Organization'
+    put:
+      operationId: updateOrganization
+      tags:
+        - organizations
+      summary: Update organization settings
+      responses:
+        '200':
+          description: Successful response
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Organization'
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/Organization'
+    delete:
+      operationId: deleteOrganization
+      tags:
+        - organizations
+      summary: Delete organization
+      responses:
+        '200':
+          description: Successful response
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Organization'
+  /v1/traces:
+    post:
+      operationId: ingestOtlpTraces
+      tags:
+        - otlp
+      summary: OTLP HTTP trace ingestion endpoint
+      responses:
+        '200':
+          description: Successful response
+  /api/partner-integrations/:
+    get:
+      operationId: listPartnerIntegration
+      tags:
+        - partner-integrations
+      summary: List integrations
+      responses:
+        '200':
+          description: Successful response
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/PartnerIntegration'
+    post:
+      operationId: createPartnerIntegration
+      tags:
+        - partner-integrations
+      summary: Create a new integration
+      responses:
+        '200':
+          description: Successful response
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/PartnerIntegration'
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/PartnerIntegration'
+  /api/partner-integrations/:id:
+    get:
+      operationId: findPartnerIntegrationById
+      tags:
+        - partner-integrations
+      summary: Get integration by ID
+      responses:
+        '200':
+          description: Successful response
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/PartnerIntegration'
+    put:
+      operationId: updatePartnerIntegration
+      tags:
+        - partner-integrations
+      summary: Update integration
+      responses:
+        '200':
+          description: Successful response
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/PartnerIntegration'
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/PartnerIntegration'
+    delete:
+      operationId: deletePartnerIntegration
+      tags:
+        - partner-integrations
+      summary: Delete integration
+      responses:
+        '200':
+          description: Successful response
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/PartnerIntegration'
+  /api/partners/:
+    get:
+      operationId: listPartner
+      tags:
+        - partners
+      summary: List partners
+      responses:
+        '200':
+          description: Successful response
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Partner'
+  /api/partners/register:
+    post:
+      operationId: registerPartner
+      tags:
+        - partners
+      summary: Register a new partner
+      responses:
+        '200':
+          description: Successful response
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Partner'
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/Partner'
+  /api/partners/:id:
+    get:
+      operationId: findPartnerById
+      tags:
+        - partners
+      summary: Get partner by ID
+      responses:
+        '200':
+          description: Successful response
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Partner'
+    put:
+      operationId: updatePartner
+      tags:
+        - partners
+      summary: Update partner
+      responses:
+        '200':
+          description: Successful response
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Partner'
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/Partner'
+    delete:
+      operationId: deletePartner
+      tags:
+        - partners
+      summary: Suspend/delete partner
+      responses:
+        '200':
+          description: Successful response
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Partner'
+  /api/partners/:id/approve:
+    post:
+      operationId: approvePartner
+      tags:
+        - partners
+      summary: Approve a pending partner
+      responses:
+        '200':
+          description: Successful response
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Partner'
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/Partner'
+  /api/patterns/:
+    get:
+      operationId: listPatterns
+      tags:
+        - patterns
+      summary: List detected patterns
+      responses:
+        '200':
+          description: Successful response
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Pattern'
+  /api/patterns/:id:
+    get:
+      operationId: findPatternById
+      tags:
+        - patterns
+      summary: Get pattern by ID
+      responses:
+        '200':
+          description: Successful response
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Pattern'
+  /api/patterns/detect:
+    post:
+      operationId: detectPatterns
+      tags:
+        - patterns
+      summary: Run pattern detection
+      responses:
+        '200':
+          description: Successful response
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Pattern'
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/Pattern'
+  /api/profile-sessions/:
+    get:
+      operationId: listProfileSessions
+      tags:
+        - profileSessions
+      summary: List profile sessions
+      responses:
+        '200':
+          description: Successful response
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ProfileSession'
+  /api/profile-sessions/:id:
+    get:
+      operationId: findProfileSessionById
+      tags:
+        - profileSessions
+      summary: Get profile session by ID
+      responses:
+        '200':
+          description: Successful response
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ProfileSession'
+  /api/profile-sessions/start:
+    post:
+      operationId: startProfile
+      tags:
+        - profileSessions
+      summary: Start a profiling session
+      responses:
+        '200':
+          description: Successful response
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ProfileSession'
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/ProfileSession'
+  /api/profile-sessions/:id/stop:
+    post:
+      operationId: stopProfile
+      tags:
+        - profileSessions
+      summary: Stop a profiling session
+      responses:
+        '200':
+          description: Successful response
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ProfileSession'
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/ProfileSession'
+  /api/profile-sessions/:id/patterns:
+    get:
+      operationId: listPerformancePatterns
+      tags:
+        - profileSessions
+      summary: Get hotspots for a profile session
+      responses:
+        '200':
+          description: Successful response
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ProfileSession'
+  /api/solution-channels/:
+    get:
+      operationId: listSolutionChannel
+      tags:
+        - solution-channels
+      summary: List channels for a solution
+      responses:
+        '200':
+          description: Successful response
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/SolutionChannel'
+    post:
+      operationId: publishToChannel
+      tags:
+        - solution-channels
+      summary: Publish solution to a channel
+      responses:
+        '200':
+          description: Successful response
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/SolutionChannel'
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/SolutionChannel'
+  /api/solution-channels/:id:
+    get:
+      operationId: findSolutionChannelById
+      tags:
+        - solution-channels
+      summary: Get channel by ID
+      responses:
+        '200':
+          description: Successful response
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/SolutionChannel'
+    put:
+      operationId: updateSolutionChannel
+      tags:
+        - solution-channels
+      summary: Update channel config
+      responses:
+        '200':
+          description: Successful response
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/SolutionChannel'
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/SolutionChannel'
+    delete:
+      operationId: unpublishFromChannel
+      tags:
+        - solution-channels
+      summary: Remove channel connection
+      responses:
+        '200':
+          description: Successful response
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/SolutionChannel'
+  /api/solution-channels/:id/test:
+    post:
+      operationId: testSolutionChannel
+      tags:
+        - solution-channels
+      summary: Send a test message through this channel
+      responses:
+        '200':
+          description: Successful response
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/SolutionChannel'
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/SolutionChannel'
+  /api/solution-runs/run:
+    post:
+      operationId: runSolution
+      tags:
+        - solution-runs
+      summary: Execute a solution
+      responses:
+        '200':
+          description: Successful response
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/SolutionRun'
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/SolutionRun'
+  /api/solution-runs/:
+    get:
+      operationId: listSolutionRuns
+      tags:
+        - solution-runs
+      summary: List solution runs with aggregations
+      responses:
+        '200':
+          description: Successful response
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/SolutionRun'
+  /api/solution-runs/:id:
+    get:
+      operationId: findSolutionRunById
+      tags:
+        - solution-runs
+      summary: Get run by ID
+      responses:
+        '200':
+          description: Successful response
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/SolutionRun'
+  /api/solution-runs/metrics:
+    get:
+      operationId: getSolutionMetrics
+      tags:
+        - solution-runs
+      summary: Get solution metrics (cost, latency, success rate)
+      responses:
+        '200':
+          description: Successful response
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/SolutionRun'
+  /api/solution-templates/:
+    get:
+      operationId: listSolutionTemplate
+      tags:
+        - solution-templates
+      summary: List public templates
+      responses:
+        '200':
+          description: Successful response
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/SolutionTemplate'
+    post:
+      operationId: createSolutionTemplate
+      tags:
+        - solution-templates
+      summary: Create a template from a solution
+      responses:
+        '200':
+          description: Successful response
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/SolutionTemplate'
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/SolutionTemplate'
+  /api/solution-templates/:id:
+    get:
+      operationId: findSolutionTemplateById
+      tags:
+        - solution-templates
+      summary: Get template by ID
+      responses:
+        '200':
+          description: Successful response
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/SolutionTemplate'
+  /api/solution-tools/:
+    get:
+      operationId: listSolutionTool
+      tags:
+        - solution-tools
+      summary: List tools for a solution
+      responses:
+        '200':
+          description: Successful response
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/SolutionTool'
+    post:
+      operationId: createSolutionTool
+      tags:
+        - solution-tools
+      summary: Add a tool to a solution
+      responses:
+        '200':
+          description: Successful response
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/SolutionTool'
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/SolutionTool'
+  /api/solution-tools/:id:
+    get:
+      operationId: findSolutionToolById
+      tags:
+        - solution-tools
+      summary: Get tool by ID
+      responses:
+        '200':
+          description: Successful response
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/SolutionTool'
+    put:
+      operationId: updateSolutionTool
+      tags:
+        - solution-tools
+      summary: Update tool config
+      responses:
+        '200':
+          description: Successful response
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/SolutionTool'
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/SolutionTool'
+    delete:
+      operationId: deleteSolutionTool
+      tags:
+        - solution-tools
+      summary: Remove tool from solution
+      responses:
+        '200':
+          description: Successful response
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/SolutionTool'
+  /api/solutions/:
+    get:
+      operationId: listSolutions
+      tags:
+        - solutions
+      summary: List solutions by organization
+      responses:
+        '200':
+          description: Successful response
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Solution'
+    post:
+      operationId: createSolution
+      tags:
+        - solutions
+      summary: Create a new solution
+      responses:
+        '200':
+          description: Successful response
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Solution'
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/Solution'
+  /api/solutions/:id:
+    get:
+      operationId: findSolutionById
+      tags:
+        - solutions
+      summary: Get solution by ID
+      responses:
+        '200':
+          description: Successful response
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Solution'
+    put:
+      operationId: updateSolution
+      tags:
+        - solutions
+      summary: Update a solution
+      responses:
+        '200':
+          description: Successful response
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Solution'
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/Solution'
+    delete:
+      operationId: deleteSolution
+      tags:
+        - solutions
+      summary: Delete a solution
+      responses:
+        '200':
+          description: Successful response
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Solution'
+  /api/solutions/:id/deploy:
+    post:
+      operationId: deploySolution
+      tags:
+        - solutions
+      summary: Deploy a solution (validate, activate, version)
+      responses:
+        '200':
+          description: Successful response
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Solution'
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/Solution'
+  /api/solutions/clone-from-template:
+    post:
+      operationId: cloneSolutionFromTemplate
+      tags:
+        - solutions
+      summary: Clone a solution from a template
+      responses:
+        '200':
+          description: Successful response
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Solution'
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/Solution'
+  /api/spans/:
+    get:
+      operationId: listSpans
+      tags:
+        - spans
+      summary: List spans with filtering
+      responses:
+        '200':
+          description: Successful response
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Span'
+  /api/spans/:id:
+    get:
+      operationId: findSpanById
+      tags:
+        - spans
+      summary: Get span by ID
+      responses:
+        '200':
+          description: Successful response
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Span'
+  /api/trace-views/:
+    get:
+      operationId: listTraceViews
+      tags:
+        - traceViews
+      summary: List trace views
+      responses:
+        '200':
+          description: Successful response
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/TraceView'
+    post:
+      operationId: buildTraceView
+      tags:
+        - traceViews
+      summary: Build a trace visualization
+      responses:
+        '200':
+          description: Successful response
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/TraceView'
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/TraceView'
+  /api/trace-views/:id:
+    get:
+      operationId: findTraceViewById
+      tags:
+        - traceViews
+      summary: Get trace view by ID
+      responses:
+        '200':
+          description: Successful response
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/TraceView'
+    put:
+      operationId: updateTraceView
+      tags:
+        - traceViews
+      summary: Update trace view
+      responses:
+        '200':
+          description: Successful response
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/TraceView'
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/TraceView'
+    delete:
+      operationId: deleteTraceView
+      tags:
+        - traceViews
+      summary: Delete trace view
+      responses:
+        '200':
+          description: Successful response
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/TraceView'
+  /api/traces/:
+    get:
+      operationId: listTraces
+      tags:
+        - traces
+      summary: List traces
+      responses:
+        '200':
+          description: Successful response
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Trace'
+  /api/traces/:id:
+    get:
+      operationId: findTraceById
+      tags:
+        - traces
+      summary: Get trace by ID
+      responses:
+        '200':
+          description: Successful response
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Trace'
+    delete:
+      operationId: deleteTrace
+      tags:
+        - traces
+      summary: Delete a trace
+      responses:
+        '200':
+          description: Successful response
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Trace'
+  /api/traces/:id/spans:
+    get:
+      operationId: listSpans
+      tags:
+        - traces
+      summary: Get all spans in a trace
+      responses:
+        '200':
+          description: Successful response
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Trace'
+  /api/traces/otlp:
+    post:
+      operationId: ingestOtlpTraces
+      tags:
+        - traces
+      summary: Ingest OTLP trace data
+      responses:
+        '200':
+          description: Successful response
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Trace'
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/Trace'
+  /api/users/:
+    get:
+      operationId: listUsers
+      tags:
+        - users
+      summary: List users in organization
+      responses:
+        '200':
+          description: Successful response
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/User'
+    post:
+      operationId: createUser
+      tags:
+        - users
+      summary: Create/invite a user
+      responses:
+        '200':
+          description: Successful response
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/User'
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/User'
+  /api/users/:id:
+    get:
+      operationId: findUserById
+      tags:
+        - users
+      summary: Get user by ID
+      responses:
+        '200':
+          description: Successful response
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/User'
+    put:
+      operationId: updateUser
+      tags:
+        - users
+      summary: Update user details
+      responses:
+        '200':
+          description: Successful response
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/User'
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/User'
+    delete:
+      operationId: deleteUser
+      tags:
+        - users
+      summary: Remove user from organization
+      responses:
+        '200':
+          description: Successful response
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/User'
+  /api/users/:id/invite:
+    post:
+      operationId: createUser
+      tags:
+        - users
+      summary: Re-send invitation
+      responses:
+        '200':
+          description: Successful response
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/User'
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/User'
+  /api/users/:id/suspend:
+    post:
+      operationId: updateUser
+      tags:
+        - users
+      summary: Suspend a user
+      responses:
+        '200':
+          description: Successful response
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/User'
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/User'
+components:
+  schemas:
+    AiUsageMetric:
+      type: object
+      properties:
+        userId:
+          type: string
+          description: Employee or user identifier
+        toolName:
+          type: string
+          description: Which AI tool (copilot, chatgpt, claude, internal)
+        metricType:
+          $ref: '#/components/schemas/enum'
+          description: Type of metric
+          enum:
+            - prompt-count
+            - token-count
+            - time-saved
+            - cost
+            - acceptance-rate
+        value:
+          type: number
+          description: Metric value
+        period:
+          type: string
+          description: Period identifier (e.g. "2026-02-24" or "2026-W08")
+        periodType:
+          $ref: '#/components/schemas/enum'
+          description: Granularity of the period
+          enum:
+            - daily
+            - weekly
+            - monthly
+        metadata:
+          type: object
+          description: Extra context (project, language, task type)
+      required:
+        - userId
+        - toolName
+        - metricType
+        - value
+        - period
+        - periodType
+        - metadata
+      description: AI tool usage metrics per user for tracking adoption and ROI
+    AlertChannel:
+      type: object
+      properties:
+        name:
+          type: string
+          description: Human-readable channel name
+        channelType:
+          $ref: '#/components/schemas/enum'
+          description: Alert provider type
+          enum:
+            - pagerduty
+            - slack
+            - discord
+            - webhook
+            - email
+        config:
+          type: object
+          description: Provider-specific configuration (routing_key, webhook_url, etc.)
+        enabled:
+          type: boolean
+          description: Whether this channel is active
+        severityFilter:
+          $ref: '#/components/schemas/enum'
+          description: Minimum severity level to trigger alerts on this channel
+          enum:
+            - critical
+            - warning
+            - info
+      required:
+        - name
+        - channelType
+        - config
+        - enabled
+        - severityFilter
+      description: Configuration for an alert destination (PagerDuty, Slack, etc.)
+    AlertEvent:
+      type: object
+      properties:
+        alertType:
+          $ref: '#/components/schemas/enum'
+          description: Type of alert
+          enum:
+            - budget_exceeded
+            - budget_warning
+            - drift_detected
+            - cost_anomaly
+            - agent_stalled
+            - error_rate_spike
+            - token_rate_limit
+        severity:
+          $ref: '#/components/schemas/enum'
+          description: Alert severity level
+          enum:
+            - critical
+            - warning
+            - info
+        title:
+          type: string
+          description: Short alert title
+        message:
+          type: string
+          description: Detailed alert message
+        channelName:
+          type: string
+          description: Which alert channel delivered this
+        delivered:
+          type: boolean
+          description: Whether the alert was successfully delivered
+        acknowledgedAt:
+          type: string
+          description: ISO datetime when acknowledged
+        metadata:
+          type: object
+          description: Additional context
+      required:
+        - alertType
+        - severity
+        - title
+        - message
+        - channelName
+        - delivered
+        - acknowledgedAt
+        - metadata
+      description: Record of an alert that was triggered
+    AnalyzeSession:
+      type: object
+      properties:
+        scriptPath:
+          type: string
+          description: Path to the analyzed script
+        status:
+          $ref: '#/components/schemas/enum'
+          description: Session status
+          enum:
+            - running
+            - completed
+            - failed
+        callCount:
+          type: integer
+          description: Number of LLM calls captured
+        totalCostUsd:
+          type: number
+          description: Total cost of all calls in session
+        totalTokens:
+          type: integer
+          description: Total tokens used
+        durationMs:
+          type: integer
+          description: Total analysis duration
+        patternsFound:
+          type: integer
+          description: Number of patterns detected
+        insightsGenerated:
+          type: integer
+          description: Number of insights generated
+        summary:
+          type: object
+          description: Summary results of the analysis
+      required:
+        - scriptPath
+        - status
+        - callCount
+        - totalCostUsd
+        - totalTokens
+        - durationMs
+        - patternsFound
+        - insightsGenerated
+        - summary
+      description: Tracks CLI analyze command runs
+    ApiKey:
+      type: object
+      properties:
+        key:
+          type: string
+          description: SHA-256 hashed key (never store plaintext)
+        prefix:
+          type: string
+          description: First 8 chars of key for display
+        name:
+          type: string
+          description: Human-readable key name
+        organizationId:
+          type: string
+          description: Owning organization
+        userId:
+          type: string
+          description: User who created the key
+        scopes:
+          type: object
+          description: Allowed scopes, e.g. ["ingest","read","admin"]
+        expiresAt:
+          type: string
+          description: Key expiration timestamp
+        lastUsedAt:
+          type: string
+          description: Last time the key was used
+        status:
+          $ref: '#/components/schemas/enum'
+          description: Key status
+          enum:
+            - active
+            - revoked
+      required:
+        - key
+        - prefix
+        - name
+        - organizationId
+        - userId
+        - scopes
+        - expiresAt
+        - lastUsedAt
+        - status
+      description: Hashed API key for programmatic access
+    AuditLog:
+      type: object
+      properties:
+        organizationId:
+          type: string
+          description: Organization context
+        userId:
+          type: string
+          description: User who performed the action
+        action:
+          type: string
+          description: Action performed (e.g. api_key.create, user.invite)
+        resource:
+          type: string
+          description: Resource type (e.g. ApiKey, User, Organization)
+        resourceId:
+          type: string
+          description: ID of the affected resource
+        metadata:
+          type: object
+          description: Additional context about the action
+        ipAddress:
+          type: string
+          description: Client IP address
+      required:
+        - organizationId
+        - userId
+        - action
+        - resource
+        - resourceId
+        - metadata
+        - ipAddress
+      description: Immutable audit trail of actions within an organization
+    BudgetAlert:
+      type: object
+      properties:
+        name:
+          type: string
+          description: Alert name
+        budgetType:
+          $ref: '#/components/schemas/enum'
+          description: Budget period type
+          enum:
+            - daily
+            - weekly
+            - monthly
+        thresholdUsd:
+          type: number
+          description: Spending threshold in USD
+        warningPercent:
+          type: integer
+          description: Percentage of threshold to trigger warning
+        currentSpendUsd:
+          type: number
+          description: Current spend in this period
+        enabled:
+          type: boolean
+          description: Whether this alert is active
+        autoPause:
+          type: boolean
+          description: Auto-pause agents when exceeded
+        lastTriggeredAt:
+          type: string
+          description: ISO datetime of last trigger
+        agentFilter:
+          type: string
+          description: Optional agent name filter (null = all agents)
+      required:
+        - name
+        - budgetType
+        - thresholdUsd
+        - warningPercent
+        - currentSpendUsd
+        - enabled
+        - autoPause
+        - lastTriggeredAt
+        - agentFilter
+      description: Budget threshold alert configuration
+    CircuitBreakerConfig:
+      type: object
+      properties:
+        data:
+          type: object
+          description: CircuitBreakerConfig data
+      required:
+        - data
+      description: CircuitBreakerConfig
+    CodeScanResult:
+      type: object
+      properties:
+        projectPath:
+          type: string
+          description: Scanned project path
+        scanType:
+          $ref: '#/components/schemas/enum'
+          description: Type of scan performed
+          enum:
+            - static
+            - runtime
+            - hybrid
+        totalLlmCalls:
+          type: integer
+          description: Number of LLM call sites found
+        totalProviders:
+          type: integer
+          description: Unique providers detected
+        totalModels:
+          type: integer
+          description: Unique models detected
+        callSites:
+          type: object
+          description: Array of {file, line, provider, model, estimatedCost}
+        recommendations:
+          type: object
+          description: Optimization recommendations
+        riskScore:
+          type: number
+          description: Overall AI risk score (0-1)
+        scanDuration:
+          type: integer
+          description: Scan time in milliseconds
+      required:
+        - projectPath
+        - scanType
+        - totalLlmCalls
+        - totalProviders
+        - totalModels
+        - callSites
+        - recommendations
+        - riskScore
+        - scanDuration
+      description: Results from scanning a codebase for LLM/AI usage patterns
+    Conversion:
+      type: object
+      properties:
+        conversionType:
+          $ref: '#/components/schemas/enum'
+          description: Type of optimization
+          enum:
+            - cache
+            - downgrade
+            - remove
+        sourceModel:
+          type: string
+          description: Current model being used
+        targetModel:
+          type: string
+          description: Suggested replacement model (for downgrade)
+        promptHash:
+          type: string
+          description: Prompt hash this conversion applies to
+        promptCategory:
+          type: string
+          description: Prompt category
+        estimatedSavingsUsd:
+          type: number
+          description: Projected monthly savings
+        confidence:
+          type: number
+          description: Confidence score 0-1
+        status:
+          $ref: '#/components/schemas/enum'
+          description: Conversion status
+          enum:
+            - pending
+            - accepted
+            - rejected
+            - applied
+        appliedAt:
+          type: string
+          description: When the conversion was applied
+        metadata:
+          type: object
+          description: Additional context
+      required:
+        - conversionType
+        - sourceModel
+        - targetModel
+        - promptHash
+        - promptCategory
+        - estimatedSavingsUsd
+        - confidence
+        - status
+        - appliedAt
+        - metadata
+      description: Optimization suggestion — cache, downgrade, or remove an LLM call
+    CostAttribution:
+      type: object
+      properties:
+        llmCallId:
+          type: string
+          description: Reference to the LLM call
+        tagKey:
+          type: string
+          description: Dimension (feature, team, customer)
+        tagValue:
+          type: string
+          description: Value (support-bot, engineering, acme-corp)
+        costUsd:
+          type: number
+          description: Cost attributed to this tag
+        inputTokens:
+          type: integer
+          description: Input tokens for this call
+        outputTokens:
+          type: integer
+          description: Output tokens for this call
+        model:
+          type: string
+          description: Model used
+        provider:
+          type: string
+          description: Provider (openai, anthropic)
+      required:
+        - llmCallId
+        - tagKey
+        - tagValue
+        - costUsd
+        - inputTokens
+        - outputTokens
+        - model
+        - provider
+      description: Links an LLM call to cost tags for attribution tracking
+    CostBudget:
+      type: object
+      properties:
+        tagKey:
+          type: string
+          description: Which dimension (feature, team, customer)
+        tagValue:
+          type: string
+          description: Which value (support-bot, engineering)
+        limitUsd:
+          type: number
+          description: Budget limit in USD
+        period:
+          $ref: '#/components/schemas/enum'
+          description: Budget period
+          enum:
+            - daily
+            - weekly
+            - monthly
+        alertAt:
+          type: number
+          description: Alert when reaching this percentage of budget
+        action:
+          $ref: '#/components/schemas/enum'
+          description: What to do when budget exceeded
+          enum:
+            - alert
+            - throttle
+            - block
+        enabled:
+          type: boolean
+      required:
+        - tagKey
+        - tagValue
+        - limitUsd
+        - period
+        - alertAt
+        - action
+        - enabled
+      description: Budget limit for a specific tag (e.g. team=engineering has $500/month budget)
+    CostReport:
+      type: object
+      properties:
+        reportType:
+          $ref: '#/components/schemas/enum'
+          description: Report type
+          enum:
+            - daily
+            - weekly
+            - monthly
+            - custom
+        periodStart:
+          type: string
+          description: Period start ISO datetime
+        periodEnd:
+          type: string
+          description: Period end ISO datetime
+        totalCostUsd:
+          type: number
+          description: Total cost in this period
+        totalCalls:
+          type: integer
+          description: Total LLM calls
+        breakdown:
+          type: object
+          description: Full breakdown by all dimensions
+        topInsights:
+          type: object
+          description: Auto-generated insights (spikes, anomalies, savings opportunities)
+        format:
+          $ref: '#/components/schemas/enum'
+          enum:
+            - json
+            - html
+            - slack
+            - markdown
+      required:
+        - reportType
+        - periodStart
+        - periodEnd
+        - totalCostUsd
+        - totalCalls
+        - breakdown
+        - topInsights
+        - format
+      description: Generated cost attribution report snapshot
+    CostTag:
+      type: object
+      properties:
+        key:
+          type: string
+          description: Tag dimension (feature, team, customer, environment, project)
+        value:
+          type: string
+          description: Tag value (support-bot, engineering, acme-corp)
+        description:
+          type: string
+          description: Human-readable description of this tag
+      required:
+        - key
+        - value
+        - description
+      description: Tag for attributing LLM costs to features, teams, customers, or any dimension
+    DashboardWidget:
+      type: object
+      properties:
+        dashboardId:
+          type: string
+          description: Parent dashboard ID
+        widgetType:
+          $ref: '#/components/schemas/enum'
+          description: Type of visualization widget
+          enum:
+            - line-chart
+            - bar-chart
+            - pie-chart
+            - metric-card
+            - table
+            - heatmap
+            - waterfall
+            - timeline
+        title:
+          type: string
+          description: Widget display title
+        query:
+          type: object
+          description: Data query config (entity, aggregation, groupBy, timeRange)
+        position:
+          type: object
+          description: Grid position {x, y, w, h}
+        config:
+          type: object
+          description: Widget-specific config (colors, thresholds, labels)
+        refreshOverride:
+          type: integer
+          description: Override dashboard refresh interval for this widget
+      required:
+        - dashboardId
+        - widgetType
+        - title
+        - query
+        - position
+        - config
+        - refreshOverride
+      description: Individual widget within a dashboard
+    Dashboard:
+      type: object
+      properties:
+        name:
+          type: string
+          description: Dashboard name
+        description:
+          type: string
+          description: What this dashboard shows
+        layout:
+          type: object
+          description: Grid layout config (widgets, positions, sizes)
+        filters:
+          type: object
+          description: Default filters (time range, model, agent)
+        refreshInterval:
+          type: integer
+          description: Auto-refresh interval in seconds
+        isDefault:
+          type: boolean
+          description: Show on home page
+        owner:
+          type: string
+          description: Who created this dashboard
+      required:
+        - name
+        - description
+        - layout
+        - filters
+        - refreshInterval
+        - isDefault
+        - owner
+      description: Configurable dashboard for visualizing observability data
+    DatadogClient:
+      type: object
+      properties:
+        data:
+          type: object
+          description: DatadogClient data
+      required:
+        - data
+      description: DatadogClient
+    DelusionDetection:
+      type: object
+      properties:
+        agentLabel:
+          type: string
+          description: Which agent produced the delusional output
+        llmCallId:
+          type: string
+          description: Specific LLM call that was delusional
+        delusionType:
+          $ref: '#/components/schemas/enum'
+          description: Type of delusion detected
+          enum:
+            - hallucination
+            - contradiction
+            - confidence-mismatch
+            - circular-reasoning
+            - fabricated-reference
+        confidence:
+          type: number
+          description: Model's stated confidence (0-1)
+        actualAccuracy:
+          type: number
+          description: Verified accuracy (0-1)
+        divergenceScore:
+          type: number
+          description: Confidence minus accuracy
+        inputSample:
+          type: string
+          description: The input that triggered the delusional output
+        outputSample:
+          type: string
+          description: The delusional output
+        explanation:
+          type: string
+          description: Why this was flagged as delusional
+        verified:
+          type: boolean
+          description: Whether a human has verified this detection
+        status:
+          $ref: '#/components/schemas/enum'
+          description: Current status
+          enum:
+            - detected
+            - confirmed
+            - dismissed
+      required:
+        - agentLabel
+        - llmCallId
+        - delusionType
+        - confidence
+        - actualAccuracy
+        - divergenceScore
+        - inputSample
+        - outputSample
+        - explanation
+        - verified
+        - status
+      description: Detected hallucination or confidence mismatch in LLM output
+    DriftDetection:
+      type: object
+      properties:
+        agentLabel:
+          type: string
+          description: Which agent is being monitored
+        detectionType:
+          $ref: '#/components/schemas/enum'
+          description: Type of drift detected
+          enum:
+            - output-drift
+            - confidence-drift
+            - latency-drift
+            - cost-drift
+            - behavior-drift
+        severity:
+          $ref: '#/components/schemas/enum'
+          description: Severity level
+          enum:
+            - critical
+            - high
+            - medium
+            - low
+        baselineHash:
+          type: string
+          description: Hash of baseline behavior
+        currentHash:
+          type: string
+          description: Hash of current behavior
+        driftScore:
+          type: number
+          description: Drift score from 0 to 1
+        sampleCount:
+          type: integer
+          description: Number of samples analyzed
+        baselinePeriod:
+          type: string
+          description: Baseline time period (e.g. "2026-02-01 to 2026-02-15")
+        currentPeriod:
+          type: string
+          description: Current time period (e.g. "2026-02-16 to 2026-02-24")
+        details:
+          type: object
+          description: Specific drift details (changed outputs, new patterns)
+        status:
+          $ref: '#/components/schemas/enum'
+          description: Current status of this detection
+          enum:
+            - active
+            - acknowledged
+            - resolved
+            - false-positive
+      required:
+        - agentLabel
+        - detectionType
+        - severity
+        - baselineHash
+        - currentHash
+        - driftScore
+        - sampleCount
+        - baselinePeriod
+        - currentPeriod
+        - details
+        - status
+      description: Detected behavioral or performance drift in an agent
+    DriftResult:
+      type: object
+      properties:
+        data:
+          type: object
+          description: DriftResult data
+      required:
+        - data
+      description: DriftResult
+    ExplainSession:
+      type: object
+      properties:
+        query:
+          type: string
+          description: User's question or topic
+        status:
+          $ref: '#/components/schemas/enum'
+          description: Session status
+          enum:
+            - running
+            - completed
+            - failed
+        model:
+          type: string
+          description: LLM model used for explanation
+        responseText:
+          type: string
+          description: Generated explanation
+        callsAnalyzed:
+          type: integer
+          description: Number of calls analyzed for context
+        costOfExplain:
+          type: number
+          description: Cost of running the explain query itself
+        durationMs:
+          type: integer
+          description: How long the explain took
+      required:
+        - query
+        - status
+        - model
+        - responseText
+        - callsAnalyzed
+        - costOfExplain
+        - durationMs
+      description: Tracks flusk explain command runs — AI-powered cost optimization insights
+    GrafanaTempoClient:
+      type: object
+      properties:
+        data:
+          type: object
+          description: GrafanaTempoClient data
+      required:
+        - data
+      description: GrafanaTempoClient
+    Insight:
+      type: object
+      properties:
+        insightType:
+          $ref: '#/components/schemas/enum'
+          description: Type of insight
+          enum:
+            - cost_reduction
+            - performance
+            - caching
+            - model_switch
+            - pattern_elimination
+            - quality_improvement
+        title:
+          type: string
+          description: Short insight title
+        description:
+          type: string
+          description: Detailed explanation
+        estimatedSavingsUsd:
+          type: number
+          description: Projected monthly savings
+        estimatedSavingsPercent:
+          type: number
+          description: Projected savings as percentage
+        priority:
+          $ref: '#/components/schemas/enum'
+          description: Priority level
+          enum:
+            - high
+            - medium
+            - low
+        status:
+          $ref: '#/components/schemas/enum'
+          description: Insight status
+          enum:
+            - new
+            - viewed
+            - accepted
+            - dismissed
+        affectedModel:
+          type: string
+          description: Model this insight relates to
+        affectedAgent:
+          type: string
+          description: Agent this insight relates to
+        analyzeSessionId:
+          type: string
+          description: Analysis session that generated this insight
+        evidence:
+          type: object
+          description: Supporting data
+      required:
+        - insightType
+        - title
+        - description
+        - estimatedSavingsUsd
+        - estimatedSavingsPercent
+        - priority
+        - status
+        - affectedModel
+        - affectedAgent
+        - analyzeSessionId
+        - evidence
+      description: AI-generated optimization insight
+    LlmCall:
+      type: object
+      properties:
+        traceId:
+          type: string
+          description: Associated trace ID for distributed tracing
+        spanId:
+          type: string
+          description: Associated span ID
+        model:
+          type: string
+          description: Model name (e.g. gpt-4, claude-3-opus)
+        provider:
+          $ref: '#/components/schemas/enum'
+          description: LLM provider
+          enum:
+            - openai
+            - anthropic
+            - google
+            - mistral
+            - cohere
+            - local
+            - other
+        promptHash:
+          type: string
+          description: SHA-256 hash of the prompt for dedup detection
+        promptTokens:
+          type: integer
+          description: Number of input tokens
+        completionTokens:
+          type: integer
+          description: Number of output tokens
+        totalTokens:
+          type: integer
+          description: Total tokens used
+        costUsd:
+          type: number
+          description: Cost in USD
+        durationMs:
+          type: integer
+          description: Response time in milliseconds
+        agentName:
+          type: string
+          description: Name of the agent or service that made the call
+        promptCategory:
+          type: string
+          description: Category for grouping (e.g. summarization, extraction)
+        cached:
+          type: boolean
+          description: Whether this was a cache hit
+        error:
+          type: string
+          description: Error message if the call failed
+        metadata:
+          type: object
+          description: Additional context (headers, params, etc.)
+      required:
+        - traceId
+        - spanId
+        - model
+        - provider
+        - promptHash
+        - promptTokens
+        - completionTokens
+        - totalTokens
+        - costUsd
+        - durationMs
+        - agentName
+        - promptCategory
+        - cached
+        - error
+        - metadata
+      description: Individual LLM API call with cost and token tracking
+    MarketplaceListing:
+      type: object
+      properties:
+        partnerId:
+          type: string
+          description: Partner ID
+        integrationId:
+          type: string
+          description: Integration ID
+        name:
+          type: string
+          description: Listing name
+        description:
+          type: string
+          description: Listing description
+        category:
+          type: string
+          description: Listing category
+        pricing:
+          type: object
+          description: Pricing model (free, per-call, monthly)
+        featured:
+          type: boolean
+          description: Whether listing is featured
+        rating:
+          type: number
+          description: Average rating
+        installCount:
+          type: integer
+          description: Number of installs
+      required:
+        - partnerId
+        - integrationId
+        - name
+        - description
+        - category
+        - pricing
+        - featured
+        - rating
+        - installCount
+      description: Public marketplace listing for partner integrations
+    ModelPerformance:
+      type: object
+      properties:
+        model:
+          type: string
+          description: Model name
+        provider:
+          $ref: '#/components/schemas/enum'
+          description: LLM provider
+          enum:
+            - openai
+            - anthropic
+            - google
+            - mistral
+            - cohere
+            - local
+            - other
+        promptCategory:
+          type: string
+          description: Prompt category
+        callCount:
+          type: integer
+          description: Number of calls sampled
+        avgCostUsd:
+          type: number
+          description: Average cost per call
+        avgDurationMs:
+          type: number
+          description: Average response time
+        avgTokens:
+          type: number
+          description: Average tokens per call
+        qualityScore:
+          type: number
+          description: Quality score 0-1 (from evaluations)
+        errorRate:
+          type: number
+          description: Percentage of calls that errored
+        p50DurationMs:
+          type: integer
+          description: Median response time
+        p99DurationMs:
+          type: integer
+          description: 99th percentile response time
+        lastUpdatedAt:
+          type: string
+          description: When metrics were last recalculated
+      required:
+        - model
+        - provider
+        - promptCategory
+        - callCount
+        - avgCostUsd
+        - avgDurationMs
+        - avgTokens
+        - qualityScore
+        - errorRate
+        - p50DurationMs
+        - p99DurationMs
+        - lastUpdatedAt
+      description: Model quality and cost metrics per prompt category
+    NotificationChannel:
+      type: object
+      properties:
+        id:
+          type: string
+        name:
+          type: string
+          description: Channel display name
+        type:
+          type: string
+          description: Delivery channel type
+          enum:
+            - email
+            - slack
+            - webhook
+            - stdout
+        config:
+          type: object
+          description: Channel-specific configuration
+        enabled:
+          type: boolean
+        severityFilter:
+          type: string
+          description: Minimum severity to deliver
+          enum:
+            - info
+            - warning
+            - critical
+            - all
+        webhookId:
+          type: string
+          description: Associated webhook ID (for webhook type)
+        createdAt:
+          type: string
+        updatedAt:
+          type: string
+      required:
+        - id
+        - name
+        - type
+        - config
+        - enabled
+        - createdAt
+        - updatedAt
+      description: Notification delivery channel configuration
+    Optimization:
+      type: object
+      properties:
+        optimizationType:
+          $ref: '#/components/schemas/enum'
+          description: Type of code optimization
+          enum:
+            - caching
+            - batching
+            - model_switch
+            - prompt_compression
+            - deduplication
+            - streaming
+        title:
+          type: string
+          description: Short title
+        description:
+          type: string
+          description: Detailed explanation of the optimization
+        codeBefore:
+          type: string
+          description: Original code snippet
+        codeAfter:
+          type: string
+          description: Suggested optimized code
+        filePath:
+          type: string
+          description: File path in the user's project
+        lineNumber:
+          type: integer
+          description: Line number in the file
+        estimatedSavingsUsd:
+          type: number
+          description: Projected monthly savings
+        status:
+          $ref: '#/components/schemas/enum'
+          description: Optimization status
+          enum:
+            - pending
+            - accepted
+            - rejected
+            - applied
+        analyzeSessionId:
+          type: string
+          description: Analysis session that generated this
+      required:
+        - optimizationType
+        - title
+        - description
+        - codeBefore
+        - codeAfter
+        - filePath
+        - lineNumber
+        - estimatedSavingsUsd
+        - status
+        - analyzeSessionId
+      description: Generated code optimization suggestion
+    Organization:
+      type: object
+      properties:
+        name:
+          type: string
+          description: Organization display name
+        slug:
+          type: string
+          description: URL-safe unique identifier
+        plan:
+          $ref: '#/components/schemas/enum'
+          description: Subscription plan
+          enum:
+            - free
+            - pro
+            - enterprise
+        limits:
+          type: object
+          description: 'Plan limits: max_users, max_api_keys, retention_days'
+        settings:
+          type: object
+          description: Organization-level settings
+      required:
+        - name
+        - slug
+        - plan
+        - limits
+        - settings
+      description: Tenant organization with plan and limits
+    PartnerIntegration:
+      type: object
+      properties:
+        partnerId:
+          type: string
+          description: Partner that owns this integration
+        name:
+          type: string
+          description: Integration name
+        type:
+          $ref: '#/components/schemas/enum'
+          description: Integration type
+          enum:
+            - model-provider
+            - tool
+            - data-source
+            - notification
+        config:
+          type: object
+          description: Integration configuration
+        status:
+          $ref: '#/components/schemas/enum'
+          description: Integration status
+          enum:
+            - active
+            - inactive
+            - pending-review
+        endpointUrl:
+          type: string
+          description: Integration endpoint URL
+        documentation:
+          type: string
+          description: Documentation URL or markdown
+      required:
+        - partnerId
+        - name
+        - type
+        - config
+        - status
+        - endpointUrl
+        - documentation
+      description: Integration provided by a partner (model, tool, data source, etc.)
+    PartnerUsage:
+      type: object
+      properties:
+        partnerId:
+          type: string
+          description: Partner ID
+        integrationId:
+          type: string
+          description: Integration ID
+        period:
+          type: string
+          description: Usage period (e.g. 2026-03-01)
+        calls:
+          type: integer
+          description: Number of API calls
+        cost:
+          type: number
+          description: Total cost in USD
+        errors:
+          type: integer
+          description: Number of errors
+      required:
+        - partnerId
+        - integrationId
+        - period
+        - calls
+        - cost
+        - errors
+      description: Usage tracking for partner integrations
+    Partner:
+      type: object
+      properties:
+        name:
+          type: string
+          description: Partner name
+        email:
+          type: string
+          description: Contact email
+        website:
+          type: string
+          description: Partner website
+        status:
+          $ref: '#/components/schemas/enum'
+          description: Partner status
+          enum:
+            - pending
+            - approved
+            - suspended
+        apiKey:
+          type: string
+          description: API key for partner access
+        tier:
+          $ref: '#/components/schemas/enum'
+          description: Partner tier
+          enum:
+            - free
+            - standard
+            - premium
+        organizationId:
+          type: string
+          description: Associated organization
+      required:
+        - name
+        - email
+        - website
+        - status
+        - apiKey
+        - tier
+        - organizationId
+      description: External partner/integrator in the Flusk ecosystem
+    Pattern:
+      type: object
+      properties:
+        promptHash:
+          type: string
+          description: Hash of the repeated prompt
+        model:
+          type: string
+          description: Model used
+        occurrences:
+          type: integer
+          description: Number of times this pattern appeared
+        totalCostUsd:
+          type: number
+          description: Total cost of all occurrences
+        avgTokens:
+          type: number
+          description: Average tokens per occurrence
+        firstSeenAt:
+          type: string
+          description: When first detected
+        lastSeenAt:
+          type: string
+          description: When last seen
+        samplePrompt:
+          type: string
+          description: Example prompt text (truncated)
+        recommendation:
+          $ref: '#/components/schemas/enum'
+          description: Suggested action
+          enum:
+            - cache
+            - batch
+            - ignore
+        agentName:
+          type: string
+          description: Agent generating this pattern
+      required:
+        - promptHash
+        - model
+        - occurrences
+        - totalCostUsd
+        - avgTokens
+        - firstSeenAt
+        - lastSeenAt
+        - samplePrompt
+        - recommendation
+        - agentName
+      description: Detected repetitive prompt pattern
+    PerformancePattern:
+      type: object
+      properties:
+        patternType:
+          $ref: '#/components/schemas/enum'
+          description: Type of performance pattern
+          enum:
+            - hot_function
+            - memory_leak
+            - slow_io
+            - cpu_spike
+            - gc_pressure
+        functionName:
+          type: string
+          description: Function or module name
+        filePath:
+          type: string
+          description: Source file path
+        lineNumber:
+          type: integer
+          description: Line number
+        selfTime:
+          type: number
+          description: Self time in milliseconds
+        totalTime:
+          type: number
+          description: Total time including children
+        callCount:
+          type: integer
+          description: Number of invocations
+        heapDelta:
+          type: integer
+          description: Heap size change in bytes
+        severity:
+          $ref: '#/components/schemas/enum'
+          description: Severity level
+          enum:
+            - critical
+            - warning
+            - info
+        profileSessionId:
+          type: string
+          description: Associated profile session
+        recommendation:
+          type: string
+          description: Suggested fix
+      required:
+        - patternType
+        - functionName
+        - filePath
+        - lineNumber
+        - selfTime
+        - totalTime
+        - callCount
+        - heapDelta
+        - severity
+        - profileSessionId
+        - recommendation
+      description: Detected performance pattern from CPU/heap profiling
+    ProfileSession:
+      type: object
+      properties:
+        name:
+          type: string
+          description: Session name
+        profileType:
+          $ref: '#/components/schemas/enum'
+          description: Type of profiling
+          enum:
+            - cpu
+            - heap
+            - both
+        status:
+          $ref: '#/components/schemas/enum'
+          description: Session status
+          enum:
+            - running
+            - completed
+            - failed
+        pid:
+          type: integer
+          description: Process ID being profiled
+        durationMs:
+          type: integer
+          description: Profiling duration
+        flameGraphPath:
+          type: string
+          description: Path to generated flamegraph SVG
+        cpuProfilePath:
+          type: string
+          description: Path to raw CPU profile JSON
+        heapSnapshotPath:
+          type: string
+          description: Path to heap snapshot
+        hotspotCount:
+          type: integer
+          description: Number of hotspots detected
+        peakHeapMb:
+          type: number
+          description: Peak heap usage in MB
+        summary:
+          type: object
+          description: Summary statistics
+      required:
+        - name
+        - profileType
+        - status
+        - pid
+        - durationMs
+        - flameGraphPath
+        - cpuProfilePath
+        - heapSnapshotPath
+        - hotspotCount
+        - peakHeapMb
+        - summary
+      description: Profiling session data from @platformatic/flame
+    PromptTemplate:
+      type: object
+      properties:
+        name:
+          type: string
+          description: Template identifier
+        description:
+          type: string
+          description: What this template does
+        category:
+          type: string
+          description: Prompt category
+        currentVersionId:
+          type: string
+          description: ID of the active version
+        totalVersions:
+          type: integer
+          description: Number of versions
+        abTestingEnabled:
+          type: boolean
+          description: Whether A/B testing is active
+        metadata:
+          type: object
+          description: Additional template metadata
+      required:
+        - name
+        - description
+        - category
+        - currentVersionId
+        - totalVersions
+        - abTestingEnabled
+        - metadata
+      description: Prompt template for A/B testing and version tracking
+    PromptVersion:
+      type: object
+      properties:
+        templateId:
+          type: string
+          description: Parent template ID
+        version:
+          type: integer
+          description: Version number
+        promptText:
+          type: string
+          description: The prompt text
+        model:
+          type: string
+          description: Intended model
+        callCount:
+          type: integer
+          description: Number of calls using this version
+        avgCostUsd:
+          type: number
+          description: Average cost per call
+        avgDurationMs:
+          type: number
+          description: Average response time
+        avgQualityScore:
+          type: number
+          description: Average quality score
+        isActive:
+          type: boolean
+          description: Whether this version is in rotation
+        trafficPercent:
+          type: integer
+          description: Percentage of traffic for A/B testing
+      required:
+        - templateId
+        - version
+        - promptText
+        - model
+        - callCount
+        - avgCostUsd
+        - avgDurationMs
+        - avgQualityScore
+        - isActive
+        - trafficPercent
+      description: Immutable prompt version with performance metrics
+    ProviderHealth:
+      type: object
+      properties:
+        provider:
+          type: string
+          description: Provider name (openai, anthropic, google)
+        model:
+          type: string
+          description: Model identifier
+        successCount:
+          type: integer
+          description: Successful requests in current window
+        failureCount:
+          type: integer
+          description: Failed requests in current window
+        avgLatencyMs:
+          type: number
+          description: Average latency in current window
+        lastFailureAt:
+          type: string
+          description: Timestamp of last failure
+        rateLimitedUntil:
+          type: string
+          description: Rate limit backoff expiry
+        enabled:
+          type: boolean
+          description: Whether provider is available for routing
+        windowStart:
+          type: string
+          description: Start of current sliding window
+      required:
+        - provider
+        - model
+        - successCount
+        - failureCount
+        - avgLatencyMs
+        - lastFailureAt
+        - rateLimitedUntil
+        - enabled
+        - windowStart
+      description: Tracks provider health metrics for smart routing decisions
+    RoutingDecision:
+      type: object
+      properties:
+        routingRuleId:
+          type: string
+          description: Rule that was applied
+        promptCategory:
+          type: string
+          description: Prompt category
+        requestedModel:
+          type: string
+          description: Model originally requested
+        selectedModel:
+          type: string
+          description: Model actually used
+        wasRerouted:
+          type: boolean
+          description: Whether the model was changed
+        savingsUsd:
+          type: number
+          description: Cost savings from rerouting
+        qualityDelta:
+          type: number
+          description: Quality difference (selected - requested)
+        latencyDelta:
+          type: integer
+          description: Latency difference in ms
+        llmCallId:
+          type: string
+          description: Associated LLM call ID
+      required:
+        - routingRuleId
+        - promptCategory
+        - requestedModel
+        - selectedModel
+        - wasRerouted
+        - savingsUsd
+        - qualityDelta
+        - latencyDelta
+        - llmCallId
+      description: Records a model routing decision and associated savings
+    RoutingRule:
+      type: object
+      properties:
+        name:
+          type: string
+          description: Rule name
+        promptCategory:
+          type: string
+          description: Which prompt category this rule applies to
+        minQualityScore:
+          type: number
+          description: Minimum acceptable quality score (0-1)
+        maxCostUsd:
+          type: number
+          description: Maximum cost per call
+        maxDurationMs:
+          type: integer
+          description: Maximum acceptable latency
+        preferredModels:
+          type: object
+          description: Ordered list of preferred models
+        excludedModels:
+          type: object
+          description: Models to never use
+        enabled:
+          type: boolean
+          description: Whether this rule is active
+        priority:
+          type: integer
+          description: Rule priority (higher = checked first)
+      required:
+        - name
+        - promptCategory
+        - minQualityScore
+        - maxCostUsd
+        - maxDurationMs
+        - preferredModels
+        - excludedModels
+        - enabled
+        - priority
+      description: Model routing rule per organization — route to cheapest qualifying model
+    SolutionChannel:
+      type: object
+      properties:
+        solutionId:
+          type: string
+          description: Solution this channel belongs to
+        channel:
+          $ref: '#/components/schemas/enum'
+          description: Channel type
+          enum:
+            - slack
+            - whatsapp
+            - telegram
+            - discord
+            - api
+            - web
+        config:
+          type: object
+          description: Channel configuration (webhook URL, bot token, etc.)
+        status:
+          $ref: '#/components/schemas/enum'
+          description: Channel status
+          enum:
+            - active
+            - inactive
+        messageCount:
+          type: integer
+          description: Total messages sent through this channel
+        lastMessageAt:
+          type: string
+          description: Last message timestamp
+      required:
+        - solutionId
+        - channel
+        - config
+        - status
+        - messageCount
+        - lastMessageAt
+      description: Channel connection for publishing a solution (Slack, WhatsApp, etc.)
+    SolutionRun:
+      type: object
+      properties:
+        solutionId:
+          type: string
+          description: Solution that was executed
+        organizationId:
+          type: string
+          description: Organization that owns this run
+        input:
+          type: object
+          description: Input data for the run
+        output:
+          type: object
+          description: Output data from the run
+        status:
+          $ref: '#/components/schemas/enum'
+          description: Execution status
+          enum:
+            - running
+            - completed
+            - failed
+            - timeout
+        cost:
+          type: number
+          description: Total cost in USD
+        durationMs:
+          type: integer
+          description: Execution duration in milliseconds
+        modelUsed:
+          type: string
+          description: Model used for this run
+        tokensIn:
+          type: integer
+          description: Input tokens consumed
+        tokensOut:
+          type: integer
+          description: Output tokens generated
+        error:
+          type: string
+          description: Error message if failed
+        traceId:
+          type: string
+          description: Links to distributed trace
+      required:
+        - solutionId
+        - organizationId
+        - input
+        - output
+        - status
+        - cost
+        - durationMs
+        - modelUsed
+        - tokensIn
+        - tokensOut
+        - error
+        - traceId
+      description: Single execution of a solution with cost and performance tracking
+    SolutionTemplate:
+      type: object
+      properties:
+        name:
+          type: string
+          description: Template name
+        description:
+          type: string
+          description: Template description
+        category:
+          $ref: '#/components/schemas/enum'
+          description: Template category
+          enum:
+            - customer-support
+            - data-analysis
+            - content-generation
+            - code-review
+            - custom
+        config:
+          type: object
+          description: Default solution configuration
+        isPublic:
+          type: boolean
+          description: Whether template is publicly visible
+        author:
+          type: string
+          description: Template author
+        downloads:
+          type: integer
+          description: Number of times cloned
+        rating:
+          type: number
+          description: Average user rating
+      required:
+        - name
+        - description
+        - category
+        - config
+        - isPublic
+        - author
+        - downloads
+        - rating
+      description: Pre-built solution template for quick start
+    SolutionTool:
+      type: object
+      properties:
+        solutionId:
+          type: string
+          description: Solution this tool belongs to
+        name:
+          type: string
+          description: Tool name
+        description:
+          type: string
+          description: Tool description
+        type:
+          $ref: '#/components/schemas/enum'
+          description: Tool type
+          enum:
+            - function
+            - api
+            - database
+            - file
+        config:
+          type: object
+          description: Tool configuration (endpoint, auth, schema)
+      required:
+        - solutionId
+        - name
+        - description
+        - type
+        - config
+      description: Tool attached to a solution (function, API, database, file)
+    SolutionVersion:
+      type: object
+      properties:
+        solutionId:
+          type: string
+          description: Parent solution ID
+        version:
+          type: string
+          description: Semantic version string
+        config:
+          type: object
+          description: Solution configuration at this version
+        changelog:
+          type: string
+          description: What changed in this version
+        publishedBy:
+          type: string
+          description: User who published this version
+      required:
+        - solutionId
+        - version
+        - config
+        - changelog
+        - publishedBy
+      description: Versioned snapshot of a solution's configuration
+    Solution:
+      type: object
+      properties:
+        organizationId:
+          type: string
+          description: Organization that owns this solution
+        name:
+          type: string
+          description: Solution name
+        description:
+          type: string
+          description: Solution description
+        type:
+          $ref: '#/components/schemas/enum'
+          description: Solution type
+          enum:
+            - agent
+            - workflow
+            - pipeline
+            - chatbot
+        status:
+          $ref: '#/components/schemas/enum'
+          description: Current status
+          enum:
+            - draft
+            - active
+            - paused
+            - archived
+        config:
+          type: object
+          description: Solution configuration (model, system prompt, tools, etc.)
+        version:
+          type: string
+          description: Current version (semver)
+        publishedAt:
+          type: string
+          description: When the solution was last published
+        metrics:
+          type: object
+          description: Aggregated metrics (runs, cost, avg_latency)
+      required:
+        - organizationId
+        - name
+        - description
+        - type
+        - status
+        - config
+        - version
+        - publishedAt
+        - metrics
+      description: AI solution built by users (agent, workflow, pipeline, or chatbot)
+    Span:
+      type: object
+      properties:
+        traceId:
+          type: string
+          description: Parent trace ID
+        spanId:
+          type: string
+          description: Unique span identifier
+        parentSpanId:
+          type: string
+          description: Parent span ID (null for root spans)
+        operationName:
+          type: string
+          description: Span operation name
+        serviceName:
+          type: string
+          description: Service that generated this span
+        startTime:
+          type: string
+          description: ISO datetime span started
+        endTime:
+          type: string
+          description: ISO datetime span ended
+        durationMs:
+          type: integer
+          description: Span duration in milliseconds
+        kind:
+          $ref: '#/components/schemas/enum'
+          description: OpenTelemetry span kind
+          enum:
+            - internal
+            - client
+            - server
+            - producer
+            - consumer
+        status:
+          $ref: '#/components/schemas/enum'
+          description: Span status
+          enum:
+            - ok
+            - error
+            - unset
+        attributes:
+          type: object
+          description: OpenTelemetry span attributes
+        events:
+          type: object
+          description: Span events/logs
+        llmCallId:
+          type: string
+          description: Associated LLM call ID if this span represents an LLM invocation
+      required:
+        - traceId
+        - spanId
+        - parentSpanId
+        - operationName
+        - serviceName
+        - startTime
+        - endTime
+        - durationMs
+        - kind
+        - status
+        - attributes
+        - events
+        - llmCallId
+      description: Individual span within a distributed trace
+    TraceView:
+      type: object
+      properties:
+        traceId:
+          type: string
+          description: Reference to trace entity
+        viewType:
+          $ref: '#/components/schemas/enum'
+          description: Visualization type
+          enum:
+            - waterfall
+            - flamegraph
+            - timeline
+            - tree
+        totalDuration:
+          type: integer
+          description: Total trace duration in milliseconds
+        totalCost:
+          type: number
+          description: Total trace cost in USD
+        spanCount:
+          type: integer
+          description: Number of spans in the trace
+        criticalPath:
+          type: object
+          description: List of span IDs on the critical path
+        annotations:
+          type: object
+          description: User annotations on the trace
+      required:
+        - traceId
+        - viewType
+        - totalDuration
+        - totalCost
+        - spanCount
+        - criticalPath
+        - annotations
+      description: Visualization configuration for a distributed trace
+    Trace:
+      type: object
+      properties:
+        traceId:
+          type: string
+          description: Unique trace identifier (W3C trace ID format)
+        rootSpanId:
+          type: string
+          description: ID of the root span
+        serviceName:
+          type: string
+          description: Originating service name
+        operationName:
+          type: string
+          description: Top-level operation name
+        durationMs:
+          type: integer
+          description: Total trace duration in milliseconds
+        spanCount:
+          type: integer
+          description: Number of spans in this trace
+        totalCostUsd:
+          type: number
+          description: Sum of all LLM call costs within this trace
+        status:
+          $ref: '#/components/schemas/enum'
+          description: Trace outcome status
+          enum:
+            - ok
+            - error
+            - timeout
+        metadata:
+          type: object
+          description: Additional trace attributes
+      required:
+        - traceId
+        - rootSpanId
+        - serviceName
+        - operationName
+        - durationMs
+        - spanCount
+        - totalCostUsd
+        - status
+        - metadata
+      description: Distributed trace record grouping related spans
+    User:
+      type: object
+      properties:
+        organizationId:
+          type: string
+          description: Parent organization
+        email:
+          type: string
+          description: User email address
+        name:
+          type: string
+          description: Display name
+        role:
+          $ref: '#/components/schemas/enum'
+          description: Access role within organization
+          enum:
+            - owner
+            - admin
+            - member
+            - viewer
+        status:
+          $ref: '#/components/schemas/enum'
+          description: Account status
+          enum:
+            - active
+            - invited
+            - suspended
+        lastLoginAt:
+          type: string
+          description: Last login timestamp
+      required:
+        - organizationId
+        - email
+        - name
+        - role
+        - status
+        - lastLoginAt
+      description: Organization member with role-based access
+    Webhook:
+      type: object
+      properties:
+        id:
+          type: string
+        name:
+          type: string
+          description: Human-readable webhook name
+        url:
+          type: string
+          description: Target URL for webhook delivery
+        method:
+          type: string
+          enum:
+            - POST
+            - PUT
+            - PATCH
+        headers:
+          type: object
+          description: Custom HTTP headers as key-value pairs
+        payloadTemplate:
+          type: string
+          description: Mustache/handlebars template for payload body
+        retryMaxAttempts:
+          type: integer
+          description: Maximum retry attempts on failure
+        retryDelayMs:
+          type: integer
+          description: Delay between retries in milliseconds
+        retryBackoffMultiplier:
+          type: number
+          description: Exponential backoff multiplier
+        timeoutMs:
+          type: integer
+          description: Request timeout in milliseconds
+        secret:
+          type: string
+          description: HMAC secret for signature verification
+        enabled:
+          type: boolean
+        createdAt:
+          type: string
+        updatedAt:
+          type: string
+      required:
+        - id
+        - name
+        - url
+        - method
+        - enabled
+        - createdAt
+        - updatedAt
+      description: Webhook delivery configuration for reports and alerts
