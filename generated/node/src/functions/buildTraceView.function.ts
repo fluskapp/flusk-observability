@@ -2,9 +2,9 @@
 
 import type Database from 'better-sqlite3';
 import { SpanRepository } from '../repositories/span.repository.js';
-import { TraceViewRepository } from '../repositories/trace-view.repository.js';
-import { calculateTraceStats } from './calculate-trace-stats.function.js';
-import { findCriticalPath } from './find-critical-path.function.js';
+import { TraceViewRepository } from '../repositories/traceview.repository.js';
+import { calculateTraceStats } from './calculateTraceStats.function.js';
+import { findCriticalPath } from './findCriticalPath.function.js';
 
 export const buildTraceView = (traceId: string, viewType: string): unknown => {
   const spanRepo = new SpanRepository(db);

@@ -29,7 +29,7 @@ steps:
       db: $db
     store: run
   - id: llmResult
-    call: openai.invoke
+    call: invokeModel
     with:
       model: $solution.config.model
       messages:

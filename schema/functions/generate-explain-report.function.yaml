@@ -11,7 +11,7 @@ output:
   type: json
 steps:
   - id: report
-    call: fluskAi.generateReport
+    call: generateExplainReport
     with:
       data:
         analysis: $analysisData

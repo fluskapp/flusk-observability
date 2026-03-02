@@ -2,7 +2,7 @@
 
 import type Database from 'better-sqlite3';
 import { UserRepository } from '../repositories/user.repository.js';
-import { createAuditLog } from './create-audit-log.function.js';
+import { createAuditLog } from './createAuditLog.function.js';
 
 export const createUser = (organizationId: unknown, email: string, name: string, role: string): unknown => {
   const userRepo = new UserRepository(db);

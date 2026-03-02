@@ -37,7 +37,7 @@ steps:
       db: $db
     store: agentCosts
   - id: analysis
-    call: fluskAi.analyzeUsage
+    call: analyzeUsage
     with:
       data:
         costByModel: $calls

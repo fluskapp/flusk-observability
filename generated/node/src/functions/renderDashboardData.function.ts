@@ -2,7 +2,7 @@
 
 import type Database from 'better-sqlite3';
 import { DashboardRepository } from '../repositories/dashboard.repository.js';
-import { DashboardWidgetRepository } from '../repositories/dashboard-widget.repository.js';
+import { DashboardWidgetRepository } from '../repositories/dashboardwidget.repository.js';
 
 export const renderDashboardData = (dashboardId: string, timeRange: Record<string, unknown>): unknown => {
   const dashboardRepo = new DashboardRepository(db);
