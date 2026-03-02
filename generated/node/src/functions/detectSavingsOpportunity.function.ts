@@ -6,7 +6,7 @@ import { queryCostAttributionCostByTagAndModel } from './queryCostAttributionCos
 export const detectSavingsOpportunity = (item: Record<string, unknown>, db: Database.Database): unknown => {
   const modelBreakdown = queryCostAttributionCostByTagAndModel('tagKey', 'tagValue', 'periodStart', 'periodEnd', db);
   const expensiveModels = modelBreakdown.filter((item: Record<string, unknown>) => item.model === 'gpt-4o,claude-3-opus,claude-opus-4');
-  let hasSavings: unknown = undefined;
+  let _hasSavings: unknown = undefined;
   if (expensiveModels.length !== 0) {
   }
   return undefined;

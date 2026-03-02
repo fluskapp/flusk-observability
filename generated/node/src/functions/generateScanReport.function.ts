@@ -7,6 +7,6 @@ export const generateScanReport = (scanResult: unknown): unknown => {
   // TODO: implement action "call" for step "providerBreakdown"
   // TODO: implement action "call" for step "recommendations"
   const codeScanResultRepo = new CodeScanResultRepository(db);
-  const update = codeScanResultRepo.list(undefined);
+  const _update = codeScanResultRepo.list(undefined);
   return { projectPath: scanResult.projectPath, totalCallSites: scanResult.totalLlmCalls, providers: providerBreakdown, riskScore: scanResult.riskScore, recommendations: recommendations };
 };

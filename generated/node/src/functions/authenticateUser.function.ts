@@ -6,7 +6,7 @@ import { UserRepository } from '../repositories/user.repository.js';
 export const authenticateUser = (email: string, password: string): unknown => {
   const userRepo = new UserRepository(db);
   const user = userRepo.list(undefined);
-  let checkExists: unknown = undefined;
+  let _checkExists: unknown = undefined;
   if (user === undefined) {
   }
   return { userId: user.id, organizationId: user.organizationId, role: user.role };

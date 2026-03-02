@@ -5,13 +5,13 @@ import { ApiKeyRepository } from '../repositories/apikey.repository.js';
 import { sha256 } from './sha256.function.js';
 
 export const validateApiKey = (rawKey: string, requiredScope: string): unknown => {
-  // TODO: implement action "call" for step "hashed"
+  const _hashed = sha256(rawKey);
   const apiKeyRepo = new ApiKeyRepository(db);
   const record = apiKeyRepo.list(undefined);
-  let checkExists: unknown = undefined;
+  let _checkExists: unknown = undefined;
   if (record === undefined) {
   }
-  let checkExpiry: unknown = undefined;
+  let _checkExpiry: unknown = undefined;
   if (record.expiresAt !== now) {
   }
   return { valid: true, organizationId: record.organizationId, userId: record.userId, scopes: record.scopes, apiKeyId: record.id };

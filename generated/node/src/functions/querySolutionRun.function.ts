@@ -4,6 +4,6 @@ import type Database from 'better-sqlite3';
 import { listSolutionRuns } from './listSolutionRuns.function.js';
 
 export const querySolutionRun = (solutionId: string, db: Database.Database): unknown => {
-  // TODO: implement action "call" for step "runs"
+  const runs = listSolutionRuns(solutionId, db);
   return runs;
 };

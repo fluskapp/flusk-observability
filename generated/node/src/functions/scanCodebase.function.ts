@@ -9,12 +9,12 @@ import { generateScanReport } from './generateScanReport.function.js';
 export const scanCodebase = (projectPath: string, scanType: string): unknown => {
   // TODO: implement action "call" for step "startTime"
   const callSites = detectLlmCallSites(projectPath);
-  const costs = estimateCallCosts(callSites);
+  const _costs = estimateCallCosts(callSites);
   // TODO: implement action "call" for step "providers"
   // TODO: implement action "call" for step "models"
   // TODO: implement action "call" for step "duration"
   const codeScanResultRepo = new CodeScanResultRepository(db);
   const result = codeScanResultRepo.list(undefined);
-  const report = generateScanReport(result);
+  const _report = generateScanReport(result);
   return result;
 };

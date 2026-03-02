@@ -10,7 +10,7 @@ export const buildTraceView = (traceId: string, viewType: string): unknown => {
   const spanRepo = new SpanRepository(db);
   const spans = spanRepo.list(undefined);
   const stats = calculateTraceStats(traceId, spans);
-  const criticalPath = findCriticalPath(spans);
+  const _criticalPath = findCriticalPath(spans);
   const traceViewRepo = new TraceViewRepository(db);
   const view = traceViewRepo.list(undefined);
   return { view: view, spans: spans, stats: stats };

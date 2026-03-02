@@ -2,18 +2,24 @@
 
 import { describe, it, expect, beforeAll, afterAll } from 'vitest';
 import Fastify from 'fastify';
+import Database from 'better-sqlite3';
 import { organizationsRoutes } from '../../src/routes/organizations.routes.js';
 
 describe('organizations routes', () => {
   const app = Fastify();
+  let db: Database.Database;
 
   beforeAll(async () => {
+    db = new Database(':memory:');
+    db.pragma('journal_mode = WAL');
+    app.decorate('db', db);
     await app.register(organizationsRoutes);
     await app.ready();
   });
 
   afterAll(async () => {
     await app.close();
+    db.close();
   });
 
   it('GET /api/organizations/me', async () => {

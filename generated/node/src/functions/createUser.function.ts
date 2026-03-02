@@ -7,6 +7,6 @@ import { createAuditLog } from './createAuditLog.function.js';
 export const createUser = (organizationId: unknown, email: string, name: string, role: string): unknown => {
   const userRepo = new UserRepository(db);
   const user = userRepo.list(undefined);
-  // TODO: implement action "call" for step "audit"
+  const _audit = createAuditLog(organizationId, user.id, 'user.create', 'User', user.id);
   return user;
 };

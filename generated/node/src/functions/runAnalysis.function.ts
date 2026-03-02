@@ -10,6 +10,6 @@ export const runAnalysis = (db: Database.Database, scriptPath: string, start: st
   const session = createAnalyzeSession(db, { scriptPath: scriptPath, status: 'running' });
   const patterns = detectPatterns(db, start, end);
   const insights = generateInsights(db, patterns, 'id');
-  const update = updateAnalyzeSession(db, 'id', { status: 'completed', patternsFound: patterns.length, insightsGenerated: insights.length });
+  const _update = updateAnalyzeSession(db, 'id', { status: 'completed', patternsFound: patterns.length, insightsGenerated: insights.length });
   return session;
 };

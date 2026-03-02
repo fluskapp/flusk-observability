@@ -7,11 +7,11 @@ import { sha256 } from './sha256.function.js';
 import { createAuditLog } from './createAuditLog.function.js';
 
 export const createApiKey = (organizationId: unknown, userId: unknown, name: string, scopes: Record<string, unknown>, expiresAt: unknown): unknown => {
-  // TODO: implement action "call" for step "rawKey"
+  const rawKey = generateRandomKey(48);
 
-  // TODO: implement action "call" for step "hashed"
+  const _hashed = sha256(rawKey);
   const apiKeyRepo = new ApiKeyRepository(db);
   const record = apiKeyRepo.list(undefined);
-  // TODO: implement action "call" for step "audit"
+  const _audit = createAuditLog(organizationId, userId, 'api_key.create', 'ApiKey', record.id);
   return { id: record.id, key: rawKey, prefix: prefix.prefix, name: name, scopes: scopes, expiresAt: expiresAt };
 };

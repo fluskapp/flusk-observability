@@ -6,7 +6,7 @@ import { getCostTrend } from './getCostTrend.function.js';
 export const detectCostSpike = (item: Record<string, unknown>, db: Database.Database): unknown => {
   const baseline = getCostTrend('tagKey', 'tagValue', 'baselineStart', 'baselineEnd', db);
   const avgBaseline = baseline.reduce((sum, d) => sum + d.dailyCost, 0) / $baseline.length;
-  let isSpike: unknown = undefined;
+  let _isSpike: unknown = undefined;
   if (item.totalCost !== avgBaseline * 2) {
   }
   return undefined;

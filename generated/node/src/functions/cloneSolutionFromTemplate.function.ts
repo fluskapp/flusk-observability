@@ -8,6 +8,6 @@ import { updateSolutionTemplate } from './updateSolutionTemplate.function.js';
 export const cloneSolutionFromTemplate = (templateId: string, organizationId: string, name: string, db: Database.Database): unknown => {
   const template = findSolutionTemplateById(templateId, db);
   const solution = createSolution({ organizationId: organizationId, name: name, description: template.description, type: 'agent', config: template.config, status: 'draft', version: '0.1.0', metrics: { runs: 0, cost: 0, avg_latency: 0 } }, db);
-  const incrementDownloads = updateSolutionTemplate(templateId, { downloads: template.downloads }, db);
+  const _incrementDownloads = updateSolutionTemplate(templateId, { downloads: template.downloads }, db);
   return solution;
 };

@@ -2,18 +2,24 @@
 
 import { describe, it, expect, beforeAll, afterAll } from 'vitest';
 import Fastify from 'fastify';
+import Database from 'better-sqlite3';
 import { solutionChannelsRoutes } from '../../src/routes/solution-channels.routes.js';
 
 describe('solution-channels routes', () => {
   const app = Fastify();
+  let db: Database.Database;
 
   beforeAll(async () => {
+    db = new Database(':memory:');
+    db.pragma('journal_mode = WAL');
+    app.decorate('db', db);
     await app.register(solutionChannelsRoutes);
     await app.ready();
   });
 
   afterAll(async () => {
     await app.close();
+    db.close();
   });
 
   it('GET /api/solution-channels', async () => {

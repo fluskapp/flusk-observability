@@ -5,7 +5,7 @@ import { findProfileSessionById } from './findProfileSessionById.function.js';
 import { createPerformancePattern } from './createPerformancePattern.function.js';
 
 export const detectHotspots = (db: Database.Database, profileSessionId: string, threshold: unknown): unknown[] => {
-  const session = findProfileSessionById(db, profileSessionId);
+  const _session = findProfileSessionById(db, profileSessionId);
   // TODO: implement action "call" for step "patterns"
   for (const item of patterns as unknown[]) {
     try {

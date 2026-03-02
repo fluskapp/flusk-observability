@@ -5,7 +5,7 @@ import { aggregateCosts } from './aggregateCosts.function.js';
 import { createInsight } from './createInsight.function.js';
 
 export const generateInsights = (db: Database.Database, patterns: unknown, analyzeSessionId: string): unknown[] => {
-  const costData = aggregateCosts(db, 'model', '30d-ago', 'now');
+  const _costData = aggregateCosts(db, 'model', '30d-ago', 'now');
   for (const item of patterns as unknown[]) {
     try {
       createInsight(db, { insightType: 'cost_reduction', title: 'Duplicate prompt detected: $item.occurrences occurrences', description: 'Prompt hash $item.promptHash repeated $item.occurrences times on $item.model', estimatedSavingsUsd: item.totalCostUsd * 0.8, priority: item.totalCostUsd > 10 ? 'high' : 'medium', analyzeSessionId: analyzeSessionId });

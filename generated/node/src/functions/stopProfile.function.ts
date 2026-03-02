@@ -6,7 +6,7 @@ import { detectHotspots } from './detectHotspots.function.js';
 import { updateProfileSession } from './updateProfileSession.function.js';
 
 export const stopProfile = (db: Database.Database, sessionId: string): unknown => {
-  const session = findProfileSessionById(db, sessionId);
+  const _session = findProfileSessionById(db, sessionId);
   const hotspots = detectHotspots(db, sessionId);
   const updated = updateProfileSession(db, sessionId, { status: 'completed', hotspotCount: hotspots.length });
   return updated;

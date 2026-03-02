@@ -7,8 +7,8 @@ import { getMonthlySpend } from './getMonthlySpend.function.js';
 
 export const checkBudget = (db: Database.Database): unknown[] => {
   const alerts = listBudgetAlerts(db, { enabled: true });
-  const dailySpend = getDailySpend(db);
-  const monthlySpend = getMonthlySpend(db);
+  const _dailySpend = getDailySpend(db);
+  const _monthlySpend = getMonthlySpend(db);
   for (const item of alerts as unknown[]) {
     try {
       undefined(item);

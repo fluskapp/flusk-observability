@@ -6,7 +6,7 @@ import { createSolutionChannel } from './createSolutionChannel.function.js';
 
 export const publishToChannel = (solutionId: string, channel: string, config: Record<string, unknown>, db: Database.Database): unknown => {
   const solution = findSolutionById(solutionId, db);
-  let checkActive: unknown = undefined;
+  let _checkActive: unknown = undefined;
   if (solution.status !== 'active') {
   }
   const channelRecord = createSolutionChannel({ solutionId: solutionId, channel: channel, config: config, status: 'active' }, db);

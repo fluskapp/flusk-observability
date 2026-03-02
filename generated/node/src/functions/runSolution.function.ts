@@ -12,6 +12,6 @@ export const runSolution = (solutionId: string, organizationId: string, input: R
   const run = createSolutionRun({ solutionId: solutionId, organizationId: organizationId, input: input, status: 'running' }, db);
   const llmResult = invokeModel(solution.config.model, [{ role: 'system', content: solution.config.systemPrompt }, { role: 'user', content: input }]);
   const completed = updateSolutionRun(run.id, { status: 'completed', output: llmResult.choices, modelUsed: solution.config.model, tokensIn: llmResult.usage.prompt_tokens, tokensOut: llmResult.usage.completion_tokens, cost: llmResult.usage.cost }, db);
-  const emitCompleted = emitSolutionRunCompleted(run.id, solutionId);
+  const _emitCompleted = emitSolutionRunCompleted(run.id, solutionId);
   return completed;
 };

@@ -7,7 +7,7 @@ import { dispatchAlert } from './dispatchAlert.function.js';
 
 export const checkCostBudget = (tagKey: string, tagValue: string, db: Database.Database): unknown => {
   const budget = findCostBudgetByTagKeyAndTagValue(tagKey, tagValue, db);
-  let checkExists: unknown = undefined;
+  let _checkExists: unknown = undefined;
   if (budget === undefined) {
   }
   const currentSpend = getCostByDimension(tagKey, 'periodStart', 'periodEnd', db);

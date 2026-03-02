@@ -5,7 +5,7 @@ import type Database from 'better-sqlite3';
 export const exportToGrafana = (db: Database.Database, client: unknown, start: string, end: string): unknown => {
   // TODO: implement action "call" for step "traces"
   // TODO: implement action "call" for step "spans"
-  const otlpPayload = undefined;
+  const _otlpPayload = undefined;
   // TODO: implement action "call" for step "exported"
   return { tracesExported: traces.length, spansExported: spans.length };
 };

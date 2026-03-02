@@ -6,11 +6,11 @@ import { queryModelPerformance } from './queryModelPerformance.function.js';
 import { recordRoutingDecision } from './recordRoutingDecision.function.js';
 
 export const routeModel = (db: Database.Database, promptCategory: string, requestedModel: string): unknown => {
-  const rules = listRoutingRules(db, { promptCategory: promptCategory, enabled: true });
+  const _rules = listRoutingRules(db, { promptCategory: promptCategory, enabled: true });
   // TODO: implement action "call" for step "bestRule"
   const candidates = queryModelPerformance(db, 'leaderboard', { category: promptCategory });
-  const qualifying = (candidates as unknown[]).filter((item: Record<string, unknown>) => item.qualityScore >= bestRule.minQualityScore);
+  const _qualifying = (candidates as unknown[]).filter((item: Record<string, unknown>) => item.qualityScore >= bestRule.minQualityScore);
   // TODO: implement action "call" for step "cheapest"
-  const decision = recordRoutingDecision(db, 'id', promptCategory, requestedModel, 'model');
+  const _decision = recordRoutingDecision(db, 'id', promptCategory, requestedModel, 'model');
   return { model: cheapest.model, provider: cheapest.provider, ruleApplied: bestRule.name };
 };

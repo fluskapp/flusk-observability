@@ -5,7 +5,7 @@ import { LlmCallRepository } from '../repositories/llmcall.repository.js';
 
 export const detectOutputDrift = (agentLabel: string, baselinePeriod: Record<string, unknown>, currentPeriod: Record<string, unknown>): unknown => {
   const llmCallRepo = new LlmCallRepository(db);
-  const baselineCalls = llmCallRepo.list(undefined);
+  const _baselineCalls = llmCallRepo.list(undefined);
   const llmCallRepo = new LlmCallRepository(db);
   const currentCalls = llmCallRepo.list(undefined);
   // TODO: implement action "call" for step "baselineHash"

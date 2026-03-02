@@ -5,7 +5,7 @@ import { findSolutionById } from './findSolutionById.function.js';
 import { updateSolution } from './updateSolution.function.js';
 
 export const updateSolutionMetrics = (solutionId: string, cost: number, durationMs: number, db: Database.Database): unknown => {
-  // TODO: implement action "call" for step "solution"
-  // TODO: implement action "call" for step "updated"
+  const solution = findSolutionById(solutionId, db);
+  const updated = updateSolution(solutionId, { metrics: solution.metrics }, db);
   return updated;
 };

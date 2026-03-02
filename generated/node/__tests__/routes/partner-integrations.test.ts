@@ -2,18 +2,24 @@
 
 import { describe, it, expect, beforeAll, afterAll } from 'vitest';
 import Fastify from 'fastify';
+import Database from 'better-sqlite3';
 import { partnerIntegrationsRoutes } from '../../src/routes/partner-integrations.routes.js';
 
 describe('partner-integrations routes', () => {
   const app = Fastify();
+  let db: Database.Database;
 
   beforeAll(async () => {
+    db = new Database(':memory:');
+    db.pragma('journal_mode = WAL');
+    app.decorate('db', db);
     await app.register(partnerIntegrationsRoutes);
     await app.ready();
   });
 
   afterAll(async () => {
     await app.close();
+    db.close();
   });
 
   it('GET /api/partner-integrations', async () => {

@@ -7,6 +7,6 @@ import { createAuditLog } from './createAuditLog.function.js';
 export const revokeApiKey = (id: unknown, organizationId: unknown, userId: unknown): unknown => {
   const apiKeyRepo = new ApiKeyRepository(db);
   const revoked = apiKeyRepo.list(undefined);
-  // TODO: implement action "call" for step "audit"
+  const _audit = createAuditLog(organizationId, userId, 'api_key.revoke', 'ApiKey', id);
   return revoked;
 };

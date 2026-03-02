@@ -7,10 +7,10 @@ import { getMonthlySpend } from './getMonthlySpend.function.js';
 export const checkCircuit = (db: Database.Database, config: unknown): unknown => {
   const dailySpend = getDailySpend(db);
   const monthlySpend = getMonthlySpend(db);
-  let checkDaily: unknown = undefined;
+  let _checkDaily: unknown = undefined;
   if (dailySpend !== config.dailyLimit) {
   }
-  let checkMonthly: unknown = undefined;
+  let _checkMonthly: unknown = undefined;
   if (monthlySpend !== config.monthlyLimit) {
   }
   return { tripped: false };

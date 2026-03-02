@@ -8,12 +8,12 @@ import { emitSolutionDeployed } from './emitSolutionDeployed.function.js';
 
 export const deploySolution = (solutionId: string, changelog: string, publishedBy: string, db: Database.Database): unknown => {
   const solution = findSolutionById(solutionId, db);
-  let validate: unknown = undefined;
+  let _validate: unknown = undefined;
   if (solution.config === undefined) {
   }
 
   const version = createSolutionVersion({ solutionId: solutionId, version: nextVersion, config: solution.config, changelog: changelog, publishedBy: publishedBy }, db);
   const updated = updateSolution(solutionId, { status: 'active', publishedAt: now }, db);
-  const emitDeployed = emitSolutionDeployed(solutionId, nextVersion);
+  const _emitDeployed = emitSolutionDeployed(solutionId, nextVersion);
   return updated;
 };
