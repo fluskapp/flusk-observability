@@ -8,7 +8,6 @@ const log = createChildLogger('webhooks-repo');
 
 export interface WebhookRow {
   id: string;
-  id: unknown;
   name: string;
   url: unknown;
   method: string;
@@ -22,8 +21,6 @@ export interface WebhookRow {
   enabled: boolean;
   createdAt: string;
   updatedAt: string;
-  createdAt: string;
-  updatedAt: string;
 }
 
 export type WebhookCreate = Omit<WebhookRow, 'id' | 'createdAt' | 'updatedAt'>;
@@ -31,7 +28,6 @@ export type WebhookUpdate = Partial<WebhookCreate>;
 
 const toRow = (raw: Record<string, unknown>): WebhookRow => ({
   id: raw.id as string,
-  id: raw.id as unknown,
   name: raw.name as string,
   url: raw.url as unknown,
   method: raw.method as string,
@@ -45,8 +41,6 @@ const toRow = (raw: Record<string, unknown>): WebhookRow => ({
   enabled: Boolean(raw.enabled),
   createdAt: raw.created_at as string,
   updatedAt: raw.updated_at as string,
-  createdAt: raw.created_at as string,
-  updatedAt: raw.updated_at as string,
 });
 
 export class WebhookRepository {
@@ -56,10 +50,9 @@ export class WebhookRepository {
     const id = nanoid();
     const now = new Date().toISOString();
     this.db.prepare(
-      'INSERT INTO webhooks (id, id, name, url, method, headers, payload_template, retry_max_attempts, retry_delay_ms, retry_backoff_multiplier, timeout_ms, secret, enabled, created_at, updated_at, created_at, updated_at) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)'
+      'INSERT INTO webhooks (id, name, url, method, headers, payload_template, retry_max_attempts, retry_delay_ms, retry_backoff_multiplier, timeout_ms, secret, enabled, created_at, updated_at) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)'
     ).run(
       id,
-      data.id,
       data.name,
       data.url,
       data.method,
@@ -71,8 +64,6 @@ export class WebhookRepository {
       data.timeoutMs,
       data.secret,
       data.enabled ? 1 : 0,
-      data.createdAt,
-      data.updatedAt,
       now, now,
     );
     log.debug({ id }, 'Webhook created');
@@ -80,12 +71,12 @@ export class WebhookRepository {
   }
 
   findById(id: string): WebhookRow | null {
-    const raw = this.db.prepare('SELECT id, id, name, url, method, headers, payload_template, retry_max_attempts, retry_delay_ms, retry_backoff_multiplier, timeout_ms, secret, enabled, created_at, updated_at, created_at, updated_at FROM webhooks WHERE id = ?').get(id) as Record<string, unknown> | undefined;
+    const raw = this.db.prepare('SELECT id, name, url, method, headers, payload_template, retry_max_attempts, retry_delay_ms, retry_backoff_multiplier, timeout_ms, secret, enabled, created_at, updated_at FROM webhooks WHERE id = ?').get(id) as Record<string, unknown> | undefined;
     return raw ? toRow(raw) : null;
   }
 
   list(filters?: Partial<Record<string, unknown>>): WebhookRow[] {
-    let sql = 'SELECT id, id, name, url, method, headers, payload_template, retry_max_attempts, retry_delay_ms, retry_backoff_multiplier, timeout_ms, secret, enabled, created_at, updated_at, created_at, updated_at FROM webhooks';
+    let sql = 'SELECT id, name, url, method, headers, payload_template, retry_max_attempts, retry_delay_ms, retry_backoff_multiplier, timeout_ms, secret, enabled, created_at, updated_at FROM webhooks';
     const params: unknown[] = [];
     if (filters && Object.keys(filters).length > 0) {
       const clauses = Object.entries(filters).map(([k, v]) => {

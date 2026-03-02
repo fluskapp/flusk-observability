@@ -10,18 +10,15 @@ describe('NotificationChannelRepository', () => {
 
   beforeEach(() => {
     db = new Database(':memory:');
-    db.exec(`CREATE TABLE notification_channels (id TEXT PRIMARY KEY, id TEXT NOT NULL, name TEXT NOT NULL, type TEXT NOT NULL, config TEXT NOT NULL, enabled INTEGER NOT NULL, severity_filter TEXT, webhook_id TEXT, created_at TEXT NOT NULL, updated_at TEXT NOT NULL, created_at TEXT NOT NULL DEFAULT (datetime('now')), updated_at TEXT NOT NULL DEFAULT (datetime('now')))`);
+    db.exec(`CREATE TABLE notification_channels (id TEXT PRIMARY KEY, name TEXT NOT NULL, type TEXT NOT NULL, config TEXT NOT NULL, enabled INTEGER NOT NULL, severity_filter TEXT, webhook_id TEXT, created_at TEXT NOT NULL DEFAULT (datetime('now')), updated_at TEXT NOT NULL DEFAULT (datetime('now')))`);
     repo = new NotificationChannelRepository(db);
   });
 
   const testData = () => ({
-    id: 'test',
     name: 'test-name',
     type: 'test-type',
     config: { key: 'value' },
     enabled: true,
-    createdAt: '2026-01-01T00:00:00.000Z',
-    updatedAt: '2026-01-01T00:00:00.000Z',
   });
 
   it('creates a record', () => {
@@ -46,7 +43,7 @@ describe('NotificationChannelRepository', () => {
 
   it('updates a record', () => {
     const created = repo.create(testData());
-    const updated = repo.update(created.id, { id: 'updated' });
+    const updated = repo.update(created.id, { name: 'updated' });
     expect(updated).toBeDefined();
   });
 

@@ -8,15 +8,12 @@ const log = createChildLogger('notification_channels-repo');
 
 export interface NotificationChannelRow {
   id: string;
-  id: unknown;
   name: string;
   type: string;
   config: Record<string, unknown>;
   enabled: boolean;
   severityFilter?: string;
   webhookId?: unknown;
-  createdAt: string;
-  updatedAt: string;
   createdAt: string;
   updatedAt: string;
 }
@@ -26,15 +23,12 @@ export type NotificationChannelUpdate = Partial<NotificationChannelCreate>;
 
 const toRow = (raw: Record<string, unknown>): NotificationChannelRow => ({
   id: raw.id as string,
-  id: raw.id as unknown,
   name: raw.name as string,
   type: raw.type as string,
   config: JSON.parse(raw.config as string ?? '{}') as Record<string, unknown>,
   enabled: Boolean(raw.enabled),
   severityFilter: raw.severity_filter as string,
   webhookId: raw.webhook_id as unknown,
-  createdAt: raw.created_at as string,
-  updatedAt: raw.updated_at as string,
   createdAt: raw.created_at as string,
   updatedAt: raw.updated_at as string,
 });
@@ -46,18 +40,15 @@ export class NotificationChannelRepository {
     const id = nanoid();
     const now = new Date().toISOString();
     this.db.prepare(
-      'INSERT INTO notification_channels (id, id, name, type, config, enabled, severity_filter, webhook_id, created_at, updated_at, created_at, updated_at) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)'
+      'INSERT INTO notification_channels (id, name, type, config, enabled, severity_filter, webhook_id, created_at, updated_at) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?)'
     ).run(
       id,
-      data.id,
       data.name,
       data.type,
       JSON.stringify(data.config ?? {}),
       data.enabled ? 1 : 0,
       data.severityFilter,
       data.webhookId,
-      data.createdAt,
-      data.updatedAt,
       now, now,
     );
     log.debug({ id }, 'NotificationChannel created');
@@ -65,12 +56,12 @@ export class NotificationChannelRepository {
   }
 
   findById(id: string): NotificationChannelRow | null {
-    const raw = this.db.prepare('SELECT id, id, name, type, config, enabled, severity_filter, webhook_id, created_at, updated_at, created_at, updated_at FROM notification_channels WHERE id = ?').get(id) as Record<string, unknown> | undefined;
+    const raw = this.db.prepare('SELECT id, name, type, config, enabled, severity_filter, webhook_id, created_at, updated_at FROM notification_channels WHERE id = ?').get(id) as Record<string, unknown> | undefined;
     return raw ? toRow(raw) : null;
   }
 
   list(filters?: Partial<Record<string, unknown>>): NotificationChannelRow[] {
-    let sql = 'SELECT id, id, name, type, config, enabled, severity_filter, webhook_id, created_at, updated_at, created_at, updated_at FROM notification_channels';
+    let sql = 'SELECT id, name, type, config, enabled, severity_filter, webhook_id, created_at, updated_at FROM notification_channels';
     const params: unknown[] = [];
     if (filters && Object.keys(filters).length > 0) {
       const clauses = Object.entries(filters).map(([k, v]) => {

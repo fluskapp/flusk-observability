@@ -10,18 +10,15 @@ describe('WebhookRepository', () => {
 
   beforeEach(() => {
     db = new Database(':memory:');
-    db.exec(`CREATE TABLE webhooks (id TEXT PRIMARY KEY, id TEXT NOT NULL, name TEXT NOT NULL, url TEXT NOT NULL, method TEXT NOT NULL, headers TEXT, payload_template TEXT, retry_max_attempts INTEGER, retry_delay_ms INTEGER, retry_backoff_multiplier INTEGER, timeout_ms INTEGER, secret TEXT, enabled INTEGER NOT NULL, created_at TEXT NOT NULL, updated_at TEXT NOT NULL, created_at TEXT NOT NULL DEFAULT (datetime('now')), updated_at TEXT NOT NULL DEFAULT (datetime('now')))`);
+    db.exec(`CREATE TABLE webhooks (id TEXT PRIMARY KEY, name TEXT NOT NULL, url TEXT NOT NULL, method TEXT NOT NULL, headers TEXT, payload_template TEXT, retry_max_attempts INTEGER, retry_delay_ms INTEGER, retry_backoff_multiplier INTEGER, timeout_ms INTEGER, secret TEXT, enabled INTEGER NOT NULL, created_at TEXT NOT NULL DEFAULT (datetime('now')), updated_at TEXT NOT NULL DEFAULT (datetime('now')))`);
     repo = new WebhookRepository(db);
   });
 
   const testData = () => ({
-    id: 'test',
     name: 'test-name',
     url: 'test',
     method: 'test-method',
     enabled: true,
-    createdAt: '2026-01-01T00:00:00.000Z',
-    updatedAt: '2026-01-01T00:00:00.000Z',
   });
 
   it('creates a record', () => {
@@ -46,7 +43,7 @@ describe('WebhookRepository', () => {
 
   it('updates a record', () => {
     const created = repo.create(testData());
-    const updated = repo.update(created.id, { id: 'updated' });
+    const updated = repo.update(created.id, { name: 'updated' });
     expect(updated).toBeDefined();
   });
 
