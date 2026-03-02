@@ -2,11 +2,11 @@
 
 import { type FastifyInstance } from 'fastify';
 import type Database from 'better-sqlite3';
-import { listCodeScanResults } from '../functions/list-code-scan-results.function.js';
-import { scanCodebase } from '../functions/scan-codebase.function.js';
-import { findCodeScanResultById } from '../functions/find-code-scan-result-by-id.function.js';
-import { deleteCodeScanResult } from '../functions/delete-code-scan-result.function.js';
-import { generateScanReport } from '../functions/generate-scan-report.function.js';
+import { listCodeScanResults } from '../functions/listCodeScanResults.function.js';
+import { scanCodebase } from '../functions/scanCodebase.function.js';
+import { findCodeScanResultById } from '../functions/findCodeScanResultById.function.js';
+import { deleteCodeScanResult } from '../functions/deleteCodeScanResult.function.js';
+import { generateScanReport } from '../functions/generateScanReport.function.js';
 
 interface AppWithDb extends FastifyInstance { db: Database.Database; }
 

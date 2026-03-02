@@ -2,7 +2,7 @@
 
 import { type FastifyInstance } from 'fastify';
 import type Database from 'better-sqlite3';
-import { listAuditLogs } from '../functions/list-audit-logs.function.js';
+import { listAuditLogs } from '../functions/listAuditLogs.function.js';
 
 interface AppWithDb extends FastifyInstance { db: Database.Database; }
 

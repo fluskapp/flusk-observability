@@ -2,11 +2,11 @@
 
 import { type FastifyInstance } from 'fastify';
 import type Database from 'better-sqlite3';
-import { listDelusionDetections } from '../functions/list-delusion-detections.function.js';
-import { findDelusionDetectionById } from '../functions/find-delusion-detection-by-id.function.js';
-import { updateDelusionDetection } from '../functions/update-delusion-detection.function.js';
-import { deleteDelusionDetection } from '../functions/delete-delusion-detection.function.js';
-import { runDelusionScan } from '../functions/run-delusion-scan.function.js';
+import { listDelusionDetections } from '../functions/listDelusionDetections.function.js';
+import { findDelusionDetectionById } from '../functions/findDelusionDetectionById.function.js';
+import { updateDelusionDetection } from '../functions/updateDelusionDetection.function.js';
+import { deleteDelusionDetection } from '../functions/deleteDelusionDetection.function.js';
+import { runDelusionScan } from '../functions/runDelusionScan.function.js';
 
 interface AppWithDb extends FastifyInstance { db: Database.Database; }
 

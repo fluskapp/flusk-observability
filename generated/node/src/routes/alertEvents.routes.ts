@@ -2,12 +2,12 @@
 
 import { type FastifyInstance } from 'fastify';
 import type Database from 'better-sqlite3';
-import { listAlertEvents } from '../functions/list-alert-events.function.js';
-import { createAlertEvent } from '../functions/create-alert-event.function.js';
-import { findAlertEventById } from '../functions/find-alert-event-by-id.function.js';
-import { updateAlertEvent } from '../functions/update-alert-event.function.js';
-import { deleteAlertEvent } from '../functions/delete-alert-event.function.js';
-import { findAlertEventsByTimeRange } from '../functions/find-alert-events-by-time-range.function.js';
+import { listAlertEvents } from '../functions/listAlertEvents.function.js';
+import { createAlertEvent } from '../functions/createAlertEvent.function.js';
+import { findAlertEventById } from '../functions/findAlertEventById.function.js';
+import { updateAlertEvent } from '../functions/updateAlertEvent.function.js';
+import { deleteAlertEvent } from '../functions/deleteAlertEvent.function.js';
+import { findAlertEventsByTimeRange } from '../functions/findAlertEventsByTimeRange.function.js';
 
 interface AppWithDb extends FastifyInstance { db: Database.Database; }
 

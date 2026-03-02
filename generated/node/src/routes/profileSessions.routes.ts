@@ -2,11 +2,11 @@
 
 import { type FastifyInstance } from 'fastify';
 import type Database from 'better-sqlite3';
-import { listProfileSessions } from '../functions/list-profile-sessions.function.js';
-import { findProfileSessionById } from '../functions/find-profile-session-by-id.function.js';
-import { startProfile } from '../functions/start-profile.function.js';
-import { stopProfile } from '../functions/stop-profile.function.js';
-import { listPerformancePatterns } from '../functions/list-performance-patterns.function.js';
+import { listProfileSessions } from '../functions/listProfileSessions.function.js';
+import { findProfileSessionById } from '../functions/findProfileSessionById.function.js';
+import { startProfile } from '../functions/startProfile.function.js';
+import { stopProfile } from '../functions/stopProfile.function.js';
+import { listPerformancePatterns } from '../functions/listPerformancePatterns.function.js';
 
 interface AppWithDb extends FastifyInstance { db: Database.Database; }
 

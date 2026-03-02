@@ -2,11 +2,11 @@
 
 import { type FastifyInstance } from 'fastify';
 import type Database from 'better-sqlite3';
-import { listTraces } from '../functions/list-traces.function.js';
-import { findTraceById } from '../functions/find-trace-by-id.function.js';
-import { listSpans } from '../functions/list-spans.function.js';
-import { ingestOtlpTraces } from '../functions/ingest-otlp-traces.function.js';
-import { deleteTrace } from '../functions/delete-trace.function.js';
+import { listTraces } from '../functions/listTraces.function.js';
+import { findTraceById } from '../functions/findTraceById.function.js';
+import { listSpans } from '../functions/listSpans.function.js';
+import { ingestOtlpTraces } from '../functions/ingestOtlpTraces.function.js';
+import { deleteTrace } from '../functions/deleteTrace.function.js';
 
 interface AppWithDb extends FastifyInstance { db: Database.Database; }
 

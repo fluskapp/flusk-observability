@@ -2,13 +2,13 @@
 
 import { type FastifyInstance } from 'fastify';
 import type Database from 'better-sqlite3';
-import { listBudgetAlerts } from '../functions/list-budget-alerts.function.js';
-import { createBudgetAlert } from '../functions/create-budget-alert.function.js';
-import { findBudgetAlertById } from '../functions/find-budget-alert-by-id.function.js';
-import { updateBudgetAlert } from '../functions/update-budget-alert.function.js';
-import { deleteBudgetAlert } from '../functions/delete-budget-alert.function.js';
-import { getBudgetStatus } from '../functions/get-budget-status.function.js';
-import { checkBudget } from '../functions/check-budget.function.js';
+import { listBudgetAlerts } from '../functions/listBudgetAlerts.function.js';
+import { createBudgetAlert } from '../functions/createBudgetAlert.function.js';
+import { findBudgetAlertById } from '../functions/findBudgetAlertById.function.js';
+import { updateBudgetAlert } from '../functions/updateBudgetAlert.function.js';
+import { deleteBudgetAlert } from '../functions/deleteBudgetAlert.function.js';
+import { getBudgetStatus } from '../functions/getBudgetStatus.function.js';
+import { checkBudget } from '../functions/checkBudget.function.js';
 
 interface AppWithDb extends FastifyInstance { db: Database.Database; }
 

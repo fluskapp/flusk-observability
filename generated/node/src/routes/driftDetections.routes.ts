@@ -2,11 +2,11 @@
 
 import { type FastifyInstance } from 'fastify';
 import type Database from 'better-sqlite3';
-import { listDriftDetections } from '../functions/list-drift-detections.function.js';
-import { findDriftDetectionById } from '../functions/find-drift-detection-by-id.function.js';
-import { updateDriftDetection } from '../functions/update-drift-detection.function.js';
-import { deleteDriftDetection } from '../functions/delete-drift-detection.function.js';
-import { runDriftScan } from '../functions/run-drift-scan.function.js';
+import { listDriftDetections } from '../functions/listDriftDetections.function.js';
+import { findDriftDetectionById } from '../functions/findDriftDetectionById.function.js';
+import { updateDriftDetection } from '../functions/updateDriftDetection.function.js';
+import { deleteDriftDetection } from '../functions/deleteDriftDetection.function.js';
+import { runDriftScan } from '../functions/runDriftScan.function.js';
 
 interface AppWithDb extends FastifyInstance { db: Database.Database; }
 

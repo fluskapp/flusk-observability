@@ -2,9 +2,9 @@
 
 import { type FastifyInstance } from 'fastify';
 import type Database from 'better-sqlite3';
-import { createOrganization } from '../functions/create-organization.function.js';
-import { authenticateUser } from '../functions/authenticate-user.function.js';
-import { validateApiKey } from '../functions/validate-api-key.function.js';
+import { createOrganization } from '../functions/createOrganization.function.js';
+import { authenticateUser } from '../functions/authenticateUser.function.js';
+import { validateApiKey } from '../functions/validateApiKey.function.js';
 
 interface AppWithDb extends FastifyInstance { db: Database.Database; }
 

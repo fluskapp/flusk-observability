@@ -1,32 +1,16 @@
-name: createBudgetAlertEvent
-description: Create an alert event when a budget is exceeded
+name: createBudgetAlert
+description: Create a new BudgetAlert
 inputs:
+  - name: data
+    type: json
   - name: db
     type: Database
-  - name: budgetAlert
-    type: BudgetAlert
-  - name: currentSpend
-    type: float
 output:
-  type: AlertEvent
+  type: BudgetAlert
 steps:
-  - id: alert
-    call: dispatchAlert
-    with:
-      db: $db
-      alert:
-        alertType: budget_exceeded
-        severity: critical
-        title: 'Budget exceeded: $budgetAlert.name'
-        message: Spending $currentSpend exceeds threshold $budgetAlert.thresholdUsd ($budgetAlert.budgetType)
-  - id: updateBudget
-    call: updateBudgetAlert
-    with:
-      db: $db
-      id: id
-      data:
-        currentSpendUsd: $currentSpend
-        lastTriggeredAt: now
   - id: result
+    action: assign
+    value: $data
+  - id: done
     action: return
-    value: $alert
+    value: $result

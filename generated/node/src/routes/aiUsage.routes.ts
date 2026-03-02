@@ -2,14 +2,14 @@
 
 import { type FastifyInstance } from 'fastify';
 import type Database from 'better-sqlite3';
-import { listAiUsageMetrics } from '../functions/list-ai-usage-metrics.function.js';
-import { createAiUsageMetric } from '../functions/create-ai-usage-metric.function.js';
-import { findAiUsageMetricById } from '../functions/find-ai-usage-metric-by-id.function.js';
-import { deleteAiUsageMetric } from '../functions/delete-ai-usage-metric.function.js';
-import { aggregateUsageByUser } from '../functions/aggregate-usage-by-user.function.js';
-import { aggregateUsageByTool } from '../functions/aggregate-usage-by-tool.function.js';
-import { calculateUsageRank } from '../functions/calculate-usage-rank.function.js';
-import { calculateRoi } from '../functions/calculate-roi.function.js';
+import { listAiUsageMetrics } from '../functions/listAiUsageMetrics.function.js';
+import { createAiUsageMetric } from '../functions/createAiUsageMetric.function.js';
+import { findAiUsageMetricById } from '../functions/findAiUsageMetricById.function.js';
+import { deleteAiUsageMetric } from '../functions/deleteAiUsageMetric.function.js';
+import { aggregateUsageByUser } from '../functions/aggregateUsageByUser.function.js';
+import { aggregateUsageByTool } from '../functions/aggregateUsageByTool.function.js';
+import { calculateUsageRank } from '../functions/calculateUsageRank.function.js';
+import { calculateRoi } from '../functions/calculateRoi.function.js';
 
 interface AppWithDb extends FastifyInstance { db: Database.Database; }
 

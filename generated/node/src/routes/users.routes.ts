@@ -2,11 +2,11 @@
 
 import { type FastifyInstance } from 'fastify';
 import type Database from 'better-sqlite3';
-import { listUsers } from '../functions/list-users.function.js';
-import { createUser } from '../functions/create-user.function.js';
-import { findUserById } from '../functions/find-user-by-id.function.js';
-import { updateUser } from '../functions/update-user.function.js';
-import { deleteUser } from '../functions/delete-user.function.js';
+import { listUsers } from '../functions/listUsers.function.js';
+import { createUser } from '../functions/createUser.function.js';
+import { findUserById } from '../functions/findUserById.function.js';
+import { updateUser } from '../functions/updateUser.function.js';
+import { deleteUser } from '../functions/deleteUser.function.js';
 
 interface AppWithDb extends FastifyInstance { db: Database.Database; }
 

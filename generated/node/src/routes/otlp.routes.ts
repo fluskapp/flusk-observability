@@ -2,7 +2,7 @@
 
 import { type FastifyInstance } from 'fastify';
 import type Database from 'better-sqlite3';
-import { ingestOtlpTraces } from '../functions/ingest-otlp-traces.function.js';
+import { ingestOtlpTraces } from '../functions/ingestOtlpTraces.function.js';
 
 interface AppWithDb extends FastifyInstance { db: Database.Database; }
 

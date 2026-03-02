@@ -2,9 +2,9 @@
 
 import { type FastifyInstance } from 'fastify';
 import type Database from 'better-sqlite3';
-import { listSolutionTemplate } from '../functions/list-solution-template.function.js';
-import { findSolutionTemplateById } from '../functions/find-solution-template-by-id.function.js';
-import { createSolutionTemplate } from '../functions/create-solution-template.function.js';
+import { listSolutionTemplate } from '../functions/listSolutionTemplate.function.js';
+import { findSolutionTemplateById } from '../functions/findSolutionTemplateById.function.js';
+import { createSolutionTemplate } from '../functions/createSolutionTemplate.function.js';
 
 interface AppWithDb extends FastifyInstance { db: Database.Database; }
 

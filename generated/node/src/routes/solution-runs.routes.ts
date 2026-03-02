@@ -2,10 +2,10 @@
 
 import { type FastifyInstance } from 'fastify';
 import type Database from 'better-sqlite3';
-import { runSolution } from '../functions/run-solution.function.js';
-import { listSolutionRuns } from '../functions/list-solution-runs.function.js';
-import { findSolutionRunById } from '../functions/find-solution-run-by-id.function.js';
-import { getSolutionMetrics } from '../functions/get-solution-metrics.function.js';
+import { runSolution } from '../functions/runSolution.function.js';
+import { listSolutionRuns } from '../functions/listSolutionRuns.function.js';
+import { findSolutionRunById } from '../functions/findSolutionRunById.function.js';
+import { getSolutionMetrics } from '../functions/getSolutionMetrics.function.js';
 
 interface AppWithDb extends FastifyInstance { db: Database.Database; }
 

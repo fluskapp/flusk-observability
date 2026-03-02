@@ -2,11 +2,11 @@
 
 import { type FastifyInstance } from 'fastify';
 import type Database from 'better-sqlite3';
-import { listAlertChannels } from '../functions/list-alert-channels.function.js';
-import { createAlertChannel } from '../functions/create-alert-channel.function.js';
-import { findAlertChannelById } from '../functions/find-alert-channel-by-id.function.js';
-import { updateAlertChannel } from '../functions/update-alert-channel.function.js';
-import { deleteAlertChannel } from '../functions/delete-alert-channel.function.js';
+import { listAlertChannels } from '../functions/listAlertChannels.function.js';
+import { createAlertChannel } from '../functions/createAlertChannel.function.js';
+import { findAlertChannelById } from '../functions/findAlertChannelById.function.js';
+import { updateAlertChannel } from '../functions/updateAlertChannel.function.js';
+import { deleteAlertChannel } from '../functions/deleteAlertChannel.function.js';
 
 interface AppWithDb extends FastifyInstance { db: Database.Database; }
 

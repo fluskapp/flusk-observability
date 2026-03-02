@@ -2,11 +2,11 @@
 
 import { type FastifyInstance } from 'fastify';
 import type Database from 'better-sqlite3';
-import { listDashboardWidgets } from '../functions/list-dashboard-widgets.function.js';
-import { createDashboardWidget } from '../functions/create-dashboard-widget.function.js';
-import { findDashboardWidgetById } from '../functions/find-dashboard-widget-by-id.function.js';
-import { updateDashboardWidget } from '../functions/update-dashboard-widget.function.js';
-import { deleteDashboardWidget } from '../functions/delete-dashboard-widget.function.js';
+import { listDashboardWidgets } from '../functions/listDashboardWidgets.function.js';
+import { createDashboardWidget } from '../functions/createDashboardWidget.function.js';
+import { findDashboardWidgetById } from '../functions/findDashboardWidgetById.function.js';
+import { updateDashboardWidget } from '../functions/updateDashboardWidget.function.js';
+import { deleteDashboardWidget } from '../functions/deleteDashboardWidget.function.js';
 
 interface AppWithDb extends FastifyInstance { db: Database.Database; }
 

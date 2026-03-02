@@ -2,9 +2,9 @@
 
 import { type FastifyInstance } from 'fastify';
 import type Database from 'better-sqlite3';
-import { listMarketplace } from '../functions/list-marketplace.function.js';
-import { findMarketplaceListingById } from '../functions/find-marketplace-listing-by-id.function.js';
-import { installIntegration } from '../functions/install-integration.function.js';
+import { listMarketplace } from '../functions/listMarketplace.function.js';
+import { findMarketplaceListingById } from '../functions/findMarketplaceListingById.function.js';
+import { installIntegration } from '../functions/installIntegration.function.js';
 
 interface AppWithDb extends FastifyInstance { db: Database.Database; }
 

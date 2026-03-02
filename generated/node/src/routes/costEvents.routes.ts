@@ -2,9 +2,9 @@
 
 import { type FastifyInstance } from 'fastify';
 import type Database from 'better-sqlite3';
-import { listLlmCalls } from '../functions/list-llm-calls.function.js';
-import { getDailySpend } from '../functions/get-daily-spend.function.js';
-import { getMonthlySpend } from '../functions/get-monthly-spend.function.js';
+import { listLlmCalls } from '../functions/listLlmCalls.function.js';
+import { getDailySpend } from '../functions/getDailySpend.function.js';
+import { getMonthlySpend } from '../functions/getMonthlySpend.function.js';
 
 interface AppWithDb extends FastifyInstance { db: Database.Database; }
 

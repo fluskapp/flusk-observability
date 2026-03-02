@@ -2,11 +2,11 @@
 
 import { type FastifyInstance } from 'fastify';
 import type Database from 'better-sqlite3';
-import { listSolutionTool } from '../functions/list-solution-tool.function.js';
-import { createSolutionTool } from '../functions/create-solution-tool.function.js';
-import { findSolutionToolById } from '../functions/find-solution-tool-by-id.function.js';
-import { updateSolutionTool } from '../functions/update-solution-tool.function.js';
-import { deleteSolutionTool } from '../functions/delete-solution-tool.function.js';
+import { listSolutionTool } from '../functions/listSolutionTool.function.js';
+import { createSolutionTool } from '../functions/createSolutionTool.function.js';
+import { findSolutionToolById } from '../functions/findSolutionToolById.function.js';
+import { updateSolutionTool } from '../functions/updateSolutionTool.function.js';
+import { deleteSolutionTool } from '../functions/deleteSolutionTool.function.js';
 
 interface AppWithDb extends FastifyInstance { db: Database.Database; }
 

@@ -2,8 +2,8 @@
 
 import { type FastifyInstance } from 'fastify';
 import type Database from 'better-sqlite3';
-import { explainWithAi } from '../functions/explain-with-ai.function.js';
-import { generateExplainReport } from '../functions/generate-explain-report.function.js';
+import { explainWithAi } from '../functions/explainWithAi.function.js';
+import { generateExplainReport } from '../functions/generateExplainReport.function.js';
 
 interface AppWithDb extends FastifyInstance { db: Database.Database; }
 

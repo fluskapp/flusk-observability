@@ -2,9 +2,9 @@
 
 import { type FastifyInstance } from 'fastify';
 import type Database from 'better-sqlite3';
-import { createApiKey } from '../functions/create-api-key.function.js';
-import { listApiKeys } from '../functions/list-api-keys.function.js';
-import { revokeApiKey } from '../functions/revoke-api-key.function.js';
+import { createApiKey } from '../functions/createApiKey.function.js';
+import { listApiKeys } from '../functions/listApiKeys.function.js';
+import { revokeApiKey } from '../functions/revokeApiKey.function.js';
 
 interface AppWithDb extends FastifyInstance { db: Database.Database; }
 

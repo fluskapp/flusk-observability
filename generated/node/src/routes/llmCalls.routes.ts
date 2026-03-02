@@ -2,11 +2,11 @@
 
 import { type FastifyInstance } from 'fastify';
 import type Database from 'better-sqlite3';
-import { listLlmCalls } from '../functions/list-llm-calls.function.js';
-import { createLlmCall } from '../functions/create-llm-call.function.js';
-import { findLlmCallById } from '../functions/find-llm-call-by-id.function.js';
-import { queryLlmCall } from '../functions/query-llm-call.function.js';
-import { detectDuplicates } from '../functions/detect-duplicates.function.js';
+import { listLlmCalls } from '../functions/listLlmCalls.function.js';
+import { createLlmCall } from '../functions/createLlmCall.function.js';
+import { findLlmCallById } from '../functions/findLlmCallById.function.js';
+import { queryLlmCall } from '../functions/queryLlmCall.function.js';
+import { detectDuplicates } from '../functions/detectDuplicates.function.js';
 
 interface AppWithDb extends FastifyInstance { db: Database.Database; }
 

@@ -2,9 +2,9 @@
 
 import { type FastifyInstance } from 'fastify';
 import type Database from 'better-sqlite3';
-import { listAnalyzeSessions } from '../functions/list-analyze-sessions.function.js';
-import { findAnalyzeSessionById } from '../functions/find-analyze-session-by-id.function.js';
-import { runAnalysis } from '../functions/run-analysis.function.js';
+import { listAnalyzeSessions } from '../functions/listAnalyzeSessions.function.js';
+import { findAnalyzeSessionById } from '../functions/findAnalyzeSessionById.function.js';
+import { runAnalysis } from '../functions/runAnalysis.function.js';
 
 interface AppWithDb extends FastifyInstance { db: Database.Database; }
 

@@ -2,8 +2,8 @@
 
 import { type FastifyInstance } from 'fastify';
 import type Database from 'better-sqlite3';
-import { listSpans } from '../functions/list-spans.function.js';
-import { findSpanById } from '../functions/find-span-by-id.function.js';
+import { listSpans } from '../functions/listSpans.function.js';
+import { findSpanById } from '../functions/findSpanById.function.js';
 
 interface AppWithDb extends FastifyInstance { db: Database.Database; }
 

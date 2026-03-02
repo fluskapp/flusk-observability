@@ -2,9 +2,9 @@
 
 import { type FastifyInstance } from 'fastify';
 import type Database from 'better-sqlite3';
-import { listPatterns } from '../functions/list-patterns.function.js';
-import { findPatternById } from '../functions/find-pattern-by-id.function.js';
-import { detectPatterns } from '../functions/detect-patterns.function.js';
+import { listPatterns } from '../functions/listPatterns.function.js';
+import { findPatternById } from '../functions/findPatternById.function.js';
+import { detectPatterns } from '../functions/detectPatterns.function.js';
 
 interface AppWithDb extends FastifyInstance { db: Database.Database; }
 

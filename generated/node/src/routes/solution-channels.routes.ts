@@ -2,12 +2,12 @@
 
 import { type FastifyInstance } from 'fastify';
 import type Database from 'better-sqlite3';
-import { listSolutionChannel } from '../functions/list-solution-channel.function.js';
-import { publishToChannel } from '../functions/publish-to-channel.function.js';
-import { findSolutionChannelById } from '../functions/find-solution-channel-by-id.function.js';
-import { updateSolutionChannel } from '../functions/update-solution-channel.function.js';
-import { unpublishFromChannel } from '../functions/unpublish-from-channel.function.js';
-import { testSolutionChannel } from '../functions/test-solution-channel.function.js';
+import { listSolutionChannel } from '../functions/listSolutionChannel.function.js';
+import { publishToChannel } from '../functions/publishToChannel.function.js';
+import { findSolutionChannelById } from '../functions/findSolutionChannelById.function.js';
+import { updateSolutionChannel } from '../functions/updateSolutionChannel.function.js';
+import { unpublishFromChannel } from '../functions/unpublishFromChannel.function.js';
+import { testSolutionChannel } from '../functions/testSolutionChannel.function.js';
 
 interface AppWithDb extends FastifyInstance { db: Database.Database; }
 

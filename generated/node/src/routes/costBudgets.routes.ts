@@ -2,11 +2,11 @@
 
 import { type FastifyInstance } from 'fastify';
 import type Database from 'better-sqlite3';
-import { listCostBudgets } from '../functions/list-cost-budgets.function.js';
-import { createCostBudget } from '../functions/create-cost-budget.function.js';
-import { updateCostBudget } from '../functions/update-cost-budget.function.js';
-import { deleteCostBudget } from '../functions/delete-cost-budget.function.js';
-import { checkCostBudget } from '../functions/check-cost-budget.function.js';
+import { listCostBudgets } from '../functions/listCostBudgets.function.js';
+import { createCostBudget } from '../functions/createCostBudget.function.js';
+import { updateCostBudget } from '../functions/updateCostBudget.function.js';
+import { deleteCostBudget } from '../functions/deleteCostBudget.function.js';
+import { checkCostBudget } from '../functions/checkCostBudget.function.js';
 
 interface AppWithDb extends FastifyInstance { db: Database.Database; }
 
