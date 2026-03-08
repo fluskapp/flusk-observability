@@ -90,12 +90,14 @@ export class InsightRepository {
     return rows.map(toRow);
   }
 
+  private static readonly JSON_FIELDS = new Set(['evidence']);
+
   update(id: string, data: InsightUpdate): InsightRow | null {
     const sets: string[] = [];
     const params: unknown[] = [];
     for (const [key, value] of Object.entries(data)) {
       sets.push(key.replace(/([a-z])([A-Z])/g, '$1_$2').toLowerCase() + ' = ?');
-      params.push(typeof value === 'object' ? JSON.stringify(value) : value);
+      params.push(InsightRepository.JSON_FIELDS.has(key) || typeof value === 'object' ? JSON.stringify(value) : value);
     }
     if (sets.length === 0) return this.findById(id);
     sets.push('updated_at = ?');

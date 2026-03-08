@@ -40,7 +40,7 @@ describe('CircuitBreakerConfigRepository', () => {
 
   it('updates a record', () => {
     const created = repo.create(testData());
-    const updated = repo.update(created.id, { data: 'updated' });
+    const updated = repo.update(created.id, { data: { updated: true } });
     expect(updated).toBeDefined();
   });
 

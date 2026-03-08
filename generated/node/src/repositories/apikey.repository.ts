@@ -84,12 +84,14 @@ export class ApiKeyRepository {
     return rows.map(toRow);
   }
 
+  private static readonly JSON_FIELDS = new Set(['scopes']);
+
   update(id: string, data: ApiKeyUpdate): ApiKeyRow | null {
     const sets: string[] = [];
     const params: unknown[] = [];
     for (const [key, value] of Object.entries(data)) {
       sets.push(key.replace(/([a-z])([A-Z])/g, '$1_$2').toLowerCase() + ' = ?');
-      params.push(typeof value === 'object' ? JSON.stringify(value) : value);
+      params.push(ApiKeyRepository.JSON_FIELDS.has(key) || typeof value === 'object' ? JSON.stringify(value) : value);
     }
     if (sets.length === 0) return this.findById(id);
     sets.push('updated_at = ?');
