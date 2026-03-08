@@ -34,6 +34,22 @@ importers:
         specifier: ^3.0.0
         version: 3.2.4(@types/node@25.3.3)(tsx@4.21.0)(yaml@2.8.2)
 
+  apps/api:
+    dependencies:
+      better-sqlite3:
+        specifier: ^11.0.0
+        version: 11.10.0
+      nanoid:
+        specifier: ^5.0.0
+        version: 5.1.6
+      pino:
+        specifier: ^9.0.0
+        version: 9.14.0
+    devDependencies:
+      '@types/better-sqlite3':
+        specifier: ^7.6.0
+        version: 7.6.13
+
 packages:
 
   '@esbuild/aix-ppc64@0.27.3':
